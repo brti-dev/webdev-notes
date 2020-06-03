@@ -1,8 +1,7 @@
-# PHP
+<?php
 
-## Syntax
+/* Syntax */
 
-````php
 # OPERATORS #
 
 # Ternary operator
@@ -91,11 +90,11 @@ function getSortFunction($sort_key) {
   };
 }
 usort($games, getSortFunction("title"));
-````
 
-## DateTime
-* See also: Carbon
-````php
+/* DateTime */
+
+//See also: Carbon
+
 # Create a DatePeriod instance that spans the past 30 days using an inverted, one-day interval
 $dateStart = new \DateTime();
 $dateInterval = \DateInterval::createFromDateString('-1 day');
@@ -103,12 +102,11 @@ $datePeriod = new \DatePeriod($dateStart, $dateInterval, 30);
 foreach ($datePeriod as $date) {
   echo $date->format("Y-m-d");
 }
-````
 
-## Database
+/* Database */
 
-### PDO
-````php
+# PDO #
+
 # Checking the table for existence
 $stmt = $pdo->query("SELECT 1 FROM users WHERE name=foo");
 $userExists = $stmt->fetchColumn();
@@ -151,10 +149,9 @@ try {
 } catch (PDOException $e) {
   $pdo->rollBack();
 }
-````
 
-## Streams
-````php
+# Streams #
+
 # Filter to censor dirty words in a stream
 class DirtyWordsFilter extends php_user_filter
 {
@@ -193,10 +190,10 @@ while (feof($handle) !== true) {
   echo fgets($handle); // <-- Outputs censored text
 }
 fclose($handle);
-````
 
-## Directory structure
+/* Directory structure */
 
+/*
 project-root/
   .git/            # Git configuration and source directory
   assets/          # Uncompiled/raw CSS, LESS, Sass, JavaScript, images
@@ -223,56 +220,54 @@ project-root/
 
   More: https://docs.php.earth/faq/misc/structure/
         https://www.nikolaposa.in.rs/blog/2017/01/16/on-structuring-php-projects/
+*/
 
-## PHP Server on local machine
+/* PHP Server on local machine */
 
-`$ php -S localhost:8000`
+# $ php -S localhost:8000
 
-## CLI
+/* CLI */
 
-Interactive shell: `$ php -a`
+# Interactive shell: 
+#$ php -a
 
-Run a script: `$ php hello.php world`
-````php
+#Run a script: `$ php hello.php world`
+
 # hello.php
 # $argc is an integer variable containing the argument count
 # $argv is an array variable containing each argument’s value. The first argument is always the name of your PHP script file, in this case hello.php
-<?php
 if ($argc !== 2) {
     echo "Usage: php hello.php <name>.\n";
     exit(1);
 }
 $name = $argv[1];
 echo "Hello, $name\n";
-````
 
 ## Security
 
-Hash passwords
-`password_hash("mypassword", PASSWORD_DEFAULT);
-password_verify("mypassword", $hash);`
-Store in DB with 255 length
+#Hash passwords
+password_hash("mypassword", PASSWORD_DEFAULT);
+password_verify("mypassword", $hash);
+#Store in DB with 255 length
 
-Filter input
-`$query = filter_input(INPUT_GET, "query");
-$email = filter_input(INPUT_POST, "email", FILTER_VALIDATE_EMAIL);`
+#Filter input
+$query = filter_input(INPUT_GET, "query");
+$email = filter_input(INPUT_POST, "email", FILTER_VALIDATE_EMAIL);
 
 ## Packages and Libraries
 
 ### PHPUnit
 
-Run it:
-  $ ./vendor/bin/phpunit tests
+#Run it:
+#  $ ./vendor/bin/phpunit tests
 
-Useful tests attributes
-````php
+#Useful tests attributes
 $this->expectException(Exception::class); User::getByEmail('invalid');
 $this->expectOutputString('foo'); print 'foo';
 $this->assertInstanceOf(User::class, new User('Bob'));
 $this->assertEquals(1, 1);
-````
-Dependencies
-````php
+
+#Dependencies
 public function testEmpty() {
     $stack = [];
     $this->assertEmpty($stack);
@@ -287,11 +282,9 @@ public function testPush(array $stack) {
     $this->assertNotEmpty($stack);
     return $stack;
 }
-````
 
 ### Monolog
 
-````php
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 
@@ -328,11 +321,9 @@ $log_detailed = new Logger('detailed');
 $log_detailed->pushHandler(new StreamHandler('app.log', Logger::DEBUG));
 $log_detailed->pushProcessor(new IntrospectionProcessor());
 $log_detailed->error("An error!");
-````
 
 ### Carbon -- Date and time
 
-````php
 printf("Right now is %s", Carbon::now()->toDateTimeString());
 printf("Right now in Vancouver is %s", Carbon::now('America/Vancouver')); // automatically converted to string
 $tomorrow = Carbon::now()->addDay();
@@ -354,11 +345,9 @@ if (Carbon::now()->isWeekend()) {
     echo 'Weekend! Party!';
 }
 echo Carbon::now()->subMinutes(2)->diffForHumans() . PHP_EOL; // '2 minutes ago'
-````
 
 ### Respect/Validation
 
-````php
 v::numericVal()->positive()->between(1, 255)->validate($input);
 v::dateTime()
     ->between(new DateTime('yesterday'), new DateTime('tomorrow'))
@@ -366,10 +355,9 @@ v::dateTime()
 v::numericVal()->max(10)->validate(5); // true
 v::stringVal()->between('a', 'f')->validate('d'); // true
 v::dateTime()->between('yesterday', 'tomorrow')->validate('now'); // true
-````
 
 ### Others
 
-- vlucas/phpdotenv Loads environment variables from `.env` to `getenv()`, `$_ENV` and `$_SERVER` automagically.
-- nesbot/carbon Datetime
-- guzzle Http
+// - vlucas/phpdotenv Loads environment variables from `.env` to `getenv()`, `$_ENV` and `$_SERVER` automagically.
+// - nesbot/carbon Datetime
+// - guzzle Http
