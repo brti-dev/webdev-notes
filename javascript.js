@@ -8,9 +8,10 @@ protected public return short static super switch synchronized
 this throw throws transient true try typeof var void volatile
 while with */
 
-// Expression = fragment of code that produces a value
-// Statement = performs an action
-// Object = any unordered collection of key-value pairs. If it’s not a primitive (undefined, null, boolean, number or string) it’s an object.
+// Expression = fragment of code that produces a value Statement = performs an
+// action 
+// Object = any unordered collection of key-value pairs. If it’s not a
+// primitive (undefined, null, boolean, number or string) it’s an object.
 // Prototype = an object from which other objects inherit properties
 
 // Keywords
@@ -56,9 +57,24 @@ function get(url) {
 // STRINGS //
 /////////////
 
+// Instance properties
+String.prototype.length // Reflects the length of the string. Read-only.
+
+// Instance methods
+String.prototype.charAt(index) // Returns the character (exactly one UTF-16 code unit) at the specified index.
+"Gilgamesh".charAt(3) == 'g'
+"Gilgamesh"[3]; //Same as above
+String.prototype.charCodeAt(index) // Returns a number that is the UTF-16 code unit value at the given index.
+String.prototype.codePointAt(pos) // Returns a nonnegative integer Number that is the code point value of the UTF-16 encoded code point starting at the specified pos.
+String.prototype.concat(str [, ...strN ]) // Combines the text of two (or more) strings and returns a new string.
+String.prototype.includes(searchString [, start_position]) // Determines whether the calling string contains searchString.
+"Califoonia".includes("foo") //= true
+String.prototype.endsWith(searchString [, length]) // Determines whether a string ends with the characters of the string searchString.
+'pre-funded'.endsWith('funded') //= true
+String.prototype.indexOf(searchValue [, fromIndex]) // Returns the index within the calling String object of the first occurrence of searchValue, or -1 if not found.
+String.prototype.lastIndexOf(searchValue [, fromIndex]) // Returns the index within the calling String object of the last occurrence of searchValue, or -1 if not found.
 //Using indexOf to find a substring
 if (name.indexOf('Guest') == 0) { ... }
-
 //Use indexof() to count the number of characters in a string
 count = 0;
 pos = str.indexOf("x");
@@ -66,11 +82,62 @@ while ( pos != -1 ) {
    count++;
    pos = str.indexOf( "x",pos + 1 );
 }
+String.prototype.localeCompare(compareString [, locales [, options]]) // Returns a number indicating whether the reference string compareString comes before, after, or is equivalent to the given string in sort order.
+String.prototype.match(regexp) // Used to match regular expression regexp against a string.
+String.prototype.matchAll(regexp) // Returns an iterator of all regexp's matches.
+String.prototype.normalize([form]) // Returns the Unicode Normalization Form of the calling string value.
+String.prototype.padEnd(targetLength [, padString]) // Pads the current string from the end with a given string and returns a new string of the length targetLength.
+'fuu'.padEnd(5) == 'fuu  '
+String.prototype.padStart(targetLength [, padString]) // Pads the current string from the start with a given string and returns a new string of the length targetLength.
+'fuu'.padStart(5, '!') == 'fuu!!'
+String.prototype.repeat(count) // Returns a string consisting of the elements of the object repeated count times.
+'nom'.repeat(3) == 'nomnomnom'
+String.prototype.replace(searchFor, replaceWith) // Used to replace occurrences of searchFor using replaceWith. searchFor may be a string or Regular Expression, and replaceWith may be a string or function.
+String.prototype.replaceAll(searchFor, replaceWith) // Used to replace all occurrences of searchFor using replaceWith. searchFor may be a string or Regular Expression, and replaceWith may be a string or function.
+String.prototype.search(regexp) // Search for a match between a regular expression regexp and the calling string.
+String.prototype.slice(beginIndex[, endIndex]) // Extracts a section of a string and returns a new string.
+String.prototype.split([sep [, limit] ]) // Returns an array of strings populated by splitting the calling string at occurences of the substring sep.
+String.prototype.startsWith(searchString [, length]) // Determines whether the calling string begins with the characters of string searchString.
+'pre-funded'.startsWith('pre-') === true
+String.prototype.substr() // Returns the characters in a string beginning at the specified location through the specified number of characters.
+String.prototype.substring(indexStart [, indexEnd]) // Returns a new string containing characters of the calling string from (or between) the specified index (or indeces).
+String.prototype.toLocaleLowerCase( [locale, ...locales]) // The characters within a string are converted to lowercase while respecting the current locale.
+String.prototype.toLocaleUpperCase( [locale, ...locales]) // The characters within a string are converted to uppercase while respecting the current locale.
+String.prototype.toLowerCase() // Returns the calling string value converted to lowercase.
+String.prototype.toString() // Returns a string representing the specified object. Overrides the Object.prototype.toString() method.
+String.prototype.toUpperCase() // Returns the calling string value converted to uppercase.
+String.prototype.trim() // Trims whitespace from the beginning and end of the string. Part of the ECMAScript 5 standard.
+String.prototype.trimStart() // Trims whitespace from the beginning of the string.
+String.prototype.trimEnd() // Trims whitespace from the end of the string.
+String.prototype.valueOf() // Returns the primitive value of the specified object. Overrides the Object.prototype.valueOf() method.
+//String.prototype.@@iterator() // Returns a new Iterator object that iterates over the code points of a String value, returning each code point as a String value.
 
-// charAt gets the character at a certain index
-"Gilgamesh".charAt(3); //-> g
+// Primative string (literals) vs. String object
+let s_prim = 'foo'
+let s_obj = new String(s_prim)
+console.log(typeof s_prim) //= "string"
+console.log(typeof s_obj)  //= "object"
 
-// NUMBERS //
+// Long string literals
+let foo = 'Lorem ipsum ' +
+          'blah blah';
+let bar = 'Lorem ipsum\
+blah blah';
+
+////////////
+// NUMBER //
+////////////
+
+// Constructor
+Number() // Creates a new Number object.
+
+// Static methods
+Number.isNaN() // Determine whether the passed value is NaN.
+Number.isFinite() // Determine whether the passed value is a finite number.
+Number.isInteger() // Determine whether the passed value is an integer.
+Number.isSafeInteger() // Determine whether the passed value is a safe integer (number between -(253 - 1) and 253 - 1).
+Number.parseFloat(string) // This is the same as the global parseFloat() function.
+Number.parseInt(string, [radix]) // This is the same as the global parseInt() function.
 
 parseFloat("3.14"); //3.14
 parseInt("3.14", 10); //3
@@ -90,15 +157,69 @@ var foo = [];
 // Array constructor/declaration
 var foo = new Array(n); // n int indicate the size of the array
 
-//modifying arrays
-var mack = [];
-mack.push("Mack");
-mack.push("the", "Knife");
-console.log(mack); // -> ["Mack", "the", "Knife"]
-console.log(mack.join(" ")); // -> Mack the Knife
-console.log(mack.pop()); // -> Knife
-console.log(mack); // -> ["Mack", "the"]
-console.log(mack.indexOf("the") >= 0); // true
+// Static methods
+Array.from(arrayLike [, mapFn [, thisArg]]) // Creates a new Array instance from arrayLike, an array-like or iterable object.
+const myArray1 = Array.from({length: 2, 0: 'zero', 1:'one'}) == ["zero", "one"]
+const myArray2 = Array.from('foo') == ["f", "o", "o"]
+const myArray4 = Array.from([1, 2, 3], item => item * item) == [1, 4, 9]
+Array.isArray() // Returns true if value is an array, or false otherwise.
+Array.of() // Creates a new Array instance with a variable number of arguments, regardless of number or type of the arguments.
+Array.of(1, 2) == [1, 2] == Array(1, 2)
+Array.of(3) == [3]
+Array(3) == [undefined, undefined, undefined]
+
+// Instance properties
+Array.prototype.length // Reflects the number of elements in an array.
+// Array.prototype[@@unscopables] // A symbol containing property names to exclude from a with binding scope.
+
+// Instance methods
+Array.prototype.concat() // Returns a new array that is this array joined with other array(s) and/or value(s).
+Array.prototype.copyWithin() // Copies a sequence of array elements within the array.
+Array.prototype.entries() // Returns a new Array Iterator object that contains the key/value pairs for each index in the array.
+Array.prototype.every() // Returns true if every element in this array satisfies the testing callbackFn.
+Array.prototype.fill() // Fills all the elements of an array from a start index to an end index with a static value.
+// the second and third arguments to fill() below say, start filling at index 0 and stop at index 2
+console.log([5,5,5,5].fill('foo',0,2)) // logs ["foo", "foo", 5, 5]
+// replace all values from index 2 on with 'foo'
+console.log([5,5,5,5].fill('foo',2)) // logs [5, 5, "foo", "foo"]
+// replace all values with 'foo'
+console.log(Array(4).fill('foo')) // logs ["foo", "foo", "foo", "foo"]
+Array.prototype.filter() // Returns a new array containing all elements of the calling array for which the provided filtering callbackFn returns true.
+Array.prototype.find() // Returns the found element in the array, if some element in the array satisfies the testing callbackFn, or undefined if not found.
+[1, 2, 3].find(function(i){ return i > 2; }) == 3
+Array.prototype.findIndex() // Returns the found index in the array, if an element in the array satisfies the testing callbackFn, or -1 if not found.
+[1, 2, 3].findIndex(function(i){ return i > 2; }) == 2
+Array.prototype.forEach() // Calls a callbackFn for each element in the array.
+Array.prototype.includes() // Determines whether the array contains valueToFind, returning true or false as appropriate.
+['foo', 'bar'].includes('foo') === true
+Array.prototype.indexOf() // Returns the first (least) index of an element within the array equal to searchElement, or -1 if none is found.
+Array.prototype.join() // Joins all elements of an array into a string.
+Array.prototype.keys() // Returns a new Array Iterator that contains the keys for each index in the array.
+Array.prototype.lastIndexOf() // Returns the last (greatest) index of an element within the array equal to searchElement, or -1 if none is found.
+Array.prototype.map() // Returns a new array containing the results of calling callbackFn on every element in this array.
+Array.prototype.pop() // Removes the last element from an array and returns that element.
+Array.prototype.push() // Adds one or more elements to the end of an array, and returns the new length of the array.
+Array.prototype.reduce() // Apply a callbackFn against an accumulator and each value of the array (from left-to-right) as to reduce it to a single value.
+Array.prototype.reduceRight() // Apply a callbackFn against an accumulator and each value of the array (from right-to-left) as to reduce it to a single value.
+Array.prototype.reverse() // Reverses the order of the elements of an array in place. (First becomes the last, last becomes first.)These methods modify the array:
+Array.prototype.shift() // Removes the first element from an array and returns that element.
+Array.prototype.slice() // Extracts a section of the calling array and returns a new array.
+Array.prototype.some() // Test values until a test returns true
+var test = [1, 2, 3].some(function(value, index, whole_array) {
+  return value >= 2;
+});
+console.log(test()); //= true
+Array.prototype.sort() // Sorts the elements of an array in place and returns the array.
+Array.prototype.splice() // Adds and/or removes elements from an array.
+Array.prototype.toLocaleString() // Returns a localized string representing the array and its elements. Overrides the Object.prototype.toLocaleString() method.
+Array.prototype.toString() // Returns a string representing the array and its elements. Overrides the Object.prototype.toString() method.
+Array.prototype.unshift() // Adds one or more elements to the front of an array, and returns the new length of the array.
+Array.prototype.values() // Returns a new Array Iterator object that contains the values for each index in the array.
+Array.prototype[@@iterator]() // Returns a new Array Iterator object that contains the values for each index in the array.
+
+// Destructuring an array
+let [one, two] = [1, 2]
+one == 1
 
 // Using variables to name properties
 var propertyName = "length";
@@ -109,12 +230,12 @@ text[propertyName]; //-> 8
 var object1 = {value: 10};
 var object2 = object1;
 var object3 = {value: 10};
-console.log(object1 == object2); // -> true
-console.log(object1 == object3); // -> false
+console.log(object1 == object2); //= true
+console.log(object1 == object3); //= false
 //
 object1.value = 15;
-console.log(object2.value); // -> 15
-console.log(object3.value); // -> 10
+console.log(object2.value); //= 15
+console.log(object3.value); //= 10
 
 // using for-of to iterate over the VALUES (not indexes) of iterable objects like arrays [ES6]
 // also works with break, return, and continue
@@ -123,7 +244,8 @@ for (var value of ["a", "b", "c"]) {
 }
 
 // iterating over an object using for-in
-// this works on objects and NOT arrays because for-in iterates over INDEXES not values, and index of an array will be a string, not a number)
+// this works on objects and NOT arrays because for-in iterates over INDEXES not
+// values, and index of an array will be a string, not a number)
 var ages = {};
 function storeAge(name, age) {
   ages[name] = age;
@@ -132,8 +254,8 @@ storeAge("Larry", 58);
 storeAge("Simon", 55);
 for (var name_ in ages)
   console.log(name_ + " is " + ages[name_] + " years old");
-// -> Larry is 58 years old
-// -> Simon is 55 years old
+//= Larry is 58 years old
+//= Simon is 55 years old
 
 // using indexOf to find an variable within an object/array
 var JOURNAL = [
@@ -145,19 +267,6 @@ function hasEvent(event, entry) {
 }
 var index=0;
 if (hasEvent("carrot", JOURNAL[0])) index += 1;
-
-// filter
-// Find all the items in array that have the name "orange"
-var arr = [
-    {"name":"apple", "count": 2},
-    {"name":"orange", "count": 5}
-    {"name":"pear", "count": 3},
-    {"name":"orange", "count": 16},
-];
-var newArr = arr.filter(function(item){
-    return item.name === "orange";
-});
-console.log("Filter results:", newArr);
 
 // iterating with forEach
 var arr = [1,2,3,4,5,6,7,8];
@@ -208,6 +317,17 @@ Array.apply(null, Array(31)).map(function (_, i) { return i + 1; }).forEach(func
   document.getElementById("calendar").appendChild(node);
 });
 
+// Array iterators
+// [].keys() [].values() [].entries() return items as an Array iterator object
+let pile = ["eggshell", "orange peel", "worm"];
+let pile_values = pile.values();
+pile_values.next().value() == "eggshell";
+pile_values.next().value() == "orange peel";
+pile_values.next().value() == "worm";
+pile_values.done() === true;
+let pile_entries = pile.entries();
+pile_entries.next().value() == [0, "eggshell"];
+
 //////////////
 // DATETIME //
 //////////////
@@ -237,6 +357,12 @@ var topEnv = Object.create(null);
 ["+", "-", "*", "/", "==", "<", ">"].forEach(function(op) {
   topEnv[op] = new Function("a, b", "return a " + op + " b;");
 });
+
+// Array as argument
+let myFunction = function([foo, bar]) {
+  // ...
+}
+myFunction(['foo', 'bar']);
 
 // The 'this' parameter is determined by the invocation parameter
 // 
@@ -501,13 +627,59 @@ boundGetX(); // 81
 // Objects & Prototypes //
 //////////////////////////
 
+// Static methods
+Object.assign() // Copies the values of all enumerable own properties from one or more source objects to a target object.
+// Commonly used to merge two objects
+var foo = {'foo':'foo'};
+var bar = {'bar':'bar'};
+var foobar = Object.assign(foo, bar);
+Object.create() // Creates a new object with the specified prototype object and properties.
+Object.defineProperty() // Adds the named property described by a given descriptor to an object.
+Object.defineProperties() // Adds the named properties described by the given descriptors to an object.
+Object.entries() // Returns an array containing all of the [key, value] pairs of a given object's own enumerable string properties.
+Object.freeze() // Freezes an object. Other code cannot delete or change its properties.
+Object.fromEntries() // Returns a new object from an iterable of [key, value] pairs. (This is the reverse of Object.entries).
+Object.getOwnPropertyDescriptor() // Returns a property descriptor for a named property on an object.
+Object.getOwnPropertyDescriptors() // Returns an object containing all own property descriptors for an object.
+Object.getOwnPropertyNames() // Returns an array containing the names of all of the given object's own enumerable and non-enumerable properties.
+Object.getOwnPropertySymbols() // Returns an array of all symbol properties found directly upon a given object.
+Object.getPrototypeOf() // Returns the prototype (internal [[Prototype]] property) of the specified object.
+Object.is() // Compares if two values are the same value. Equates all NaN values (which differs from both Abstract Equality Comparison and Strict Equality Comparison).
+Object.isExtensible() // Determines if extending of an object is allowed.
+Object.isFrozen() // Determines if an object was frozen.
+Object.isSealed() // Determines if an object is sealed.
+Object.keys() // Returns an array containing the names of all of the given object's own enumerable string properties.
+Object.preventExtensions() // Prevents any extensions of an object.
+Object.seal() // Prevents other code from deleting properties of an object.
+Object.setPrototypeOf() // Sets the object's prototype (its internal [[Prototype]] property).
+Object.values() // Returns an array containing the values that correspond to all of a given object's own enumerable string properties.
+
+// Instance properties
+Object.prototype.constructor // Specifies the function that creates an object's prototype.
+Object.prototype.__proto__ // Points to the object which was used as prototype when the object was instantiated.
+Object.prototype.__noSuchMethod__ // Allows a function to be defined that will be executed when an undefined object member is called as a method.
+
+// Instance methods
+Object.prototype.__defineGetter__() // Associates a function with a property that, when accessed, executes that function and returns its return value.
+Object.prototype.__defineSetter__() // Associates a function with a property that, when set, executes that function which modifies the property.
+Object.prototype.__lookupGetter__() // Returns the function associated with the specified property by the __defineGetter__() method.
+Object.prototype.__lookupSetter__() // Returns the function associated with the specified property by the __defineSetter__() method.
+Object.prototype.hasOwnProperty() // Returns a boolean indicating whether an object contains the specified property as a direct property of that object and not inherited through the prototype chain.
+Object.prototype.isPrototypeOf() // Returns a boolean indicating whether the object this method is called upon is in the prototype chain of the specified object.
+Object.prototype.propertyIsEnumerable() // Returns a boolean indicating if the internal ECMAScript [[Enumerable]] attribute is set.
+Object.prototype.toLocaleString() // Calls toString().
+Object.prototype.toString() // Returns a string representation of the object.
+Object.prototype.unwatch() // Removes a watchpoint from a property of the object.
+Object.prototype.valueOf() // Returns the primitive value of the specified object.
+Object.prototype.watch() // Adds a watchpoint to a property of the object.
+
 //Object: collection of properties
 //Property: association between a name (key) and a value
 //Method: A property which has a function as a value
 
-console.log(Object.getPrototypeOf({}) == Object.prototype); //true
-console.log(Object.getPrototypeOf([]) == Array.prototype); //true
-console.log(Object.getPrototypeOf(isNaN) == Function.prototype); //true
+console.log(Object.getPrototypeOf({}) == Object.prototype);
+console.log(Object.getPrototypeOf([]) == Array.prototype);
+console.log(Object.getPrototypeOf(isNaN) == Function.prototype);
 
 //Constructors and prototypes
 function Creature (type) {
@@ -742,7 +914,6 @@ function prop(propName) {
   }
 }
 [{ name: "larry", location: "MN" }, { name: "curly", wife: "marge" }].map( prop('name') ); // ["larry", "curly"]
-
 
 //////////////
 // Classes  //
