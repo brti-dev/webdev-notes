@@ -15,43 +15,9 @@ while with */
 // Prototype = an object from which other objects inherit properties
 
 // Keywords
-var // variables exist and are only acessible within the block its defined (within {})
-let // 
-const //
-
-// Promises
-get('story.json').then(function(response) {
-  console.log("Success!", response);
-}, function(error) {
-  console.error("Failed!", error);
-});
-function get(url) {
-  // Return a new promise.
-  return new Promise(function(resolve, reject) {
-    // Do the usual XHR stuff
-    var req = new XMLHttpRequest();
-    req.open('GET', url);
-    req.onload = function() {
-      // This is called even on 404 etc
-      // so check the status
-      if (req.status == 200) {
-        // Resolve the promise with the response text
-        resolve(req.response);
-      }
-      else {
-        // Otherwise reject with the status text
-        // which will hopefully be a meaningful error
-        reject(Error(req.statusText));
-      }
-    };
-    // Handle network errors
-    req.onerror = function() {
-      reject(Error("Network Error"));
-    };
-    // Make the request
-    req.send();
-  });
-}
+var foo // variables exist and are only acessible within the block its defined (within {})
+let bar // 
+const baz // Declare variables that do not get reassigned
 
 /////////////
 // STRINGS //
@@ -62,43 +28,43 @@ String.prototype.length // Reflects the length of the string. Read-only.
 
 // Instance methods
 String.prototype.charAt(index) // Returns the character (exactly one UTF-16 code unit) at the specified index.
-"Gilgamesh".charAt(3) == 'g'
-"Gilgamesh"[3]; //Same as above
+    "Gilgamesh".charAt(3) == 'g'
+    "Gilgamesh"[3]; //Same as above
 String.prototype.charCodeAt(index) // Returns a number that is the UTF-16 code unit value at the given index.
 String.prototype.codePointAt(pos) // Returns a nonnegative integer Number that is the code point value of the UTF-16 encoded code point starting at the specified pos.
 String.prototype.concat(str [, ...strN ]) // Combines the text of two (or more) strings and returns a new string.
 String.prototype.includes(searchString [, start_position]) // Determines whether the calling string contains searchString.
-"Califoonia".includes("foo") //= true
+    "Califoonia".includes("foo") //= true
 String.prototype.endsWith(searchString [, length]) // Determines whether a string ends with the characters of the string searchString.
-'pre-funded'.endsWith('funded') //= true
+    'pre-funded'.endsWith('funded') //= true
 String.prototype.indexOf(searchValue [, fromIndex]) // Returns the index within the calling String object of the first occurrence of searchValue, or -1 if not found.
 String.prototype.lastIndexOf(searchValue [, fromIndex]) // Returns the index within the calling String object of the last occurrence of searchValue, or -1 if not found.
-//Using indexOf to find a substring
-if (name.indexOf('Guest') == 0) { ... }
-//Use indexof() to count the number of characters in a string
-count = 0;
-pos = str.indexOf("x");
-while ( pos != -1 ) {
-   count++;
-   pos = str.indexOf( "x",pos + 1 );
-}
+    //Using indexOf to find a substring
+    if (name.indexOf('Guest') == 0) { /*...*/ }
+    //Use indexof() to count the number of characters in a string
+    count = 0;
+    pos = str.indexOf("x");
+    while ( pos != -1 ) {
+        count++;
+        pos = str.indexOf( "x",pos + 1 );
+    }
 String.prototype.localeCompare(compareString [, locales [, options]]) // Returns a number indicating whether the reference string compareString comes before, after, or is equivalent to the given string in sort order.
 String.prototype.match(regexp) // Used to match regular expression regexp against a string.
 String.prototype.matchAll(regexp) // Returns an iterator of all regexp's matches.
 String.prototype.normalize([form]) // Returns the Unicode Normalization Form of the calling string value.
 String.prototype.padEnd(targetLength [, padString]) // Pads the current string from the end with a given string and returns a new string of the length targetLength.
-'fuu'.padEnd(5) == 'fuu  '
+    'fuu'.padEnd(5) == 'fuu  '
 String.prototype.padStart(targetLength [, padString]) // Pads the current string from the start with a given string and returns a new string of the length targetLength.
-'fuu'.padStart(5, '!') == 'fuu!!'
+    'fuu'.padStart(5, '!') == 'fuu!!'
 String.prototype.repeat(count) // Returns a string consisting of the elements of the object repeated count times.
-'nom'.repeat(3) == 'nomnomnom'
+    'nom'.repeat(3) == 'nomnomnom'
 String.prototype.replace(searchFor, replaceWith) // Used to replace occurrences of searchFor using replaceWith. searchFor may be a string or Regular Expression, and replaceWith may be a string or function.
 String.prototype.replaceAll(searchFor, replaceWith) // Used to replace all occurrences of searchFor using replaceWith. searchFor may be a string or Regular Expression, and replaceWith may be a string or function.
 String.prototype.search(regexp) // Search for a match between a regular expression regexp and the calling string.
 String.prototype.slice(beginIndex[, endIndex]) // Extracts a section of a string and returns a new string.
 String.prototype.split([sep [, limit] ]) // Returns an array of strings populated by splitting the calling string at occurences of the substring sep.
 String.prototype.startsWith(searchString [, length]) // Determines whether the calling string begins with the characters of string searchString.
-'pre-funded'.startsWith('pre-') === true
+    'pre-funded'.startsWith('pre-') === true
 String.prototype.substr() // Returns the characters in a string beginning at the specified location through the specified number of characters.
 String.prototype.substring(indexStart [, indexEnd]) // Returns a new string containing characters of the calling string from (or between) the specified index (or indeces).
 String.prototype.toLocaleLowerCase( [locale, ...locales]) // The characters within a string are converted to lowercase while respecting the current locale.
@@ -124,6 +90,13 @@ let foo = 'Lorem ipsum ' +
 let bar = 'Lorem ipsum\
 blah blah';
 
+// Template string literals
+let firstName = 'Jane';
+let lastName = 'Smith';
+console.log(`Hello Mr. ${lastName}!
+Welcome!
+May I call you ${firstName}?`);
+
 ////////////
 // NUMBER //
 ////////////
@@ -139,13 +112,36 @@ Number.isSafeInteger() // Determine whether the passed value is a safe integer (
 Number.parseFloat(string) // This is the same as the global parseFloat() function.
 Number.parseInt(string, [radix]) // This is the same as the global parseInt() function.
 
+// Instance methods
+Number.prototype.toExponential(fractionDigits) // Returns a string representing the number in exponential notation.
+Number.prototype.toFixed(digits) // Returns a string representing the number in fixed - point notation.
+    // Parse a number to dollars
+    function toDollars(number){
+        return '$' + parseFloat(number).toFixed(2);
+    }
+    toDollars(10); //"$10.00"
+Number.prototype.toLocaleString([locales[, options]]) // Returns a string with a language sensitive representation of this number.Overrides the Object.prototype.toLocaleString() method.
+Number.prototype.toPrecision(precision) // Returns a string representing the number to a specified precision in fixed - point or exponential notation.
+Number.prototype.toString([radix]) // Returns a string representing the specified object in the specified radix("base").Overrides the Object.prototype.toString() method.
+Number.prototype.valueOf() // Returns the primitive value of the specified object.Overrides the Object.prototype.valueOf() method.
+
+// Convert string to number
++"08";
+Number("3");
+parseInt("3"); //slower than the above two, but necessary when the string is something like "08 foo"
 parseFloat("3.14"); //3.14
-parseInt("3.14", 10); //3
 2.34.toFixed(1); //"2.3" <- String representation of the number
-function toDollars(number){
-  return '$'+ parseFloat(number).toFixed(2);
-}
-toDollars(10); //"$10.00"
+
+//////////
+// MATH //
+//////////
+
+Math.ceil(x) // Round x up
+Math.floor(x) // Round x down
+Math.max([value1[, value2[, ...]]]) // Return the largest number
+Math.min([value1[, value2[, ...]]]) // Return the lowest number
+Math.round(x) // Returns the value of the number x rounded to the nearest integer.
+Math.trunc(x) // Cut off the dot and digits to the right of the integer
 
 ////////////
 // ARRAYS //
@@ -159,14 +155,14 @@ var foo = new Array(n); // n int indicate the size of the array
 
 // Static methods
 Array.from(arrayLike [, mapFn [, thisArg]]) // Creates a new Array instance from arrayLike, an array-like or iterable object.
-const myArray1 = Array.from({length: 2, 0: 'zero', 1:'one'}) == ["zero", "one"]
-const myArray2 = Array.from('foo') == ["f", "o", "o"]
-const myArray4 = Array.from([1, 2, 3], item => item * item) == [1, 4, 9]
+    const myArray1 = Array.from({length: 2, 0: 'zero', 1:'one'}) == ["zero", "one"]
+    const myArray2 = Array.from('foo') == ["f", "o", "o"]
+    const myArray4 = Array.from([1, 2, 3], item => item * item) == [1, 4, 9]
 Array.isArray() // Returns true if value is an array, or false otherwise.
 Array.of() // Creates a new Array instance with a variable number of arguments, regardless of number or type of the arguments.
-Array.of(1, 2) == [1, 2] == Array(1, 2)
-Array.of(3) == [3]
-Array(3) == [undefined, undefined, undefined]
+    Array.of(1, 2) == [1, 2] == Array(1, 2)
+    Array.of(3) == [3]
+    Array(3) == [undefined, undefined, undefined]
 
 // Instance properties
 Array.prototype.length // Reflects the number of elements in an array.
@@ -176,22 +172,25 @@ Array.prototype.length // Reflects the number of elements in an array.
 Array.prototype.concat() // Returns a new array that is this array joined with other array(s) and/or value(s).
 Array.prototype.copyWithin() // Copies a sequence of array elements within the array.
 Array.prototype.entries() // Returns a new Array Iterator object that contains the key/value pairs for each index in the array.
+    // use Object.entries() and destructuring with the for-of loop
+    let arr = ['one', 'two', 'three']
+    for (const [index, entry] of arr.entries()) { /*...*/ }
 Array.prototype.every() // Returns true if every element in this array satisfies the testing callbackFn.
 Array.prototype.fill() // Fills all the elements of an array from a start index to an end index with a static value.
-// the second and third arguments to fill() below say, start filling at index 0 and stop at index 2
-console.log([5,5,5,5].fill('foo',0,2)) // logs ["foo", "foo", 5, 5]
-// replace all values from index 2 on with 'foo'
-console.log([5,5,5,5].fill('foo',2)) // logs [5, 5, "foo", "foo"]
-// replace all values with 'foo'
-console.log(Array(4).fill('foo')) // logs ["foo", "foo", "foo", "foo"]
-Array.prototype.filter() // Returns a new array containing all elements of the calling array for which the provided filtering callbackFn returns true.
+    // the second and third arguments to fill() below say, start filling at index 0 and stop at index 2
+    console.log([5,5,5,5].fill('foo',0,2)) // logs ["foo", "foo", 5, 5]
+    // replace all values from index 2 on with 'foo'
+    console.log([5,5,5,5].fill('foo',2)) // logs [5, 5, "foo", "foo"]
+    // replace all values with 'foo'
+    console.log(Array(4).fill('foo')) // logs ["foo", "foo", "foo", "foo"]
+Array.prototype.filter(callback(element[, index, [array]])[, thisArg]) // Returns a new array containing all elements of the calling array for which the provided filtering callbackFn returns true.
 Array.prototype.find() // Returns the found element in the array, if some element in the array satisfies the testing callbackFn, or undefined if not found.
-[1, 2, 3].find(function(i){ return i > 2; }) == 3
+    [1, 2, 3].find(function(i){ return i > 2; }) == 3
 Array.prototype.findIndex() // Returns the found index in the array, if an element in the array satisfies the testing callbackFn, or -1 if not found.
-[1, 2, 3].findIndex(function(i){ return i > 2; }) == 2
+    [1, 2, 3].findIndex(function(i){ return i > 2; }) == 2
 Array.prototype.forEach() // Calls a callbackFn for each element in the array.
 Array.prototype.includes() // Determines whether the array contains valueToFind, returning true or false as appropriate.
-['foo', 'bar'].includes('foo') === true
+    ['foo', 'bar'].includes('foo') === true
 Array.prototype.indexOf() // Returns the first (least) index of an element within the array equal to searchElement, or -1 if none is found.
 Array.prototype.join() // Joins all elements of an array into a string.
 Array.prototype.keys() // Returns a new Array Iterator that contains the keys for each index in the array.
@@ -199,17 +198,48 @@ Array.prototype.lastIndexOf() // Returns the last (greatest) index of an element
 Array.prototype.map() // Returns a new array containing the results of calling callbackFn on every element in this array.
 Array.prototype.pop() // Removes the last element from an array and returns that element.
 Array.prototype.push() // Adds one or more elements to the end of an array, and returns the new length of the array.
-Array.prototype.reduce() // Apply a callbackFn against an accumulator and each value of the array (from left-to-right) as to reduce it to a single value.
+Array.prototype.reduce(callback(accumulator, currentValue[, index[, array]])[, initialValue]) // Apply a callbackFn against an accumulator and each value of the array (from left-to-right) as to reduce it to a single value.
+    // Reduce an array to get the average
+    myArray = [1, 2, 3, 4, 5, 6]
+    myArray.reduce((a, b) => a + b) / myArray.length
+    // Reduce can also be used to render a new array
+    // Count instances of a string in an array
+    let names = ['Alice', 'Bob', 'Tiff', 'Bruce', 'Alice']
+    let countedNames = names.reduce(function (allNames, name) {
+        if (name in allNames) {
+        allNames[name]++
+        }
+        else {
+        allNames[name] = 1
+        }
+        return allNames
+    }, {}); // Empty Object as accumulater starter
+    countedNames ==  { 'Alice': 2, 'Bob': 1, 'Tiff': 1, 'Bruce': 1 }
 Array.prototype.reduceRight() // Apply a callbackFn against an accumulator and each value of the array (from right-to-left) as to reduce it to a single value.
 Array.prototype.reverse() // Reverses the order of the elements of an array in place. (First becomes the last, last becomes first.)These methods modify the array:
 Array.prototype.shift() // Removes the first element from an array and returns that element.
 Array.prototype.slice() // Extracts a section of the calling array and returns a new array.
 Array.prototype.some() // Test values until a test returns true
-var test = [1, 2, 3].some(function(value, index, whole_array) {
-  return value >= 2;
-});
-console.log(test()); //= true
-Array.prototype.sort() // Sorts the elements of an array in place and returns the array.
+    var test = [1, 2, 3].some(function(value, index, whole_array) {
+        return value >= 2;
+    });
+    console.log(test()); //= true
+Array.prototype.sort([compareFunction]) // Sorts the elements of an array in place and returns the array.
+    // If compareFunction is not supplied, elements are sorted by converting them to strings and comparing strings in
+    // Unicode code point order. For example, "Cherry" comes before "banana". In a numeric sort, 9 comes before 80, but 
+    // because numbers are converted to strings, "80" comes before "9" in Unicode order.
+    // If compareFunction(a, b) is greater than 0, sort b to a lower index than a.
+    // If compareFunction(a, b) is less than 0, sort a to a lower index than b, i.e. a comes first.
+    // If compareFunction(a, b) returns 0, leave a and b unchanged with respect to each other, but sorted with respect to all different elements.
+    [4, 22, 5, 10, 3].sort(function (a, b) {
+        return a - b;
+    });
+    // Randomize an array
+    ["a", "b", "c"].sort(function () { return 0.5 - Math.random() });
+    // For non-ASCII chars, use localeCompare
+    ["réservé", "premier", "cliché", "communiqué", "café", "adieu"].sort(function (a, b) {
+        return a.localeCompare(b);
+    });
 Array.prototype.splice() // Adds and/or removes elements from an array.
 Array.prototype.toLocaleString() // Returns a localized string representing the array and its elements. Overrides the Object.prototype.toLocaleString() method.
 Array.prototype.toString() // Returns a string representing the array and its elements. Overrides the Object.prototype.toString() method.
@@ -220,50 +250,27 @@ Array.prototype[@@iterator]() // Returns a new Array Iterator object that contai
 // Destructuring an array
 let [one, two] = [1, 2]
 one == 1
+// Use the spread operator (...) to define undefined variables
+let [one, two, ...buckle_my_shoe] = [1, 2, 3, 4]
+one == 1
+buckle_my_shoe == [3, 4]
 
-// Using variables to name properties
-var propertyName = "length";
-var text = "mainline";
-text[propertyName]; //-> 8
-
-//immutability of objects
-var object1 = {value: 10};
-var object2 = object1;
-var object3 = {value: 10};
-console.log(object1 == object2); //= true
-console.log(object1 == object3); //= false
-//
-object1.value = 15;
-console.log(object2.value); //= 15
-console.log(object3.value); //= 10
-
-// using for-of to iterate over the VALUES (not indexes) of iterable objects like arrays [ES6]
+// Using for-of to iterate over the VALUES (not indexes) of iterable objects like arrays [ES6]
 // also works with break, return, and continue
 for (var value of ["a", "b", "c"]) {
-  console.log(value);
+    console.log(value);
 }
-
-// iterating over an object using for-in
-// this works on objects and NOT arrays because for-in iterates over INDEXES not
-// values, and index of an array will be a string, not a number)
-var ages = {};
-function storeAge(name, age) {
-  ages[name] = age;
-}
-storeAge("Larry", 58);
-storeAge("Simon", 55);
-for (var name_ in ages)
-  console.log(name_ + " is " + ages[name_] + " years old");
-//= Larry is 58 years old
-//= Simon is 55 years old
+// use Object.entries() and destructuring with the for-of loop
+let arr = ['one', 'two', 'three']
+for (const [index, entry] of arr.entries()) { /*...*/ }
 
 // using indexOf to find an variable within an object/array
 var JOURNAL = [
-  {"events":["carrot","exercise","weekend"],"squirrel":false},
-  {"events":["bread","pudding","brushed teeth","weekend","touched tree"],"squirrel":false}
-}
+    {"events":["carrot","exercise","weekend"],"squirrel":false},
+    {"events":["bread","pudding","brushed teeth","weekend","touched tree"],"squirrel":false}
+]
 function hasEvent(event, entry) {
-  return entry.events.indexOf(event) != -1;
+    return entry.events.indexOf(event) != -1;
 }
 var index=0;
 if (hasEvent("carrot", JOURNAL[0])) index += 1;
@@ -272,49 +279,22 @@ if (hasEvent("carrot", JOURNAL[0])) index += 1;
 var arr = [1,2,3,4,5,6,7,8];
 // Uses the usual "for" loop to iterate
 for(var i = 0, l = arr.length; i < l; i++){
-  console.log(arr[i]);
+    console.log(arr[i]);
 }
 //Uses forEach to iterate [ES5]
-arr.forEach(function(item,index){
-  console.log(item);
+arr.forEach(function(item, index){
+    console.log(item);
 });
 
-//Iterate over an associative object
-var list = {value: 1, rest: {value: 2, rest: null}};
-for (var node = list; node; node = node.rest){
-	//...
-}
-
-//exercise with ancestry
-//find the average age by century
-//some useful instructions for iterating over objects using IN and FOR
-function average(array) {
-  function plus(a, b) { return a + b; }
-  return array.reduce(plus) / array.length;
-}
-var getCentury = function(p){ return Math.ceil(p.died / 100); },
-    age = function(p){ return p.died - p.born; },
-    centuryData = {},
-    centuryDataAverages = {};
-var century;
-ancestry.forEach(function(p) {
-  century = getCentury(p);
-  if(century in centuryData) centuryData[century].push(age(p));
-  else centuryData[century] = [age(p)];
-});
-for(var i in centuryData){
-  centuryDataAverages[i] = Math.ceil(average(centuryData[i]), 4);
-};
-
-//Arrays, like objects, should be called using literal notation
-//but using a constructor can be useful on occasion:
+// Arrays, like objects, should be called using literal notation
+// but using a constructor can be useful on occasion:
 var whitespace = new Array(256).join(" "); // string with 255 whitespaces 
 // another example:
 Array.apply(null, Array(31)).map(function (_, i) { return i + 1; }).forEach(function(day){
-  var node = document.createElement("div"),
-      text = document.createTextNode(day);
-  node.appendChild(text);
-  document.getElementById("calendar").appendChild(node);
+    var node = document.createElement("div"),
+        text = document.createTextNode(day);
+    node.appendChild(text);
+    document.getElementById("calendar").appendChild(node);
 });
 
 // Array iterators
@@ -327,6 +307,29 @@ pile_values.next().value() == "worm";
 pile_values.done() === true;
 let pile_entries = pile.entries();
 pile_entries.next().value() == [0, "eggshell"];
+
+//////////
+// Sets //
+//////////
+
+// A set is list of unique values
+
+// Instance properties
+Set.prototype.size // Returns the number of values in the Set object.
+
+// Instance methods
+Set.prototype.add(value) // Appends value to the Set object. Returns the Set object.
+    myset.add('foo').add('bar')
+Set.prototype.clear() // Removes all elements from the Set object.
+Set.prototype.delete(value) // Removes the element associated to the value and returns the value that Set.prototype.has(value) would have previously returned. Set.prototype.has(value) will return false afterwards.
+Set.prototype.entries() // Returns a new Iterator object that contains an array of[value, value] for each element in the Set object, in insertion order. This is similar to the Map object, so that each entry's key is the same as its value for a Set.
+Set.prototype.forEach(callbackFn[, thisArg]) // Calls callbackFn once for each value present in the Set object, in insertion order. If a thisArg parameter is provided, it will be used as the this value for each invocation of callbackFn.
+Set.prototype.has(value) // Returns a boolean asserting whether an element is present with the given value in the Set object or not.
+
+// Set <--> Array
+let foobar = ['foo', 'bar']
+let myset = new Set(foobar)
+[...myset] ==  foobar
 
 //////////////
 // DATETIME //
@@ -341,38 +344,46 @@ print("Year: ", today.getFullYear(), ", month: ", today.getMonth(), ", day: ", t
 ///////////////
 
 // Function literal
-var add = function (a, b) {
-  return a + b;
+let add = function (a, b) {
+    return a + b;
 }
+// Fat arrow syntactic sugar
+let add = (a, b) => a + b;
 
 // Function declaration
 // Not part of the top-to-bottom flow control -- moved to the top of their scope
 add(1, 2);
 function add(a, b) {
-  return a + b;
+    return a + b;
 }
 
 // Function constructor
 var topEnv = Object.create(null);
-["+", "-", "*", "/", "==", "<", ">"].forEach(function(op) {
-  topEnv[op] = new Function("a, b", "return a " + op + " b;");
+["+", "-", "*", "/", "==", "<", ">"].forEach(function (op) {
+    topEnv[op] = new Function("a, b", "return a " + op + " b;");
 });
 
 // Array as argument
-let myFunction = function([foo, bar]) {
-  // ...
+let myFunction = function ([foo, bar]) {
+    // ...
 }
 myFunction(['foo', 'bar']);
+
+// Use the spread operator (...) to pack undefined arguments into an array
+const func = function (param1, param2, ...restOfArguments) {
+    console.log(param1, param2, restOfArguments);
+}
+func(1, 2, 3, 4, 5, 6, 7); // logs 1 2 [3, 4, 5, 6, 7]
 
 // The 'this' parameter is determined by the invocation parameter
 // 
 // 1. Method invocation
 // this is bound to the method
 var foo = {
-  val: 0,
-  increment: function (x){
-    this.val += x;
-  }
+    val: 0,
+    increment: function (x) {
+        this.val += x;
+    }
 }
 foo.increment(1);//1
 foo.increment(2);//3
@@ -386,69 +397,80 @@ var sum = add(2, 3);
 // 
 // 4. Apply invocation
 // this -> assigned
+// 
+// Fat arrow functions use lexically scoped this
+var counter = function () {
+    this.num = 0;
+    this.timer = setTimeout(() => {
+        console.log(this.num); // this, is counter instance
+        this.num++; // this refers to what we want now with no hack
+        console.log(`Fixed this = ${this.num}`);
+    }, 1000);
+}
+var counterInstance = new counter();
 
 // Closures, functions within functions, maintain their scope and state in the
 // environment they were created
 var el = document.getElementById("button");
-el.onclick = (function() {
-  var count = 0; //private
-  return function () {
-    if (count++ === 3) {
-      alert("Third time's the charm");
+el.onclick = (function () {
+    var count = 0; //private
+    return function () {
+        if (count++ === 3) {
+            alert("Third time's the charm");
+        }
     }
-  }
 })();
 
 // another example
-for (var d = 0; d < 3; d++) (function(d){
- setTimeout(function(){
-   console.log(d);
- }, d * 200);
+for (var d = 0; d < 3; d++) (function (d) {
+    setTimeout(function () {
+        console.log(d);
+    }, d * 200);
 })(d);
 
 //Wrap a library (these two methods are the same)
-var myLib = (function(){ 
-  function myLib(){   }
-  return myLib; 
+var myLib = (function () {
+    function myLib() { }
+    return myLib;
 })();
-(function(){
-  var myLib = window.myLib = function(){   };
+(function () {
+    var myLib = window.myLib = function () { };
 })();
 
 // Cascading/chaining
-function a (foo){
-  return {
-    'b': function(bar){
-      return foo + bar;
+function a(foo) {
+    return {
+        'b': function (bar) {
+            return foo + bar;
+        }
     }
-  }
 }
 a(1).b(2); // --> 3
 
 // Augment types
 Function.prototype.method = function (name, func) {
-  if(!this.prototype[name]) { //check for conflict
-    this.prototype[name] = func;
-    return this; //Return this instead of undefined so as to allow cascading (chaining)
-  }
+    if (!this.prototype[name]) { //check for conflict
+        this.prototype[name] = func;
+        return this; //Return this instead of undefined so as to allow cascading (chaining)
+    }
 }
 Number.method('increment', function () { // typeof Number === "function"
-  return this + 1;
+    return this + 1;
 });
 (2).increment(); //3
 //???*
-Number.prototype.increment = (function(incrementBy){
-  return function(){
-    return this + incrementBy ? incrementBy : 1;
-  }
+Number.prototype.increment = (function (incrementBy) {
+    return function () {
+        return this + incrementBy ? incrementBy : 1;
+    }
 })();
 
 // Using the ARGUMENTS object to catch optional arguments in a function
 function addEntry(squirrel) {
-  var entry = {events: [], squirrel: squirrel};
-  for (var i = 1; i < arguments.length; i++)
-    entry.events.push[arguments[i]];
-  journal.push(entry);
+    var entry = { events: [], squirrel: squirrel };
+    for (var i = 1; i < arguments.length; i++)
+        entry.events.push[arguments[i]];
+    journal.push(entry);
 }
 addEntry(true, "work", "touched tree", "pizza", "running", "television");
 
@@ -456,28 +478,28 @@ addEntry(true, "work", "touched tree", "pizza", "running", "television");
 sum(range(1, 10));
 
 // 
-function my_func( fn ) {
-	fn();
+function my_func(fn) {
+    fn();
 }
-function my_func2( fn ) {
-	fn("message from my_func");
+function my_func2(fn) {
+    fn("message from my_func");
 }
 function my_func3(fn, str) {
-	fn(str);
-} 
-my_func(function() { alert( "hi" ); }); // (function(){alert("hi")}());
-my_func2(function( arg ) { alert( arg ); });
-my_func3(function( arg ) { alert( arg ) }, "fuuuu"); // (function(arg){console.log(arg)})("fuuuu")
+    fn(str);
+}
+my_func(function () { alert("hi"); }); // (function(){alert("hi")}());
+my_func2(function (arg) { alert(arg); });
+my_func3(function (arg) { alert(arg) }, "fuuuu"); // (function(arg){console.log(arg)})("fuuuu")
 
 // Extend functions, including native functions
-Array.prototype.join = (function(_super) {
+Array.prototype.join = (function (_super) {
     // return our new `join()` function
-    return function() {
+    return function () {
         console.log("Hey, you called join!");
         return _super.apply(this, arguments);
     };
-            // Pass control back to the original join()
-            // by using .apply on `_super`
+    // Pass control back to the original join()
+    // by using .apply on `_super`
 })(Array.prototype.join);
 // Pass the original function into our
 // immediately invoked function as `_super`
@@ -488,7 +510,7 @@ Array.prototype.join = (function(_super) {
 // recursing with setTimeout
 var fade = function (node) {
     var level = 1;
-    var step = function (  ) {
+    var step = function () {
         var hex = level.toString(16);
         node.style.backgroundColor = '#FFFF' + hex + hex;
         if (level < 15) {
@@ -515,18 +537,16 @@ var add_the_handlers = function (nodes) {
 // BETTER EXAMPLE
 var add_the_handlers = function (nodes) {
     var helper = function (i) {
-       return function (e) {
-          alert(i);
-       };
+        return function (e) {
+            alert(i);
+        };
     };
     var i;
     for (i = 0; i < nodes.length; i += 1) {
         modes[i].onclick = helper(i);
     }
 };
-// The moral of the story: avoid making functions within a loop
-
-
+  // The moral of the story: avoid making functions within a loop
 
 /////////////////////////
 // Function.prototype //
@@ -623,16 +643,16 @@ getX(); // 9, because in this case, "this" refers to the global object
 var boundGetX = getX.bind(module);
 boundGetX(); // 81
 
-//////////////////////////
-// Objects & Prototypes //
-//////////////////////////
+/////////////
+// Objects //
+/////////////
 
 // Static methods
 Object.assign() // Copies the values of all enumerable own properties from one or more source objects to a target object.
-// Commonly used to merge two objects
-var foo = {'foo':'foo'};
-var bar = {'bar':'bar'};
-var foobar = Object.assign(foo, bar);
+    // Commonly used to merge two objects
+    var foo = {'foo':'foo'};
+    var bar = {'bar':'bar'};
+    var foobar = Object.assign(foo, bar);
 Object.create() // Creates a new object with the specified prototype object and properties.
 Object.defineProperty() // Adds the named property described by a given descriptor to an object.
 Object.defineProperties() // Adds the named properties described by the given descriptors to an object.
@@ -673,17 +693,92 @@ Object.prototype.unwatch() // Removes a watchpoint from a property of the object
 Object.prototype.valueOf() // Returns the primitive value of the specified object.
 Object.prototype.watch() // Adds a watchpoint to a property of the object.
 
-//Object: collection of properties
-//Property: association between a name (key) and a value
-//Method: A property which has a function as a value
+// Object: collection of properties
+// Property: association between a name (key) and a value
+// Method: A property which has a function as a value
 
 console.log(Object.getPrototypeOf({}) == Object.prototype);
 console.log(Object.getPrototypeOf([]) == Array.prototype);
 console.log(Object.getPrototypeOf(isNaN) == Function.prototype);
 
-//Constructors and prototypes
-function Creature (type) {
-  this.type = type;
+//immutability of objects
+var object1 = { value: 10 };
+var object2 = object1;
+var object3 = { value: 10 };
+console.log(object1 == object2); //= true
+console.log(object1 == object3); //= false
+//
+object1.value = 15;
+console.log(object2.value); //= 15
+console.log(object3.value); //= 10
+
+// iterating over an object using for-in
+// this works on objects and NOT arrays because for-in iterates over INDEXES not
+// values, and index of an array will be a string, not a number)
+var ages = {};
+function storeAge(name, age) {
+    ages[name] = age;
+}
+storeAge("Larry", 58);
+storeAge("Simon", 55);
+for (var name_ in ages)
+    console.log(name_ + " is " + ages[name_] + " years old");
+//= Larry is 58 years old
+//= Simon is 55 years old
+
+//Iterate over an associative object
+var list = { value: 1, rest: { value: 2, rest: null } };
+for (var node = list; node; node = node.rest) {
+    //...
+}
+
+// Object literal methods and shorthands
+let foo = 'fuu';
+let bar = {
+    // Shorthand property assignment:
+    foo, //= 'fuu'
+    // Getter and Setter
+    // Computed properties that are methods but not invoked()
+    firstName: '',
+    lastName: '',
+    get name() {
+        return this.firstName + ' ' + this.lastName;
+    },
+    set name(name) {
+        [this.firstName, this.lastName] = name.split(' ');
+    },
+    // Shorthand method assignment
+    myMethod(_params) {},
+    // Identical to:
+    myMethod: function(_params){},
+};
+bar.name = 'foo bar';
+console.log(bar.name); // logs 'foo bar'; 
+
+//exercise with ancestry
+//find the average age by century
+//some useful instructions for iterating over objects using IN and FOR
+function average(array) {
+    function plus(a, b) { return a + b; }
+    return array.reduce(plus) / array.length;
+}
+var getCentury = function (p) { return Math.ceil(p.died / 100); },
+    age = function (p) { return p.died - p.born; },
+    centuryData = {},
+    centuryDataAverages = {};
+var century;
+ancestry.forEach(function (p) {
+    century = getCentury(p);
+    if (century in centuryData) centuryData[century].push(age(p));
+    else centuryData[century] = [age(p)];
+});
+for (var i in centuryData) {
+    centuryDataAverages[i] = Math.ceil(average(centuryData[i]), 4);
+};
+
+// Constructors and prototypes
+function Creature(type) {
+    this.type = type;
 }
 var cicada = new Creature("insect");
 var giraffe = new Creature("mammal");
@@ -691,7 +786,7 @@ var giraffe = new Creature("mammal");
 //constructor because the method won't make use of closures (functions within
 //functions) which affect performance
 Creature.prototype.speak = function (sound) {
-  console.log("The ", this.type, " is a ", this.type, " that says '", sound, "'.");
+    console.log("The ", this.type, " is a ", this.type, " that says '", sound, "'.");
 }
 cicada.speak("yayayayaya");
 giraffe.speak("nomnom");
@@ -705,7 +800,7 @@ cicada.edible = true;
 // Creating a new object with Object.create()
 // Object.create creates a new object from a prototype of the given argument
 var person = {
-  kind: 'person'
+    kind: 'person'
 }
 var zack = Object.create(person); //person is the prototype
 console.log(zack.kind); // => ‘person’
@@ -721,57 +816,57 @@ delete zack.kind;
 console.log(zack.kind); //alien
 
 // Constructors
-function Foo(){}
+function Foo() { }
 var foo = new Foo();
-console.log(foo instanceof Foo ) //=> true
+console.log(foo instanceof Foo) //=> true
 
 // Inheritance
-function Person(){}
-Person.prototype.getName = function(){
-  return this.name;
+function Person() { }
+Person.prototype.getName = function () {
+    return this.name;
 };
 var Me = function () {
-  this.name = "Matt";
+    this.name = "Matt";
 }
 Me.prototype = Person.prototype;
 var me = new Me();
-console.log( me.getName() ); //Matt
+console.log(me.getName()); //Matt
 
 // Overwrite methods in the prototype
 // antipattern?
 var alex = { firstName: "Alex", lastName: "Russell" };
 alex.toString(); // "[object Object]"
 var brendan = {
-  firstName: "Brendan",
-  lastName: "Eich",
-  toString: function() { return this.firstName + " " + this.lastName; }
+    firstName: "Brendan",
+    lastName: "Eich",
+    toString: function () { return this.firstName + " " + this.lastName; }
 };
 brendan.toString() // "Brendan Eich"
 
 // If .toJSON exists on an object, it will be used by 
 // JSON.stringify calls to get the JSON format.
-var User = function(obj){
-  this.username = obj.username;
-  this.password = obj.password;
+var User = function (obj) {
+    this.username = obj.username;
+    this.password = obj.password;
 }
 User.prototype.toJSON(){
-  return {
-    username: this.username
-  }
+    return {
+        username: this.username
+    }
 }
 var tobi = new User({ username: "Tobi", password: "ferret" });
 JSON.stringify(tobi); //-> "{"username":"Tobi"}"
 
 // Enumerating, checking for instances
-var foo = {"a": 1, "b": 2};
+var foo = { "a": 1, "b": 2 };
 for (var x in foo) console.log(x); //-> a; b;
 console.log("toString" in foo); // true because toSting() is not enumerable, so it won't show up in the for loop, but it will show up in the instance check because it inherited prototype
 console.log(foo.hasOwnProperty("toString")); //->false because foo itself does not have the property toString (hasOwnProperty doesnt check prototypes)
 console.log(foo.hasOwnProperty("a")); //->true
 for (var x in foo) {
-  if (foo.hasOwnProperty(x)) {
-    // ... this is a real property
-  }
+    if (foo.hasOwnProperty(x)) {
+        // ... this is a real property
+    }
 }
 // in the above example, foo has a prototype. we can create an object without
 // a prototype like so
@@ -783,15 +878,15 @@ console.log("Brendan" in ages);// true
 // access Object.prototype.hasOwnProperty, and invoke (call()) it with an altered 'this' val
 var i,
     hasOwn = Object.prototype.hasOwnProperty;
-for (i in foo){
-  if (hasOwn.call(foo, i)) {
-    console.log(i, ":", foo[i]);
-  }
+for (i in foo) {
+    if (hasOwn.call(foo, i)) {
+        console.log(i, ":", foo[i]);
+    }
 }
 //More on the above method:
 var object = Object.create(null);
-object.quack = function() {
-  console.log('quack');
+object.quack = function () {
+    console.log('quack');
 }
 Object.getPrototypeOf(object) === Object.prototype // => false
 Object.getPrototypeOf(object) === null             // => true
@@ -805,57 +900,57 @@ Object.prototype.hasOwnProperty.call(object, 'quack') // => true
 
 // Self-invoking constructor
 // ensures the object is called properly with NEW
-var Fn = function(){
-  if(!(this instanceof Fn)){ //instanceof operator returns bool
-    return new Fn();
-  }
+var Fn = function () {
+    if (!(this instanceof Fn)) { //instanceof operator returns bool
+        return new Fn();
+    }
 }
 // Strict mode can also catch improperly invoked constructors!
 function Point(x, y) {
-  'use strict';
-  this.x = x;
-  this.y = y;
+    'use strict';
+    this.x = x;
+    this.y = y;
 }
 var p = Point(7, 5); // TypeError: Cannot set property 'x' of undefined
 
 // Using call() to construct a new sub-class
 function Product(name, price) {
-  this.name = name;
-  this.price = price;
+    this.name = name;
+    this.price = price;
 
-  if (price < 0)
-    throw RangeError('Cannot create product "' + name + '" with a negative price');
-  return this;
+    if (price < 0)
+        throw RangeError('Cannot create product "' + name + '" with a negative price');
+    return this;
 }
 function Food(name, price) {
-  Product.call(this, name, price);
-  this.category = 'food';
+    Product.call(this, name, price);
+    this.category = 'food';
 }
 Food.prototype = new Product();
 function Toy(name, price) {
-  Product.call(this, name, price);
-  this.category = 'toy';
+    Product.call(this, name, price);
+    this.category = 'toy';
 }
 Toy.prototype = new Product();
 var cheese = new Food('feta', 5);
 var fun = new Toy('robot', 40);
 //another example
-function logFive(seq){
-  var len = seq.sequence.length < 5 ? seq.sequence.length : 5;
-  for(var i = 0; i < len; i++)
-    console.log(seq.sequence[i]);
+function logFive(seq) {
+    var len = seq.sequence.length < 5 ? seq.sequence.length : 5;
+    for (var i = 0; i < len; i++)
+        console.log(seq.sequence[i]);
 }
-var ArraySeq = function(arr){
-  this.sequence = arr;
+var ArraySeq = function (arr) {
+    this.sequence = arr;
 }
-var RangeSeq = function(from, to){
-  var arr = [];
-  var i = from;
-  while(i <= to) {
-    arr.push(i);
-    i++;
-  }
-  ArraySeq.call(this, arr);
+var RangeSeq = function (from, to) {
+    var arr = [];
+    var i = from;
+    while (i <= to) {
+        arr.push(i);
+        i++;
+    }
+    ArraySeq.call(this, arr);
 }
 logFive(new ArraySeq([1, 2]));
 // → 1
@@ -876,13 +971,13 @@ logFive(new RangeSeq(100, 1000));
 //underlined cell was changed, at which point the size of the underlined cell
 //should also change.
 var pile = {
-  elements: ["eggshell", "orange peel", "worm"],
-  get height() {
-    return this.elements.length;
-  },
-  set height(value) {
-    console.log("Ignoring attempt to set height to", value);
-  }
+    elements: ["eggshell", "orange peel", "worm"],
+    get height() {
+        return this.elements.length;
+    },
+    set height(value) {
+        console.log("Ignoring attempt to set height to", value);
+    }
 };
 console.log(pile.height);// → 3
 pile.height = 100;// → Ignoring attempt to set height to 100
@@ -890,18 +985,18 @@ console.log(pile.height);// → 3
 //You can also add such a property to an existing object, for example a
 //prototype, using the Object.defineProperty function (which we also used to
 //create non-enumerable properties).
-function Point (x, y) {
-  this.x = x;
-  this.y = y;
+function Point(x, y) {
+    this.x = x;
+    this.y = y;
 }
 Point.prototype.plus = function (point) {
-  return new Point(this.x + point.x, this.y + point.y);
+    return new Point(this.x + point.x, this.y + point.y);
 }
 Point.prototype.minus = function (point) {
-  return new Point(this.x - point.x, this.y - point.y);
+    return new Point(this.x - point.x, this.y - point.y);
 }
 Object.defineProperty(Point.prototype, "distance", {//Distance from 0, 0
-  get: function() { return Math.sqrt((this.x * this.x) + (this.y * this.y)); } //Using Pythagoras’ (a2+b2=c2) theorem to calculate
+    get: function () { return Math.sqrt((this.x * this.x) + (this.y * this.y)); } //Using Pythagoras’ (a2+b2=c2) theorem to calculate
 });
 console.log(new Point(1, 2).plus(new Point(2, 3)));// → Point{x: 3, y: 5}
 console.log(new Point(1, 2).minus(new Point(2, 3)));// → Point{x: -1, y: -1}
@@ -909,11 +1004,54 @@ console.log(new Point(3, 4).distance);// → 5
 
 // Extract a certain property from a collection of objects
 function prop(propName) {
-  return function(obj) {
-    return obj[propName];
-  }
+    return function (obj) {
+        return obj[propName];
+    }
 }
-[{ name: "larry", location: "MN" }, { name: "curly", wife: "marge" }].map( prop('name') ); // ["larry", "curly"]
+[{ name: "larry", location: "MN" }, { name: "curly", wife: "marge" }].map(prop('name')); // ["larry", "curly"]
+
+//////////
+// Maps //
+//////////
+
+// Map performs better in scenarios involving frequent additions and removals of key - value pairs.
+
+// Constructor
+Map() // Creates a new Map object.
+
+// Instance properties
+Map.prototype.size // Returns the number of key / value pairs in the Map object.
+
+// Instance methods
+Map.prototype.clear() // Removes all key - value pairs from the Map object.
+Map.prototype.delete(key) // Returns true if an element in the Map object existed and has been removed, or false if the element does not exist. Map.prototype.has(key) will return false afterwards.
+Map.prototype.entries() // Returns a new Iterator object that contains an array of [key, value] for each element in the Map object in insertion order.
+Map.prototype.forEach(callbackFn[, thisArg]) // Calls callbackFn once for each key-value pair present in the Map object, in insertion order. If a thisArg parameter is provided to forEach, it will be used as the this value for each callback.
+Map.prototype.get(key) // Returns the value associated to the key, or undefined if there is none.
+Map.prototype.has(key) // Returns a boolean asserting whether a value has been associated to the key in the Map object or not.
+Map.prototype.keys() // Returns a new Iterator object that contains the keys for each element in the Map object in insertion order.
+Map.prototype.set(key, value) // Sets the value for the key in the Map object.Returns the Map object.
+Map.prototype.values() // Returns a new Iterator object that contains the values for each element in the Map object in insertion order.
+
+// Iterate with for..of or Map.prototype.forEach
+let papp = new Map()
+papp.set('pen', 'apple')
+papp.set('pineapple', 'pen')
+for (let [key, val] of papp) {}
+for (let key of papp.keys()) {}
+for (let value of papp.values()) {}
+papp.forEach(function(value, key) {}); // Why does value come before key... ?
+
+// Map -- Array
+let array = [['key1', 'val1'], ['key2', 'val2']]
+let map = new Map(arr)
+Array.from(map) == array == [...map]
+// Array of keys
+Array.from(map.keys()) == ['key1', 'key2']
+// Use array methods on a map
+[...papp].filter(function(key_value_pair, index, whole_array) {
+    return key_value_pair[0].includes('1'); //
+});
 
 //////////////
 // Classes  //
@@ -970,24 +1108,26 @@ str.match(regexp);
 var stock = "1 lemon, 2 cabbages, and 101 eggs";
 stock = stock.replace(/(\d+) (\w+)/g, eatOne);
 function eatOne(match, amount, unit) {
-  amount = Number(amount) - 1;
-  if (amount == 1) {
-    unit = unit.slice(0, unit.length - 1);
-  }
-  else if (amount == 0) {
-    unit = unit + "s";
-    amount = "no";
-  }
-  return amount + " " + unit;
+    amount = Number(amount) - 1;
+    if (amount == 1) {
+        unit = unit.slice(0, unit.length - 1);
+    }
+    else if (amount == 0) {
+        unit = unit + "s";
+        amount = "no";
+    }
+    return amount + " " + unit;
 }
 
 // An object of several replacements
 function escapeHTML(text) {
-  var replacements = {"<": "&lt;", ">": "&gt;",
-                      "&": "&amp;", "\"": "&quot;"};
-  return text.replace(/[<>&"]/g, function(character) {
-    return replacements[character];
-  });
+    var replacements = {
+        "<": "&lt;", ">": "&gt;",
+        "&": "&amp;", "\"": "&quot;"
+    };
+    return text.replace(/[<>&"]/g, function (character) {
+        return replacements[character];
+    });
 }
 console.log(escapeHTML("The 'pre-formatted' tag is written \"<pre>\"."));
 
@@ -1001,7 +1141,7 @@ while (match = number.exec(input))
 //   Found 42 at 33
 //   Found 88 at 40
 
-// Regular Expressions Regex //
+// Regular Expression syntax //
 /**
 Element            Matches this...
 [xyz]              Any one character x or y or z, as listed in square brackets
@@ -1056,45 +1196,11 @@ re = new RegExp('^\\s+|\\s+$','g')
 **/
 
 ////////////////////
-// EVENT HANDLERS //
-////////////////////
-
-// Most event objects have a target property that refers to the node where
-// they originated. You can use this property to ensure that you’re not
-// accidentally handling something that propagated up from a node you do not
-// want to handle.
-// It is also possible to use the target property to cast a wide net for a
-// specific type of event. For example, if you have a node containing a long
-// list of buttons, it may be more convenient to register a single click
-// handler on the outer node and have it use the target property to figure out
-// whether a button was clicked, rather than register individual handlers on
-// all of the buttons.
-<button>A</button>
-<button>B</button>
-<button>C</button>
-<script>
-  document.body.addEventListener("click", function(event) {
-    if (event.target.nodeName == "BUTTON")
-      console.log("Clicked", event.target.textContent);
-  });
-</script>
-
-////////////////////
 // Best Practices //
 ////////////////////
 
 // Use the || operator to specify a default value.
 var ev = e || event;
-
-// Watch out for type coercion when using ==.
-var zero = 0;
-if(zero == false){} //antipattern
-if(zero === false) {} // this is probably the intended result
-
-//convert string to number
-+"08";
-Number(string);
-parseInt(string); //slower than the above two, but necessary when the string is something like "08 foo"
 
 //named function expressions
 //neednt use arguments.callee
@@ -1104,7 +1210,21 @@ parseInt(string); //slower than the above two, but necessary when the string is 
 
 getElementById("identifier") /* is faster than */ $("#identifier")
 
-typeof str === "undefined" // typeof returns the "undefined" string literal
+// typeof operator
+typeof 37               === 'number';
+typeof 42n              === 'bigint';
+typeof ''               === 'string';
+typeof 'bla'            === 'string';
+typeof `templ litrl`    === 'string';
+typeof '1'              === 'string'; // note that a number within a string is still typeof string
+typeof true             === 'boolean';
+typeof undeclaredVar    === 'undefined';
+typeof { a: 1 }         === 'object';
+// use Array.isArray or Object.prototype.toString.call
+// to differentiate regular objects from arrays
+typeof [1, 2, 4]        === 'object';
+typeof function () { }  === 'function';
+typeof class C { }      === 'function';
 
 //Error handling
 try {
@@ -1121,30 +1241,6 @@ function errorHandler(){
     console.log(this); //this = throw object data [name, message, remedy] 
 }
 
-// catching an error within a loop
-// calling reliableMultiply will loop through primitiveMultiply until it succeeds
-function MultiplicatorUnitFailure() {}
-MultiplicatorUnitFailure.prototype = Object.create(Error.prototype);
-function primitiveMultiply(a, b) {
-  if (Math.random() < 0.5)
-    return a * b;
-  else
-    throw new MultiplicatorUnitFailure();
-}
-function reliableMultiply(a, b) {
-  for (;;) {
-    try {
-      var res = primitiveMultiply(a, b);
-      return res;
-      break;
-    } catch (e) {
-      if(e instanceof MultiplicatorUnitFailure) console.log("Multiply fail");
-      else throw(e);
-    }
-  }
-}
-console.log(reliableMultiply(8, 8));
-
 //function expression aka anonymous function
 var foo = function (a, b){};
 //named function expression
@@ -1154,96 +1250,6 @@ foo.name; //-> bar
 // function declarations
 // moved to the top of the scope!
 function foo (a, b) {}
-
-//returning functions
-var setupIncrement = function(){
-    var i = 0;
-    return function(){
-        return (++i);
-    }
-}
-var increment = setupIncrement();
-increment(); //-> 1
-increment(); //-> 2
-
-// MODULARITY // Build modules using anonymous functions
-// http://www.adequatelygood.com/JavaScript-Module-Pattern-In-Depth.html
-var MODULE = (function (my) {
-  var my = {},
-      privateStuff;
-  // add capabilities...
-  return my;
-}(MODULE || {}));//Build upon a previously created module called MODULE, or if it doesnt exit create an empty object and use it to build the module
-// Build modules using anonymous functions along with the helper function
-// provide():
-function provide(values) {
-  forEachIn(values, function(name, value) {
-    window[name] = value;
-  });
-}
-(function() {
-  var names = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-  provide({
-    getDayName: function(number) {
-      return names[number];
-    },
-    getDayNumber: function(name) {
-      for (var number = 0; number < names.length; number++) {
-        if (names[number] == name)
-          return number;
-      }
-    }
-  });
-})();
-console.log(getDayNumber("Wednesday"));
-// Sometimes a module will export too many variables; encapsulate it into a
-// single object with properties to export (like Math)
-var HTML = {
-  tag: function(name, content, properties) {
-    return {name: name, properties: properties, content: content};
-  },
-  link: function(target, text) {
-    return HTML.tag("a", [text], {href: target});
-  }
-  /* ... many more HTML-producing functions ... */
-};
-// And if the module-object becomes a bit cumbersone to handle, provide() it
-// so its properties become top-level functions:
-provide(HTML);
-link("http://theonion.com", "America's finest news source");
-
-// Modules don't need anonymous functions to create secure objects!
-var serial_maker = function () {
-  // Produce an object that produces unique strings. A
-  // unique string is made up of two parts: a prefix
-  // and a sequence number. The object comes with
-  // methods for setting the prefix and sequence
-  // number, and a gensym method that produces unique
-  // strings.
-    var prefix = '';
-    var seq = 0;
-    return {
-        set_prefix: function (p) {
-            prefix = String(p);
-        },
-        set_seq: function (s) {
-            seq = s;
-        },
-        gensym: function ( ) {
-            var result = prefix + seq;
-            seq += 1;
-            return result;
-        }
-    };
-};
-var seqer = serial_maker( );
-seqer.set_prefix('Q');
-seqer.set_seq(1000);
-var unique = seqer.gensym( ); // unique is "Q1000"
-// Because the module doesn't make use of 'this', there is no way to modify
-// seqr except by the given methods. If we passed seqer.gensym to a third-
-// party function, that function would still be able to generate unique
-// strings, but it would be unable to change 'prefix' or 'seq'
 
 // IMMEDIATE FUNCTIONS // Self-executing functions that can keep public/private scope 
 // See Module Pattern below
@@ -1854,122 +1860,6 @@ function test(a, b) {
   return a * 10 + b;
 }
 var memo = memoize(test);
-
-////////////////////
-//Array.prototype //
-////////////////////
-
-/**
- * reduce    
- * gets a single value (it "summarizes") by iterating over all values in an array and passes them through a function
- * an optional second parameter sets the current value (10 in the example below)
- */
-[0,1,2,3,4].reduce(function(previousValue, currentValue, index, array){
-  return previousValue + currentValue;
-}, 10);
-
-// finding the average value in an array of numbers
-function average(array) {
-  function plus(a, b) { return a + b; }
-  return array.reduce(plus) / array.length;
-}
-
-// the tracking value (previousValue) can be an object instead of a string!
-countwords(["apple", "apple", "pear"]); // {apple:2, pear:1}
-function countWords(arr) {
-  return arr.reduce(function(countMap, word) {
-    countMap[word] = ++countMap[word] || 1 // increment or initialize to 1
-    return countMap
-  }, {}) // second argument to reduce initialises countMap to {}
-}
-
-/**
- * slice
- * @param {number} begin
- * @param {number} end
- */
-// If no begin or end is given, it returns a copy of the array
-// arguments is an ARRAY-LIKE OBJECT
-// pass it through this to create an array:
-var args = Array.prototype.slice.call(arguments);
-//Array: this is the name of the base object that we want
-//prototype: this can be thought of as the namespace for the instance methods of an array
-//slice: this extracts a section of an array and returns a new array, and without a beginning and ending index, it simply returns a copy of the array
-//call: this is a very useful function, it allows you to call a function from one object and use it in the context of another
-
-/**
- * splice(index , howMany[, element1[, ...[, elementN]]])
- * change the content of an array, adding or removing elements
- * @param {number} index index at which to start changing
- * @param {number} howmany how many elements to remove
- * @param {string?} elements stuff to add
- */
-
-/**
- * every (callback(element, index, array)[, thisArg])) 
- * return boolean if every array item passed to callback passes condition (thisArg sets this)
- */
-
-function isBigEnough(element, index, array) {
-  return (element >= 10);
-}
-[12, 5, 8, 130, 44].every(isBigEnough);//false
-[12, 54, 18, 130, 44].every(isBigEnough);//true
-
-//keystroke pattern
-var keyCodes=new Array(10);
-var pattern=[38,38,40,40,37,39,37,39,66,65];
-function keydownHandler(e){
-  keyCodes.shift();//rm keyCodes[0]
-  keyCodes.push(e.keyCode);
-  if(keyCodes.every(function(element, index, array){return element===pattern[index];})){
-    document.getElementById("rainbow-message").style.display="";
-  }
-}
-window.onkeydown=keydownHandler;
-
-/**
- * sort 
- * arr.sort([compareFunction]) 
- * If compareFunction is not supplied,
- * elements are sorted by converting them to strings and comparing strings in
- * Unicode code point order. For example, "Cherry" comes before "banana". In a
- * numeric sort, 9 comes before 80, but because numbers are converted to
- * strings, "80" comes before "9" in Unicode order.
- * If compareFunction(a, b) is less than 0, sort a to a lower index than b, i.e. a comes first.
- * If compareFunction(a, b) returns 0, leave a and b unchanged with respect to each other, but sorted with respect to all different elements.
- * If compareFunction(a, b) is greater than 0, sort b to a lower index than a.
- */
-[4, 22, 5, 10, 3].sort(function(a, b) {
-  return a - b;
-});
-// For non-ASCII chars, use localCompare
-["réservé", "premier", "cliché", "communiqué", "café" ,"adieu"].sort(function (a, b) {
-    return a.localeCompare(b);
-});
-// Randomize an array
-["a", "b", "c"].sort(function() { return 0.5 - Math.random() });
-
-/*
- * map(callback[, thisArg])
- * creates a new array with the results of calling a provided function on every element in this array.
- */
-[1, 2, 3].map(function(n, 1){
-  return n + 1;
-})
-
-// filter(condition) return an array with items that pass condition
-function isBigEnough(element) {
-  return element >= 10;
-}
-var filtered = [12, 5, 8, 130, 44].filter(isBigEnough);//--> [12, 130, 44]
-
-// some(condition) return boolean if one or more array items pass condition
-// push() an item on the back
-// pop() an item off the back
-// shift() an item off the front
-// unshift() an item onto the front
-
 
 ////////////////
 //Backbone.js //
