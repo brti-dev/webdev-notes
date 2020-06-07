@@ -1195,6 +1195,22 @@ re = /^\s+|\s+$/g
 re = new RegExp('^\\s+|\\s+$','g') 
 **/
 
+//////////////
+// Promises //
+//////////////
+
+// Static methods
+Promise.all(iterable) // Wait for all promises to be resolved, or for any to be rejected. ... 
+Promise.allSettled(iterable) // Wait until all promises have settled (each may resolve or reject). Returns a promise that resolves after all of the given promises have either resolved or rejected, with an array of objects that each describe the outcome of each promise.
+Promise.race(iterable) // Wait until any of the promises is resolved or rejected. If the returned promise resolves, it is resolved with the value of the first promise in the iterable that resolved. If it rejects, it is rejected with the reason from the first promise that was rejected.
+Promise.reject(reason) // Returns a new Promise object that is rejected with the given reason.
+Promise.resolve(value) // Returns a new Promise object that is resolved with the given value.If the value is a thenable(i.e.has a then method), the returned promise will "follow" that thenable, adopting its eventual state; otherwise the returned promise will be fulfilled with the value. Generally, if you don't know if a value is a promise or not, Promise.resolve(value) it instead and work with the return value as a promise.
+
+// Instance methods
+Promise.prototype.catch() // Appends a rejection handler callback to the promise, and returns a new promise resolving to the return value of the callback if it is called, or to its original fulfillment value if the promise is instead fulfilled.
+Promise.prototype.then() // Appends fulfillment and rejection handlers to the promise, and returns a new promise resolving to the return value of the called handler, or to its original settled value if the promise was not handled(i.e.if the relevant handler onFulfilled or onRejected is not a function).
+Promise.prototype.finally() // Appends a handler to the promise, and returns a new promise that is resolved when the original promise is resolved.The handler is called when the promise is settled, whether fulfilled or rejected.
+
 ////////////////////
 // Best Practices //
 ////////////////////
