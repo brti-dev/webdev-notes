@@ -19,6 +19,16 @@ var foo // variables exist and are only acessible within the block its defined (
 let bar // 
 const baz // Declare variables that do not get reassigned
 
+///////////////
+// Operators //
+///////////////
+
+// ?? Null coalescing operator
+// Selects first defined variable
+let a = false
+let b = true
+let x = a ?? b
+
 /////////////
 // STRINGS //
 /////////////
@@ -155,9 +165,9 @@ var foo = new Array(n); // n int indicate the size of the array
 
 // Static methods
 Array.from(arrayLike [, mapFn [, thisArg]]) // Creates a new Array instance from arrayLike, an array-like or iterable object.
-    const myArray1 = Array.from({length: 2, 0: 'zero', 1:'one'}) == ["zero", "one"]
-    const myArray2 = Array.from('foo') == ["f", "o", "o"]
-    const myArray4 = Array.from([1, 2, 3], item => item * item) == [1, 4, 9]
+    Array.from({length: 2, 0: 'zero', 1:'one'}) == ["zero", "one"]
+    Array.from('foo') == ["f", "o", "o"]
+    Array.from([1, 2, 3], item => item * item) == [1, 4, 9]
 Array.isArray() // Returns true if value is an array, or false otherwise.
 Array.of() // Creates a new Array instance with a variable number of arguments, regardless of number or type of the arguments.
     Array.of(1, 2) == [1, 2] == Array(1, 2)
@@ -170,6 +180,9 @@ Array.prototype.length // Reflects the number of elements in an array.
 
 // Instance methods
 Array.prototype.concat() // Returns a new array that is this array joined with other array(s) and/or value(s).
+    [1,2,3].concat([4,5,6])
+    // Use spread operator to acheive same result:
+    [...[1,2,3], ...[4,5,6]]
 Array.prototype.copyWithin() // Copies a sequence of array elements within the array.
 Array.prototype.entries() // Returns a new Array Iterator object that contains the key/value pairs for each index in the array.
     // use Object.entries() and destructuring with the for-of loop
@@ -220,10 +233,9 @@ Array.prototype.reverse() // Reverses the order of the elements of an array in p
 Array.prototype.shift() // Removes the first element from an array and returns that element.
 Array.prototype.slice() // Extracts a section of the calling array and returns a new array.
 Array.prototype.some() // Test values until a test returns true
-    var test = [1, 2, 3].some(function(value, index, whole_array) {
+    true === [1, 2, 3].some(function(value, index, whole_array) {
         return value >= 2;
-    });
-    console.log(test()); //= true
+    })
 Array.prototype.sort([compareFunction]) // Sorts the elements of an array in place and returns the array.
     // If compareFunction is not supplied, elements are sorted by converting them to strings and comparing strings in
     // Unicode code point order. For example, "Cherry" comes before "banana". In a numeric sort, 9 comes before 80, but 
@@ -343,15 +355,14 @@ print("Year: ", today.getFullYear(), ", month: ", today.getMonth(), ", day: ", t
 // FUNCTIONS //
 ///////////////
 
-// Function literal
+// Function literal / function expression
 let add = function (a, b) {
     return a + b;
 }
-// Fat arrow syntactic sugar
-let add = (a, b) => a + b;
 
 // Function declaration
 // Not part of the top-to-bottom flow control -- moved to the top of their scope
+// But can only be called within the same scope!
 add(1, 2);
 function add(a, b) {
     return a + b;
@@ -653,6 +664,8 @@ Object.assign() // Copies the values of all enumerable own properties from one o
     var foo = {'foo':'foo'};
     var bar = {'bar':'bar'};
     var foobar = Object.assign(foo, bar);
+    // Use the spread operator to merge two objects
+    var foobar_spread = {...foo, ...bar}
 Object.create() // Creates a new object with the specified prototype object and properties.
 Object.defineProperty() // Adds the named property described by a given descriptor to an object.
 Object.defineProperties() // Adds the named properties described by the given descriptors to an object.
@@ -754,6 +767,19 @@ let bar = {
 };
 bar.name = 'foo bar';
 console.log(bar.name); // logs 'foo bar'; 
+
+// Object destructuring
+const foobar = {
+    'baz': 'baz',
+    'foo': 'foo',
+    'bar': 'bar',
+}
+let {foo, bar} = foobar
+
+// Joining two objects with spread operator
+const profile = { firstName: 'Robin', lastName: 'Wieruch'};
+const address = { country: 'Germany', city: 'Berlin', code: '10439'};
+const user = { ...profile, gender: 'male', ...address};
 
 //exercise with ancestry
 //find the average age by century
