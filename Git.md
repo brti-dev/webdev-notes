@@ -57,6 +57,7 @@ $ git init
       remote
           -v //verbose
           add <SHORTNAME> <URL> //ie > git remote add origin https://github.com/try-git/try_git.git
+          set-url <REMOTENAME> <URL> //Edit remote URL
       push -u <SHORTNAME> master //ie > git push -u origin master //-u: recall command, so next time "$ git push" should work
       pull <SHORTNAME> master //ie > git pull origin master
       diff HEAD
