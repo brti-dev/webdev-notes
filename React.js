@@ -15,22 +15,20 @@
     - Same code on browser and server
 */
 
-import { useReducer } from "react"
+/** @PROPS **/
 
-/***********/
-/** HOOKS **/
-/***********/
+// Properties passed to components
+// Props shouldn't change during the component's lifecycle
+function Foo(props) {
+    const {bar} = props;
+    return <h1>{bar}</h1>
+}
+const element = <Foo bar='bar' />
 
-/** useState
- * Preserve variables between function calls, beyond function exit
- * Necessary for variables within components that don't act like pure functions with respect for their props
- * @param {mixed} InitialState Takes initial state as argument, then returns two values:
- * @returns {Array} [current state, function to update state and enqueue a re-render of the component]
-*/
-const [state, setState] = useState(initialState);
+/** @STATE **/
 
 // Pure function components are fine!
-// Example: sum() doesn;t modify props and same input always returns same resuls
+// Example: sum() doesn't modify props and same input always returns same resuls
 function sum(a, b) {
     return a + b;
 }
@@ -40,7 +38,7 @@ function withdraw(account, amount) {
     account.total -= amount;
 }
 // Example: refactored with state
-function Account({initialAmount}) {
+function Account({ initialAmount }) {
     const [accountTotal, setTransaction] = useState(initialAmount);
     function withdraw(amount) {
         setTransaction(accountTotal -= amount);
@@ -56,9 +54,29 @@ function Account({initialAmount}) {
         </>
     )
 }
-function App() {
-    return <Account initialAmount="100" />
-}
+const element = <Account initialAmount="100" />
+
+/** @LISTS_AND_KEYS **/
+
+// Keys should be given to the elements inside the array to give the elements a stable identity
+// They should be unique in the array, not globally unique
+
+// Example: Transform an array into a list of elements
+const numbers = [1, 2, 3];
+const listItems = numbers.map(number => <li key={number.toString()}>{number}</li>);
+const list = <ul>{listItems}</ul>
+
+/************/
+/** @HOOKS **/
+/************/
+
+/** @useState
+ * Preserve variables between function calls, beyond function exit
+ * Necessary for variables within components that don't act like pure functions with respect for their props
+ * @param {mixed} InitialState Takes initial state as argument, then returns two values:
+ * @returns {Array} [current state, function to update state and enqueue a re-render of the component]
+*/
+const [state, setState] = useState(initialState);
 
 // Example with counter
 function Counter({initialCount}) {
@@ -80,13 +98,33 @@ const [value, setvalue] = React.useState(
     localStorage.getItem(key) || initialState
 )
 
-/** useReducer
- * Alternative to useState
+/** @useReducer
+ * Alternative to useState. Preferable when complex state logic, or when the next state depends on the previous one
+ * Pass dispatch down instead of callbacks
+ * @param {Function} reducer (state, action) => newState
+ * @param {*} initialArg
+ * @returns {Array} Current state; Dispatch method
  */
 const [state, dispatch] = useReducer(reducer, initialArg, init);
 
+// Example with a counter
 
-/** useEffect
+const initialState = {count: 0};
+function reducer(state, action) {
+    return action.type == 'decrement' ? {count: state.count + 1} : {count: state.count - 1};
+}
+function Counter() {
+    const [state, dispatch] = React.useReducer(reducer, initialState);
+    return (
+        <>
+            Count: <b>{state.count}</b> 
+            <button onClick={() => dispatch({type: 'decrement'})}>-</button>
+            <button onClick={() => dispatch({type: 'increment'})}>+</button>
+        </>
+    );
+}
+
+/** @useEffect
  * Allows opt-in to component lifecycle
  * @param function Where the side-effect occurs; Called initially and (if dependency variable exists) if dependency variables change
  * @param array Dependency variables; If one changes, the function is called
@@ -97,8 +135,8 @@ React.useEffect(() => {
     localStorage.setItem(key, value)
 }, [value, key]) // Only re-run the effect if `key` and/or `value` changes
 
-/**
- * useRef hook creates a reference to an element
+/** @useRef
+ * Creates a reference to an element
  * Persists throughout the lifetime of the component
  * @param {?} initialValue
  * @returns {Object} `current` property 
