@@ -101,14 +101,15 @@ const [value, setvalue] = React.useState(
 /** @useReducer
  * Alternative to useState. Preferable when complex state logic, or when the next state depends on the previous one
  * Pass dispatch down instead of callbacks
- * @param {Function} reducer (state, action) => newState
+ * @param {Function} reducer Return a new state based on given action (state, action) => newState
  * @param {*} initialArg
- * @returns {Array} Current state; Dispatch method
+ * @param {?} init ???
+ * @returns {Array} state Current state
+ * @returns {Array} dispatch Dispatch method; Function to call to supply a new state
  */
 const [state, dispatch] = useReducer(reducer, initialArg, init);
 
 // Example with a counter
-
 const initialState = {count: 0};
 function reducer(state, action) {
     return action.type == 'decrement' ? {count: state.count + 1} : {count: state.count - 1};
@@ -154,3 +155,16 @@ function TextInputWithFocusButton() {
         </>
     );
 }
+
+/** @useCallback
+ * Useful for passing callbacks to optimized child components to prevent unneccesary renders
+ * @param {Function} callback An inline callback
+ * @param {Array} dependencies
+ * @returns {Function} Memoized version of the callback, changes when one of the dependencies has changed
+ */
+const memoizedCallback = useCallback(
+    () => {
+        doSomething(a, b);
+    },
+    [dependencyA, dependencyB],
+);
