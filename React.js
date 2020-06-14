@@ -127,8 +127,9 @@ function Counter() {
 
 /** @useEffect
  * Allows opt-in to component lifecycle
- * @param function Where the side-effect occurs; Called initially and (if dependency variable exists) if dependency variables change
- * @param array Dependency variables; If one changes, the function is called
+ * Used for Data fetching, setting up a subscription, and manually changing the DOM, etc.
+ * @param {Function} function Where the side-effect occurs; Called initially and (if dependency variable exists) if dependency variables change
+ * @param {Array} array Dependency variables; If one changes, the function is called on re-render; if [] called every time; if nothing given, call every time
 */
 React.useEffect(() => {
     console.log('useEffect:searchValue')
@@ -168,3 +169,24 @@ const memoizedCallback = useCallback(
     },
     [dependencyA, dependencyB],
 );
+
+/** Custom Hooks **/
+
+/** @useSemiPersistentState
+ * Preserve key-value pairs in local storage
+ * @param {string} key A key to define this instance so `value` is not overwritten
+ * @param {string} initialState Default value for useState()
+ */
+function useSemiPersistentState(key, initialState) {
+    const [value, setvalue] = React.useState(
+        localStorage.getItem(key) || initialState
+    )
+
+    React.useEffect(() => {
+        console.log(`useEffect:${key}`)
+        // update locally-stored search term whenever `value` changes
+        localStorage.setItem(key, value)
+    }, [value, key]) // Only re-run the effect if `key` and/or `value` changes
+
+    return [value, setvalue]
+}

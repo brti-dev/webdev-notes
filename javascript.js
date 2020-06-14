@@ -1844,90 +1844,14 @@ var options = { validate: true, name: "bar" };
 var settings = _.defaults(defaults, options); //underscore
 var settings = $.extend( {}, defaults, options ); //Jquery
 
-/*
-* memoize.js
-* by @philogb and @addyosmani
-* with further optimizations by @mathias
-* and @DmitryBaranovsk
-* perf tests: http://bit.ly/q3zpG3
-* Released under an MIT license.
-*/
-function memoize( fn ) {
-    return function () {
-        var args = Array.prototype.slice.call(arguments),
-            hash = "",
-            i = args.length;
-        currentArg = null;
-        while (i--) {
-            currentArg = args[i];
-            hash += (currentArg === Object(currentArg)) ?
-            JSON.stringify(currentArg) : currentArg;
-            fn.memoize || (fn.memoize = {});
-        }
-        return (hash in fn.memoize) ? fn.memoize[hash] :
-        fn.memoize[hash] = fn.apply(this, args);
-    };
-}
-/*
-* memoize.js
-* by @philogb and @addyosmani
-* further optimizations by @mathias, @DmitryBaranovsk & @GotNoSugarBaby
-* fixes by @AutoSponge
-* perf tests: http://bit.ly/q3zpG3
-* Released under an MIT license.
-*/
-(function (global) {
-    "use strict";
-    global.memoize || (global.memoize = (typeof JSON === 'object' && typeof JSON.stringify === 'function' ?
-        function (func) {
-            var stringifyJson = JSON.stringify,
-                cache = {};
-            var cachedfun = function () {
-                var hash = stringifyJson(arguments);
-                return (hash in cache) ? cache[hash] : cache[hash] = func.apply(this, arguments);
-            };
-            cachedfun.__cache = (function(){
-                cache.remove || (cache.remove = function(){
-                    var hash = stringifyJson(arguments);
-                    return (delete cache[hash]);
-                });
-                return cache;
-            }).call(this);
-            return cachedfun;
-        } : function (func) {
-            return func;
-        }));
-}(this));
-function test(a, b) {
-  return a * 10 + b;
-}
-var memo = memoize(test);
+/***************/
+/** LIBRARIES **/
+/***************/
 
-////////////////
-//Backbone.js //
-////////////////
+/** Axios **/
+// Promise based HTTP client for the browser and node.js
+// https://github.com/axios/axios
 
-//Defaults
-var Meal = Backbone.Model.extend({
-  defaults: {
-    "appetizer":  "caesar salad",
-    "entree":     "ravioli",
-    "dessert":    "cheesecake",
-    "eaten": function(){ return new Date(); }
-  }
-});
-alert("Dessert will be " + (new Meal).get('dessert') + " at " + );
-
-//When creating models, defaults objects are passed by reference, so if you
-//include an object as a default value, it will be shared among all instances.
-//Instead, define defaults as a function:
-var Meal = Backbone.Model.extend({
-  defaults: function(){
-    return {
-      "entree": "pizza",
-      "eaten": newDate()
-    }
-  }
-});
-var meal = new Meal;
-console.log(meal.get("eaten"));
+/** Formik **/
+// Forms in React
+// https://jaredpalmer.com/formik

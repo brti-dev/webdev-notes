@@ -107,6 +107,14 @@ foreach ($datePeriod as $date) {
 
 # PDO #
 
+# Basic select statement
+$sql = "SELECT * FROM users WHERE username=?";
+$statement = $pdo->prepare($sql);
+$statement->execute([$username]);
+while ($row = $statement->fetch()) {
+  /* ... */
+}
+
 # Checking the table for existence
 $stmt = $pdo->query("SELECT 1 FROM users WHERE name=foo");
 $userExists = $stmt->fetchColumn();
