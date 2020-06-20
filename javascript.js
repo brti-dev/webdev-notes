@@ -1237,6 +1237,21 @@ Promise.prototype.catch() // Appends a rejection handler callback to the promise
 Promise.prototype.then() // Appends fulfillment and rejection handlers to the promise, and returns a new promise resolving to the return value of the called handler, or to its original settled value if the promise was not handled(i.e.if the relevant handler onFulfilled or onRejected is not a function).
 Promise.prototype.finally() // Appends a handler to the promise, and returns a new promise that is resolved when the original promise is resolved.The handler is called when the promise is settled, whether fulfilled or rejected.
 
+//////////
+// JSON //
+//////////
+
+JSON.parse(text[, reviver]) // Parse the string text as JSON, optionally transform the produced value and its properties, and return the value. Any violations of the JSON syntax, including those pertaining to the differences between JavaScript and JSON, cause a SyntaxError to be thrown. The reviver option allows for interpreting what the replacer has used to stand in for other datatypes.
+    // Example with reviver
+    // Parse a date-like string into a Date object
+    const dateRegex = new RegExp('^\\d\\d\\d\\d-\\d\\d-\\d\\d');
+    function jsonDateReviver(key, value) {
+        if (dateRegex.test(value)) return new Date(value);
+        return value;
+    }
+    JSON.parse('{"not_date":"foobar", "is_date":"2020-02-20"}', jsonDateReviver);
+JSON.stringify(value[, replacer[, space]]) // Return a JSON string corresponding to the specified value, optionally including only certain properties or replacing property values in a user-defined manner. By default, all instances of undefined are replaced with null, and other unsupported native data types are censored. The replacer option allows for specifying other behavior.
+
 ////////////////////
 // Best Practices //
 ////////////////////
