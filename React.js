@@ -15,10 +15,12 @@
     - Same code on browser and server
 */
 
+const { useCallback } = require("react");
+
 /** @PROPS **/
 
 // Properties passed to components
-// Props shouldn't change during the component's lifecycle
+// Props should be immutable and shouldn't change during the component's lifecycle
 function Foo(props) {
     const {bar} = props;
     return <h1>{bar}</h1>
@@ -169,6 +171,20 @@ const memoizedCallback = useCallback(
     },
     [dependencyA, dependencyB],
 );
+
+// Memoized callback used with Side Effect
+const handleFetchData = useCallback(() => {
+    fetch('/api').then(response => response.json()).then(result => { doSomethingWithData(result); });
+}, [dependencyVariable]); // Create a memoized function `handleFetchData` every time dependencyVariable changes, which triggers the effect below
+useEffect(() => {
+    handleFetchData(); // Invoke the thing
+}, [handleFetchData]);
+
+/** @useMemo
+ * Userful for expensive calculations
+ * @param {*} key 
+ * @param {*} initialState 
+ */
 
 /** Custom Hooks **/
 
