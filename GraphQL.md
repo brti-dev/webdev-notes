@@ -49,6 +49,27 @@ mutation {}
 subscription {}
 ```
 
+## Variables
+
+Method to factor dynamic values out of the query, and pass them as a separate dictionary
+
+````graphql
+# @method HeroNameAndFriends
+# @variableName $episode
+# @variableType Episode
+# @defaultValue JEDI
+query HeroNameAndFriends($episode: Episode = JEDI) {
+  hero(episode: $episode) {
+    name
+    friends {
+      name
+    }
+  }
+}
+
+# passed variables
+{ episode: "EMPIRE" }
+
 # Resolver Functions
 
 Populate the data for a single field in the schema
