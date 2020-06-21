@@ -181,10 +181,21 @@ useEffect(() => {
 }, [handleFetchData]);
 
 /** @useMemo
- * Userful for expensive calculations
- * @param {*} key 
- * @param {*} initialState 
+ * Change
+ * Useful for expensive calculations
+ * Write your code so that it still works without useMemo — and then add it to optimize performance.
+ * @param {Function} createFunction A function to create the returned memoized value
+ * @param {Array} Deps Dependency variables 
+ * @returns {*} A memoized value; Changes when any of `Deps` changes
  */
+const memoizedValue = useMemo(() => createFunction(a, b), [a, b]);
+
+/** @memo
+ * Render the component only when props change
+ */
+const MyComponent = React.memo((props) => {
+/* render using props */
+});
 
 /** Custom Hooks **/
 
