@@ -1,4 +1,11 @@
-/** ABOUT REACT **/
+
+/** @INSTALL_SETUP **/
+
+// Create React App
+// $ npx create-react-app my-app
+
+/** @ABOUT REACT **/
+
 /*
 - A library, not a framework
     - Not opinionated
@@ -14,8 +21,6 @@
 - Isomorphic
     - Same code on browser and server
 */
-
-const { useCallback } = require("react");
 
 /** @PROPS **/
 

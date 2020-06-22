@@ -2,6 +2,10 @@
 // Compile to js
 // $ tsc greeter.ts
 
+// Create React App with Typescript
+// $ create-react-app my-app --scripts-version=react-scripts-ts
+// react-scripts-ts is a set of adjustments to take the standard create-react-app project pipeline and bring TypeScript into the mix.
+
 /** TYPES **/
 
 // Types defined by Javascript

@@ -355,6 +355,18 @@ print("Year: ", today.getFullYear(), ", month: ", today.getMonth(), ", day: ", t
 // FUNCTIONS //
 ///////////////
 
+// Instance properties
+Function.displayName  // The display name of the function.
+Function.length // Specifies the number of arguments expected by the function.
+Function.name // The name of the function.
+
+// Instance methods
+Function.prototype.apply(thisArg [, argsArray]) // Calls a function and sets its this to the provided thisArg. Arguments can be passed as an Array object.
+Function.prototype.bind(thisArg[, arg1[, arg2[, ...argN]]]) // Creates a new function which, when called, has its this set to the provided thisArg. Optionally, a given sequence of arguments will be prepended to arguments provided the newly-bound function is called.
+    // Examples about bind() at the end of Functions section
+Function.prototype.call(thisArg[, arg1, arg2, ...argN]) // Calls a function and sets its this to the provided value. Arguments can be passed as they are.
+Function.prototype.toString() // Returns a string representing the source code of the function. Overrides the Object.prototype.toString method.
+
 // Function literal / function expression
 let add = function (a, b) {
     return a + b;
@@ -458,64 +470,20 @@ function a(foo) {
 }
 a(1).b(2); // --> 3
 
-// Augment types
-Function.prototype.method = function (name, func) {
-    if (!this.prototype[name]) { //check for conflict
-        this.prototype[name] = func;
-        return this; //Return this instead of undefined so as to allow cascading (chaining)
+// Closure with methods
+function createCounter() {
+    let val = 0;
+    return {
+        increment() { val++ },
+        getVal() { return val }
     }
 }
-Number.method('increment', function () { // typeof Number === "function"
-    return this + 1;
-});
-(2).increment(); //3
-//???*
-Number.prototype.increment = (function (incrementBy) {
-    return function () {
-        return this + incrementBy ? incrementBy : 1;
-    }
-})();
-
-// Using the ARGUMENTS object to catch optional arguments in a function
-function addEntry(squirrel) {
-    var entry = { events: [], squirrel: squirrel };
-    for (var i = 1; i < arguments.length; i++)
-        entry.events.push[arguments[i]];
-    journal.push(entry);
-}
-addEntry(true, "work", "touched tree", "pizza", "running", "television");
+let counter = createCounter();
+counter.increment();// 1
+counter.increment();// 2
 
 //ABSTRACTION
 sum(range(1, 10));
-
-// 
-function my_func(fn) {
-    fn();
-}
-function my_func2(fn) {
-    fn("message from my_func");
-}
-function my_func3(fn, str) {
-    fn(str);
-}
-my_func(function () { alert("hi"); }); // (function(){alert("hi")}());
-my_func2(function (arg) { alert(arg); });
-my_func3(function (arg) { alert(arg) }, "fuuuu"); // (function(arg){console.log(arg)})("fuuuu")
-
-// Extend functions, including native functions
-Array.prototype.join = (function (_super) {
-    // return our new `join()` function
-    return function () {
-        console.log("Hey, you called join!");
-        return _super.apply(this, arguments);
-    };
-    // Pass control back to the original join()
-    // by using .apply on `_super`
-})(Array.prototype.join);
-// Pass the original function into our
-// immediately invoked function as `_super`
-// which remains available to our new
-// function thanks to JavaScript closures.
 
 // Recusion
 // recursing with setTimeout
@@ -558,17 +526,6 @@ var add_the_handlers = function (nodes) {
     }
 };
   // The moral of the story: avoid making functions within a loop
-
-/////////////////////////
-// Function.prototype //
-/////////////////////////
-
-// Functions are objects, and as such have methods!!
-
-/**
- * apply
- * Call the function with a given `this` value and specify arguments
- */
 
 /**
  * bind
