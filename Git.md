@@ -45,6 +45,8 @@ $ git init
       reset //re-stage everything from the last commit, leaving changes in the working tree
             <FILES>
             HEAD <FILENAME> //unstage a file
+            --soft HEAD~1 //restage everything but keep changes
+            --hard HEAD~1 //undo commit & restore everything in the working dir
       commit
           -v //output diff details in editor
           -m "<DESCRIPTION>" //commit message; add `[ci skip]` to the description to skip Travis Ci build
