@@ -220,10 +220,9 @@ Array.prototype.reduce(callback(accumulator, currentValue[, index[, array]])[, i
     let names = ['Alice', 'Bob', 'Tiff', 'Bruce', 'Alice']
     let countedNames = names.reduce(function (allNames, name) {
         if (name in allNames) {
-        allNames[name]++
-        }
-        else {
-        allNames[name] = 1
+            allNames[name]++
+        } else {
+            allNames[name] = 1
         }
         return allNames
     }, {}); // Empty Object as accumulater starter

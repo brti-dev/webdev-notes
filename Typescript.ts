@@ -28,7 +28,7 @@ type TypescriptTypes = {
 
 // Types in React
 type ReactTypes = {
-    SyntheticEvent: React.SyntheticEvent<HTMLIFrameElement> // This is usually good enough
+    SyntheticEvent: React.SyntheticEvent<HTMLInputElement> // This is usually good enough
     FormEvent: React.FormEvent<HTMLFormElement>
 }
 
