@@ -222,3 +222,71 @@ function useSemiPersistentState(key, initialState) {
 
     return [value, setvalue]
 }
+
+/*************/
+/** STYLING **/
+/*************/
+
+import styles from './App.module.css';
+// .item {
+//     border: 2px solid gray;
+//     position: relative; }
+//     .item > dl {
+//         padding: 1em; }
+//         .item > dl + button {
+//             position: absolute;
+//             top: 1em;
+//             right: 1em;
+//         }
+// .button {
+//     background-color: silver;
+//     border: 2px solid gray; }
+//     .button:hover > svg > g {
+//         fill: white;
+//         stroke: white;
+//     }
+// .buttony {
+//     font-weight: bold; 
+// }
+// .button-over {
+//     background-color: white;
+//     border-color: black;
+// }
+import cs from 'classnames'; 
+import styled from 'styled-components'; // CSS in JS
+// Import SVG as React Component
+import { ReactComponent as Check } from './check.svg';
+
+let StyledDL = styled.dl`
+    display: flex;
+  `
+let StyledDT = styled.dt`
+    flex-basis: 25%;
+    font-weight: bold;
+    text-align: right;
+    margin: 0;
+    padding: 0 1em 0 0;
+  `
+let StyledDD = styled.dd`
+    flex-basis: 25%;
+    margin: 0;
+    padding: 0;
+    background-color: ${props => props.backgroundColor};
+    color: white;
+  `
+const Element = ({ objectID, title, year_published }) => {
+    let buttonClass = cs(styles.button, styles.buttony)
+    return (
+        <div className={styles.item} style={{ display: 'flex' }}>
+            <StyledDL key={objectID} style={{ width: '80%' }}>
+                <StyledDT>Title</StyledDT>
+                <StyledDD backgroundColor="gray"><a href="/foo.html">{title}</a></StyledDD>
+                <StyledDT>Release</StyledDT>
+                <StyledDD backgroundColor="black">{year_published}</StyledDD>
+            </StyledDL>
+            <button type="button" className={buttonClass} style={{ width: '20%' }}>
+                <Check height="18px" width="18px" />
+            </button>
+        </div>
+    )
+}
