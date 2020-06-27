@@ -231,6 +231,8 @@ Array.prototype.reduceRight() // Apply a callbackFn against an accumulator and e
 Array.prototype.reverse() // Reverses the order of the elements of an array in place. (First becomes the last, last becomes first.)These methods modify the array:
 Array.prototype.shift() // Removes the first element from an array and returns that element.
 Array.prototype.slice() // Extracts a section of the calling array and returns a new array.
+    // Get the last several items in an array
+    ['a', 'b', 'c', 'd'].slice(-2) == ['c', 'd']
 Array.prototype.some() // Test values until a test returns true
     true === [1, 2, 3].some(function(value, index, whole_array) {
         return value >= 2;
