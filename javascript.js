@@ -220,10 +220,9 @@ Array.prototype.reduce(callback(accumulator, currentValue[, index[, array]])[, i
     let names = ['Alice', 'Bob', 'Tiff', 'Bruce', 'Alice']
     let countedNames = names.reduce(function (allNames, name) {
         if (name in allNames) {
-        allNames[name]++
-        }
-        else {
-        allNames[name] = 1
+            allNames[name]++
+        } else {
+            allNames[name] = 1
         }
         return allNames
     }, {}); // Empty Object as accumulater starter
@@ -232,6 +231,8 @@ Array.prototype.reduceRight() // Apply a callbackFn against an accumulator and e
 Array.prototype.reverse() // Reverses the order of the elements of an array in place. (First becomes the last, last becomes first.)These methods modify the array:
 Array.prototype.shift() // Removes the first element from an array and returns that element.
 Array.prototype.slice() // Extracts a section of the calling array and returns a new array.
+    // Get the last several items in an array
+    ['a', 'b', 'c', 'd'].slice(-2) == ['c', 'd']
 Array.prototype.some() // Test values until a test returns true
     true === [1, 2, 3].some(function(value, index, whole_array) {
         return value >= 2;
@@ -355,6 +356,18 @@ print("Year: ", today.getFullYear(), ", month: ", today.getMonth(), ", day: ", t
 // FUNCTIONS //
 ///////////////
 
+// Instance properties
+Function.displayName  // The display name of the function.
+Function.length // Specifies the number of arguments expected by the function.
+Function.name // The name of the function.
+
+// Instance methods
+Function.prototype.apply(thisArg [, argsArray]) // Calls a function and sets its this to the provided thisArg. Arguments can be passed as an Array object.
+Function.prototype.bind(thisArg[, arg1[, arg2[, ...argN]]]) // Creates a new function which, when called, has its this set to the provided thisArg. Optionally, a given sequence of arguments will be prepended to arguments provided the newly-bound function is called.
+    // Examples about bind() at the end of Functions section
+Function.prototype.call(thisArg[, arg1, arg2, ...argN]) // Calls a function and sets its this to the provided value. Arguments can be passed as they are.
+Function.prototype.toString() // Returns a string representing the source code of the function. Overrides the Object.prototype.toString method.
+
 // Function literal / function expression
 let add = function (a, b) {
     return a + b;
@@ -458,64 +471,20 @@ function a(foo) {
 }
 a(1).b(2); // --> 3
 
-// Augment types
-Function.prototype.method = function (name, func) {
-    if (!this.prototype[name]) { //check for conflict
-        this.prototype[name] = func;
-        return this; //Return this instead of undefined so as to allow cascading (chaining)
+// Closure with methods
+function createCounter() {
+    let val = 0;
+    return {
+        increment() { val++ },
+        getVal() { return val }
     }
 }
-Number.method('increment', function () { // typeof Number === "function"
-    return this + 1;
-});
-(2).increment(); //3
-//???*
-Number.prototype.increment = (function (incrementBy) {
-    return function () {
-        return this + incrementBy ? incrementBy : 1;
-    }
-})();
-
-// Using the ARGUMENTS object to catch optional arguments in a function
-function addEntry(squirrel) {
-    var entry = { events: [], squirrel: squirrel };
-    for (var i = 1; i < arguments.length; i++)
-        entry.events.push[arguments[i]];
-    journal.push(entry);
-}
-addEntry(true, "work", "touched tree", "pizza", "running", "television");
+let counter = createCounter();
+counter.increment();// 1
+counter.increment();// 2
 
 //ABSTRACTION
 sum(range(1, 10));
-
-// 
-function my_func(fn) {
-    fn();
-}
-function my_func2(fn) {
-    fn("message from my_func");
-}
-function my_func3(fn, str) {
-    fn(str);
-}
-my_func(function () { alert("hi"); }); // (function(){alert("hi")}());
-my_func2(function (arg) { alert(arg); });
-my_func3(function (arg) { alert(arg) }, "fuuuu"); // (function(arg){console.log(arg)})("fuuuu")
-
-// Extend functions, including native functions
-Array.prototype.join = (function (_super) {
-    // return our new `join()` function
-    return function () {
-        console.log("Hey, you called join!");
-        return _super.apply(this, arguments);
-    };
-    // Pass control back to the original join()
-    // by using .apply on `_super`
-})(Array.prototype.join);
-// Pass the original function into our
-// immediately invoked function as `_super`
-// which remains available to our new
-// function thanks to JavaScript closures.
 
 // Recusion
 // recursing with setTimeout
@@ -558,17 +527,6 @@ var add_the_handlers = function (nodes) {
     }
 };
   // The moral of the story: avoid making functions within a loop
-
-/////////////////////////
-// Function.prototype //
-/////////////////////////
-
-// Functions are objects, and as such have methods!!
-
-/**
- * apply
- * Call the function with a given `this` value and specify arguments
- */
 
 /**
  * bind
@@ -1236,6 +1194,21 @@ Promise.resolve(value) // Returns a new Promise object that is resolved with the
 Promise.prototype.catch() // Appends a rejection handler callback to the promise, and returns a new promise resolving to the return value of the callback if it is called, or to its original fulfillment value if the promise is instead fulfilled.
 Promise.prototype.then() // Appends fulfillment and rejection handlers to the promise, and returns a new promise resolving to the return value of the called handler, or to its original settled value if the promise was not handled(i.e.if the relevant handler onFulfilled or onRejected is not a function).
 Promise.prototype.finally() // Appends a handler to the promise, and returns a new promise that is resolved when the original promise is resolved.The handler is called when the promise is settled, whether fulfilled or rejected.
+
+//////////
+// JSON //
+//////////
+
+JSON.parse(text[, reviver]) // Parse the string text as JSON, optionally transform the produced value and its properties, and return the value. Any violations of the JSON syntax, including those pertaining to the differences between JavaScript and JSON, cause a SyntaxError to be thrown. The reviver option allows for interpreting what the replacer has used to stand in for other datatypes.
+    // Example with reviver
+    // Parse a date-like string into a Date object
+    const dateRegex = new RegExp('^\\d\\d\\d\\d-\\d\\d-\\d\\d');
+    function jsonDateReviver(key, value) {
+        if (dateRegex.test(value)) return new Date(value);
+        return value;
+    }
+    JSON.parse('{"not_date":"foobar", "is_date":"2020-02-20"}', jsonDateReviver);
+JSON.stringify(value[, replacer[, space]]) // Return a JSON string corresponding to the specified value, optionally including only certain properties or replacing property values in a user-defined manner. By default, all instances of undefined are replaced with null, and other unsupported native data types are censored. The replacer option allows for specifying other behavior.
 
 ////////////////////
 // Best Practices //

@@ -26,3 +26,20 @@ to install it in other modules. Consider the following example, in which moduleB
 
     # since moduleA is now installed, npm install will ignore it:
     $ npm install
+
+## Run Scripts
+
+1. In package.json:
+```json
+{
+  "scripts": {
+    "start": "nodemon -w server/server.js",
+    "compile": "babel src --out-dir public",
+    "watch": "babel src --out-dir public --watch --verbose",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
+```
+
+2. Command
+> $ npm run watch

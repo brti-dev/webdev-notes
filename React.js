@@ -1,4 +1,11 @@
-/** ABOUT REACT **/
+
+/** @INSTALL_SETUP **/
+
+// Create React App
+// $ npx create-react-app my-app
+
+/** @ABOUT REACT **/
+
 /*
 - A library, not a framework
     - Not opinionated
@@ -18,7 +25,7 @@
 /** @PROPS **/
 
 // Properties passed to components
-// Props shouldn't change during the component's lifecycle
+// Props should be immutable and shouldn't change during the component's lifecycle
 function Foo(props) {
     const {bar} = props;
     return <h1>{bar}</h1>
@@ -170,6 +177,31 @@ const memoizedCallback = useCallback(
     [dependencyA, dependencyB],
 );
 
+// Memoized callback used with Side Effect
+const handleFetchData = useCallback(() => {
+    fetch('/api').then(response => response.json()).then(result => { doSomethingWithData(result); });
+}, [dependencyVariable]); // Create a memoized function `handleFetchData` every time dependencyVariable changes, which triggers the effect below
+useEffect(() => {
+    handleFetchData(); // Invoke the thing
+}, [handleFetchData]);
+
+/** @useMemo
+ * Change
+ * Useful for expensive calculations
+ * Write your code so that it still works without useMemo — and then add it to optimize performance.
+ * @param {Function} createFunction A function to create the returned memoized value
+ * @param {Array} Deps Dependency variables 
+ * @returns {*} A memoized value; Changes when any of `Deps` changes
+ */
+const memoizedValue = useMemo(() => createFunction(a, b), [a, b]);
+
+/** @memo
+ * Render the component only when props change
+ */
+const MyComponent = React.memo((props) => {
+/* render using props */
+});
+
 /** Custom Hooks **/
 
 /** @useSemiPersistentState
@@ -189,4 +221,72 @@ function useSemiPersistentState(key, initialState) {
     }, [value, key]) // Only re-run the effect if `key` and/or `value` changes
 
     return [value, setvalue]
+}
+
+/*************/
+/** STYLING **/
+/*************/
+
+import styles from './App.module.css';
+// .item {
+//     border: 2px solid gray;
+//     position: relative; }
+//     .item > dl {
+//         padding: 1em; }
+//         .item > dl + button {
+//             position: absolute;
+//             top: 1em;
+//             right: 1em;
+//         }
+// .button {
+//     background-color: silver;
+//     border: 2px solid gray; }
+//     .button:hover > svg > g {
+//         fill: white;
+//         stroke: white;
+//     }
+// .buttony {
+//     font-weight: bold; 
+// }
+// .button-over {
+//     background-color: white;
+//     border-color: black;
+// }
+import cs from 'classnames'; 
+import styled from 'styled-components'; // CSS in JS
+// Import SVG as React Component
+import { ReactComponent as Check } from './check.svg';
+
+let StyledDL = styled.dl`
+    display: flex;
+  `
+let StyledDT = styled.dt`
+    flex-basis: 25%;
+    font-weight: bold;
+    text-align: right;
+    margin: 0;
+    padding: 0 1em 0 0;
+  `
+let StyledDD = styled.dd`
+    flex-basis: 25%;
+    margin: 0;
+    padding: 0;
+    background-color: ${props => props.backgroundColor};
+    color: white;
+  `
+const Element = ({ objectID, title, year_published }) => {
+    let buttonClass = cs(styles.button, styles.buttony)
+    return (
+        <div className={styles.item} style={{ display: 'flex' }}>
+            <StyledDL key={objectID} style={{ width: '80%' }}>
+                <StyledDT>Title</StyledDT>
+                <StyledDD backgroundColor="gray"><a href="/foo.html">{title}</a></StyledDD>
+                <StyledDT>Release</StyledDT>
+                <StyledDD backgroundColor="black">{year_published}</StyledDD>
+            </StyledDL>
+            <button type="button" className={buttonClass} style={{ width: '20%' }}>
+                <Check height="18px" width="18px" />
+            </button>
+        </div>
+    )
 }
