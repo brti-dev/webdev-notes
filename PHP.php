@@ -1,8 +1,12 @@
 <?php
 
+/**********/
 /* Syntax */
+/**********/
 
+#############
 # OPERATORS #
+#############
 
 # Ternary operator
 $action = (empty($_POST['action'])) ? 'default' : $_POST['action'];
@@ -21,12 +25,16 @@ echo null ?? null ?? 1 ?? 2; // outputs 1
 # format a floating point number `f` to represent a dollar value
 printf("The total is: $%.2f", 123.42 / 12); #= The total is: $10.29
 
+###########
 # STRINGS #
+###########
 
 # Binary safe string comparison
 strcmp ( string $str1 , string $str2 ) : int # Returns < 0 if str1 is less than str2; > 0 if str1 is greater than str2, and 0 if they are equal.
 
+##########
 # ARRAYS #
+##########
 
 # Destructure and assignment and [] shorthands
 $data = [[1, 'Tom'], [2, 'Fred']];
@@ -43,6 +51,10 @@ foreach ($data as ["id" => $id, "name" => $name]) {}
 array_filter ( array $array [, callable $callback [, int $flag = 0 ]] ) : array
 # Remove empty array items by omitting callback 
 array_filter(array('foo', false, -1, null, '', 0, '0')); #= array('foo', -1)
+
+#############
+# FUNCTIONS #
+#############
 
 # REFERENCES #
 
@@ -90,6 +102,28 @@ function getSortFunction($sort_key) {
   };
 }
 usort($games, getSortFunction("title"));
+
+# SPREAD TOKEN #
+
+function sum(...$numbers) {
+    $acc = 0;
+    foreach ($numbers as $n) {
+        $acc += $n;
+    }
+    return $acc;
+}
+echo sum(1, 2, 3, 4);
+
+function add($a, $b) {
+    return $a + $b;
+}
+echo add(...[1, 2]);
+
+// Type hint
+function total_intervals($unit, DateInterval ...$intervals) { /**/ }
+$a = new DateInterval('P1D');
+$b = new DateInterval('P2D');
+echo total_intervals('d', $a, $b).' days';
 
 /* DateTime */
 
@@ -289,6 +323,23 @@ public function testPush(array $stack) {
     $this->assertSame('foo', $stack[count($stack)-1]);
     $this->assertNotEmpty($stack);
     return $stack;
+}
+
+#Share Fixture
+class APITest extends TestCase
+{
+    protected static $client;
+
+    public static function setUpBeforeClass(): void
+    {
+        $client = new GuzzleHttp\Client();
+        self::$client = $client;
+    }
+
+    public function testApiClient()
+    {
+        $this->assertInstanceOf(GuzzleHttp\Client::class, self::$client);
+    }
 }
 
 ### Monolog
