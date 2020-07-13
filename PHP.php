@@ -29,12 +29,189 @@ printf("The total is: $%.2f", 123.42 / 12); #= The total is: $10.29
 # STRINGS #
 ###########
 
-# Binary safe string comparison
+addcslashes // Quote string with slashes in a C style
+addslashes // Quote string with slashes
+bin2hex // Convert binary data into hexadecimal representation
+chop // Alias of rtrim
+chr // Generate a single-byte string from a number
+chunk_split // Split a string into smaller chunks
+convert_cyr_string // Convert from one Cyrillic character set to another
+convert_uudecode // Decode a uuencoded string
+convert_uuencode // Uuencode a string
+count_chars // Return information about characters used in a string
+crc32 // Calculates the crc32 polynomial of a string
+crypt // One-way string hashing
+explode // Split a string by a string
+fprintf // Write a formatted string to a stream
+get_html_translation_table // Returns the translation table used by htmlspecialchars and htmlentities
+hebrev // Convert logical Hebrew text to visual text
+hebrevc // Convert logical Hebrew text to visual text with newline conversion
+hex2bin // Decodes a hexadecimally encoded binary string
+html_entity_decode // Convert HTML entities to their corresponding characters
+htmlentities // Convert all applicable characters to HTML entities
+htmlspecialchars_decode // Convert special HTML entities back to characters
+htmlspecialchars // Convert special characters to HTML entities
+implode // Join array elements with a string
+join // Alias of implode
+lcfirst // Make a string's first character lowercase
+levenshtein // Calculate Levenshtein distance between two strings
+localeconv // Get numeric formatting information
+ltrim // Strip whitespace (or other characters) from the beginning of a string
+md5_file // Calculates the md5 hash of a given file
+md5 // Calculate the md5 hash of a string
+metaphone // Calculate the metaphone key of a string
+money_format // Formats a number as a currency string
+nl_langinfo // Query language and locale information
+nl2br // Inserts HTML line breaks before all newlines in a string
+number_format // Format a number with grouped thousands
+ord // Convert the first byte of a string to a value between 0 and 255
+parse_str // Parses the string into variables
+printf // Output a formatted string
+quoted_printable_decode // Convert a quoted-printable string to an 8 bit string
+quoted_printable_encode // Convert a 8 bit string to a quoted-printable string
+quotemeta // Quote meta characters
+rtrim // Strip whitespace (or other characters) from the end of a string
+setlocale // Set locale information
+sha1_file // Calculate the sha1 hash of a file
+sha1 // Calculate the sha1 hash of a string
+similar_text // Calculate the similarity between two strings
+soundex // Calculate the soundex key of a string
+sprintf // Return a formatted string
+sscanf // Parses input from a string according to a format
+str_getcsv // Parse a CSV string into an array
+str_ireplace // Case-insensitive version of str_replace
+str_pad // Pad a string to a certain length with another string
+str_repeat // Repeat a string
+str_replace // Replace all occurrences of the search string with the replacement string
+str_rot13 // Perform the rot13 transform on a string
+str_shuffle // Randomly shuffles a string
+str_split // Convert a string to an array
+str_word_count // Return information about words used in a string
+strcasecmp // Binary safe case-insensitive string comparison
+strchr // Alias of strstr
 strcmp ( string $str1 , string $str2 ) : int # Returns < 0 if str1 is less than str2; > 0 if str1 is greater than str2, and 0 if they are equal.
+strcoll // Locale based string comparison
+strcspn // Find length of initial segment not matching mask
+strip_tags // Strip HTML and PHP tags from a string
+stripcslashes // Un-quote string quoted with addcslashes
+stripos // Find the position of the first occurrence of a case-insensitive substring in a string
+stripslashes // Un-quotes a quoted string
+stristr // Case-insensitive strstr
+strlen // Get string length
+strnatcasecmp // Case insensitive string comparisons using a "natural order" algorithm
+strnatcmp // String comparisons using a "natural order" algorithm
+strncasecmp // Binary safe case-insensitive string comparison of the first n characters
+strncmp // Binary safe string comparison of the first n characters
+strpbrk // Search a string for any of a set of characters
+strpos // Find the position of the first occurrence of a substring in a string
+strrchr // Find the last occurrence of a character in a string
+strrev // Reverse a string
+strripos // Find the position of the last occurrence of a case-insensitive substring in a string
+strrpos // Find the position of the last occurrence of a substring in a string
+strspn // Finds the length of the initial segment of a string consisting entirely of characters contained within a given mask
+strstr // Find the first occurrence of a string
+strtok // Tokenize string
+strtolower // Make a string lowercase
+strtoupper // Make a string uppercase
+strtr // Translate characters or replace substrings
+substr_compare // Binary safe comparison of two strings from an offset, up to length characters
+substr_count // Count the number of substring occurrences
+substr_replace // Replace text within a portion of a string
+substr // Return part of a string
+trim // Strip whitespace (or other characters) from the beginning and end of a string
+ucfirst // Make a string's first character uppercase
+ucwords // Uppercase the first character of each word in a string
+vfprintf // Write a formatted string to a stream
+vprintf // Output a formatted string
+vsprintf // Return a formatted string
+wordwrap // Wraps a string to a given number of characters
+
+# Binary safe string comparison
 
 ##########
 # ARRAYS #
 ##########
+
+array_change_key_case // Changes the case of all keys in an array
+array_chunk // Split an array into chunks
+array_column // Return the values from a single column in the input array
+array_combine // Creates an array by using one array for keys and another for its values
+array_count_values // Counts all the values of an array
+array_diff_assoc // Computes the difference of arrays with additional index check
+array_diff_key // Computes the difference of arrays using keys for comparison
+array_diff_uassoc // Computes the difference of arrays with additional index check which is performed by a user supplied callback function
+array_diff_ukey // Computes the difference of arrays using a callback function on the keys for comparison
+array_diff() // Computes the difference of arrays
+array_fill_keys // Fill an array with values, specifying keys
+array_fill // Fill an array with values
+array_filter // Filters elements of an array using a callback function
+array_flip // Exchanges all keys with their associated values in an array
+array_intersect_assoc // Computes the intersection of arrays with additional index check
+array_intersect_key // Computes the intersection of arrays using keys for comparison
+array_intersect_uassoc // Computes the intersection of arrays with additional index check, compares indexes by a callback function
+array_intersect_ukey // Computes the intersection of arrays using a callback function on the keys for comparison
+array_intersect // Computes the intersection of arrays
+array_key_exists // Checks if the given key or index exists in the array
+array_key_first // Gets the first key of an array
+array_key_last // Gets the last key of an array
+array_keys // Return all the keys or a subset of the keys of an array
+array_map // Applies the callback to the elements of the given arrays
+array_merge_recursive // Merge one or more arrays recursively
+array_merge // Merge one or more arrays
+array_multisort // Sort multiple or multi-dimensional arrays
+array_pad // Pad array to the specified length with a value
+array_pop // Pop the element off the end of array
+array_product // Calculate the product of values in an array
+array_push // Push one or more elements onto the end of array
+array_rand // Pick one or more random keys out of an array
+array_reduce // Iteratively reduce the array to a single value using a callback function
+array_replace_recursive // Replaces elements from passed arrays into the first array recursively
+array_replace // Replaces elements from passed arrays into the first array
+array_reverse // Return an array with elements in reverse order
+array_search // Searches the array for a given value and returns the first corresponding key if successful
+array_shift // Shift an element off the beginning of array
+array_slice // Extract a slice of the array
+array_splice // Remove a portion of the array and replace it with something else
+array_sum // Calculate the sum of values in an array
+array_udiff_assoc // Computes the difference of arrays with additional index check, compares data by a callback function
+array_udiff_uassoc // Computes the difference of arrays with additional index check, compares data and indexes by a callback function
+array_udiff // Computes the difference of arrays by using a callback function for data comparison
+array_uintersect_assoc // Computes the intersection of arrays with additional index check, compares data by a callback function
+array_uintersect_uassoc // Computes the intersection of arrays with additional index check, compares data and indexes by separate callback functions
+array_uintersect // Computes the intersection of arrays, compares data by a callback function
+array_unique // Removes duplicate values from an array
+array_unshift // Prepend one or more elements to the beginning of an array
+array_values // Return all the values of an array
+array_walk_recursive // Apply a user function recursively to every member of an array
+array_walk // Apply a user supplied function to every member of an array
+arsort // Sort an array in reverse order and maintain index association
+asort // Sort an array and maintain index association
+compact // Create array containing variables and their values
+count // Count all elements in an array, or something in an object
+current // Return the current element in an array
+each // Return the current key and value pair from an array and advance the array cursor
+end // Set the internal pointer of an array to its last element
+extract // Import variables into the current symbol table from an array
+in_array // Checks if a value exists in an array
+key_exists // Alias of array_key_exists
+key // Fetch a key from an array
+krsort // Sort an array by key in reverse order
+ksort // Sort an array by key
+list // Assign variables as if they were an array
+natcasesort // Sort an array using a case insensitive "natural order" algorithm
+natsort // Sort an array using a "natural order" algorithm
+next // Advance the internal pointer of an array
+pos // Alias of current
+prev // Rewind the internal array pointer
+range // Create an array containing a range of elements
+reset // Set the internal pointer of an array to its first element
+rsort // Sort an array in reverse order
+shuffle // Shuffle an array
+sizeof // Alias of count
+sort // Sort an array
+uasort // Sort an array with a user-defined comparison function and maintain index association
+uksort // Sort an array by keys using a user-defined comparison function
+usort // Sort an array by values using a user-defined comparison function
 
 # Destructure and assignment and [] shorthands
 $data = [[1, 'Tom'], [2, 'Fred']];
@@ -98,7 +275,7 @@ usort($games, function($gameA, $gameB){
 # Similarly, make a closure via anonymous function:
 function getSortFunction($sort_key) {
   return function ($a, $b) use ($sort_key) {
-    return strcmp($a, $b);
+    return strcmp($a['title'], $b['title']);
   };
 }
 usort($games, getSortFunction("title"));
@@ -124,6 +301,17 @@ function total_intervals($unit, DateInterval ...$intervals) { /**/ }
 $a = new DateInterval('P1D');
 $b = new DateInterval('P2D');
 echo total_intervals('d', $a, $b).' days';
+
+/*********/
+/* REGEX */
+/*********/
+
+// Named groups
+
+$test = '/http:\/\/(?P<domain>[a-z0-9\-_\.]+)\/(?P<path>.*)/';
+preg_match($test, 'http://foo.com/bar', $matches);
+$matches['domain'] == 'foo.com';
+$matches['path'] == 'bar';
 
 /* DateTime */
 
