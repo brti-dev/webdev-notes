@@ -32,56 +32,58 @@
 
 ## Commands
 
-$ git init
-      status
-      add <FILENAMES> //stage files
-          -A //Default behavior, like above
-          -u //stage only modified files record all modifications of tracked files in the working tree and record all removals of files that have been removed from the working tree with rm (as opposed to git rm)
-          -u //Stages only Modified Files
-          . //Stages everything, without Deleted Files
-      ls-files //list all currently tracked files
-          <filename> //check if a specific file is being tracked
-      ls-tree -r <branchname> //list all files being tracked by a specific branch
-      reset //re-stage everything from the last commit, leaving changes in the working tree
-            <FILES>
-            HEAD <FILENAME> //unstage a file
-            --soft HEAD~1 //restage everything but keep changes
-            --hard HEAD~1 //undo commit & restore everything in the working dir
-      commit
-          -v //output diff details in editor
-          -m "<DESCRIPTION>" //commit message; add `[ci skip]` to the description to skip Travis Ci build
-          -a //automatically commit all tracked files (need not be staged) //ie $ git commit -a -m "added new benchmarks"
-          --amend //take everything staged and amend it to last commit; or if nothing staged just amend the commit message
-      log
-          -p [-<NUMTOSHOW>]//diff (details)
-          --oneline
-          //also $ gitk for a gui of logs
-      remote
-          -v //verbose
-          add <SHORTNAME> <URL> //ie > git remote add origin https://github.com/try-git/try_git.git
-          set-url <REMOTENAME> <URL> //Edit remote URL
-      push -u <SHORTNAME> master //ie > git push -u origin master //-u: recall command, so next time "$ git push" should work
-      pull <SHORTNAME> master //ie > git pull origin master
-      diff HEAD
-          --staged --cached //compares your staged changes to your last commit
-      branch <BRANCHNAME> //create new branch //ie $ git branch cleanup //then: git checkout cleanup
-          -d <BRANCHNAME> //delete branch
-          -v //view the last commit on each branch
-          --merged //Branches on this list without the * in front of them are generally fine to delete; you’ve already incorporated their work into another branch
-          -m <OLDBRANCHNAME> <NEWBRANCHNAME>
+$ git config --global color.ui auto // Enables helpful colorization of command line output
+             --global user.email "[email address]" // Sets the email you want attached to your commit transactions
+             --global user.name "[name]" // Sets the name you want attached to your commit transactions
+             --global credential.helper cache // don't keep typing password; more: https://git-scm.com/book/en/v2/Git-Tools-Credential-Storage
+
+$ git init //Turn an existing directory into a git repository
+           --bare //Create a repository that will be used for collaboration
+      clone [url]
+
+$ git branch <BRANCHNAME> //create new branch //ie $ git branch cleanup //then: git checkout cleanup
+             -d <BRANCHNAME> //delete branch
+             -v //view the last commit on each branch
+             --merged //Branches on this list without the * in front of them are generally fine to delete; 
+                      //you’ve already incorporated their work into another branch
+             -m <OLDBRANCHNAME> <NEWBRANCHNAME>
       checkout //Checkout a branch or paths to the working tree
-          -b //Create & checkout = $ git branch <branchname> && git checkout <branchname>
-          -- <FILES> //throw away local changes
-      //after making changes, ie:
-      rm <filename/glob> //remove the file from BOTH the staging area and local folder
-          --cached //rm from just the staging area (don't track the file anymore)
-      mv <fromfilename> <tofilename>
-      //commit the changes, then checkout back to master branch and merge the branches
+               -b //Create & checkout = $ git branch <branchname> && git checkout <branchname>
+               -- <FILES> //throw away local changes
       merge <BRANCHNAME> //ie > git merge cleanup
       mergetool //GUI for solving merge conflicts
-      //then delete the branch: > git branch -d cleanup
-      //and push the changes to the thing > git push [Recall we used > git push -u earlier so we can shorthand it here
-      config --global credential.helper cache // don't keep typing password; more: https://git-scm.com/book/en/v2/Git-Tools-Credential-Storage
+
+$ git fetch //Downloads all history from the remote tracking branches
+      pull //= $ git fetch + $ git merge
+      push
+      merge // Combines remote tracking branch into current local branch
+
+$ git log //Lists version history for the current branch
+          --follow [file] //Lists version history for a file, including renames
+          -p [-<NUMTOSHOW>]//diff (details)
+          --oneline
+      commit //Records file snapshots permanently in version history
+             -v //output diff details in editor
+             -m "<DESCRIPTION>" //commit message; add `[ci skip]` to the description to skip Travis Ci build
+             -a //automatically commit all tracked files (need not be staged) //ie $ git commit -a -m "added new benchmarks"
+             --amend //take everything staged and amend it to last commit; or if nothing staged just amend the commit message
+             --no-edit //Don't edit commit message on amend
+      add <FILENAMES> //stage files into a snapshot in preparation for versioning
+          -u //Stages only Modified Files
+          . //Stages everything, without Deleted Files
+      show [commit]// Outputs metadata and content changes of the specified commit 
+      diff [first-branch]...[second-branch] //Shows content differences between two branches
+
+$ git reset [commit] //Undoes all commits after [commit], preserving changes locally
+            --hard [commit] //Discards all history and changes back to the specified commit
+            --hard HEAD~1 //undo commit & restore everything in the working dir
+            HEAD <FILENAME> //unstage a file
+            --soft HEAD~1 //restage everything but keep changes
+
+$ git remote
+             -v //verbose
+             add <SHORTNAME> <URL> //ie > git remote add origin https://github.com/try-git/try_git.git
+             set-url <REMOTENAME> <URL> //Edit remote URL
 
 ## .gitignore
 
@@ -144,7 +146,7 @@ Merge
 
 ## Tricks
 
-### Delete a file from local repository but no remote
+### Delete a file from local repository but not remote
 1. Add all the files, individually or in a folder, that you want to remove from the repo but keep locally to .gitignore.
 2. Execute git rm --cached put/here/your/file.ext for each file or git rm --cached folder/\* if they are in a folder. (It is /\* because you need to escape the *)
 3. Commit your changes.
