@@ -344,6 +344,9 @@ let foobar = ['foo', 'bar']
 let myset = new Set(foobar)
 [...myset] ==  foobar
 
+// Str --> Set
+new Set('foo') == ['f','o']
+
 //////////////
 // DATETIME //
 //////////////

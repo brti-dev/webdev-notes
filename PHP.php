@@ -144,7 +144,9 @@ array_diff_ukey // Computes the difference of arrays using a callback function o
 array_diff() // Computes the difference of arrays
 array_fill_keys // Fill an array with values, specifying keys
 array_fill // Fill an array with values
-array_filter // Filters elements of an array using a callback function
+array_filter ( array $array [, callable $callback [, int $flag = 0 ]] ) : array // Filters elements of an array using a callback function
+  # Remove empty array items by omitting callback 
+  array_filter(array('foo', false, -1, null, '', 0, '0')); #= array('foo', -1)
 array_flip // Exchanges all keys with their associated values in an array
 array_intersect_assoc // Computes the intersection of arrays with additional index check
 array_intersect_key // Computes the intersection of arrays using keys for comparison
@@ -223,11 +225,6 @@ foreach ($data as [$id, $name]) {}
 $data = [["id" => 1, "name" => 'Tom'],["id" => 2, "name" => 'Fred']];
 ["id" => $id1, "name" => $name1] = $data[0];
 foreach ($data as ["id" => $id, "name" => $name]) {}
-
-# filter an array with a callback; Elements not TRUE are removed
-array_filter ( array $array [, callable $callback [, int $flag = 0 ]] ) : array
-# Remove empty array items by omitting callback 
-array_filter(array('foo', false, -1, null, '', 0, '0')); #= array('foo', -1)
 
 #############
 # FUNCTIONS #
