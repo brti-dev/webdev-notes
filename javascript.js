@@ -230,7 +230,7 @@ Array.prototype.reduce(callback(accumulator, currentValue[, index[, array]])[, i
 Array.prototype.reduceRight() // Apply a callbackFn against an accumulator and each value of the array (from right-to-left) as to reduce it to a single value.
 Array.prototype.reverse() // Reverses the order of the elements of an array in place. (First becomes the last, last becomes first.)These methods modify the array:
 Array.prototype.shift() // Removes the first element from an array and returns that element.
-Array.prototype.slice() // Extracts a section of the calling array and returns a new array.
+Array.prototype.slice([start[, end]]) // Extracts a section of the calling array and returns a new array.
     // Get the last several items in an array
     ['a', 'b', 'c', 'd'].slice(-2) == ['c', 'd']
 Array.prototype.some() // Test values until a test returns true
@@ -253,7 +253,7 @@ Array.prototype.sort([compareFunction]) // Sorts the elements of an array in pla
     ["réservé", "premier", "cliché", "communiqué", "café", "adieu"].sort(function (a, b) {
         return a.localeCompare(b);
     });
-Array.prototype.splice() // Adds and/or removes elements from an array.
+Array.prototype.splice(start[, deleteCount[, item1[, item2[, ...]]]]) // Adds and/or removes elements from an array.
 Array.prototype.toLocaleString() // Returns a localized string representing the array and its elements. Overrides the Object.prototype.toLocaleString() method.
 Array.prototype.toString() // Returns a string representing the array and its elements. Overrides the Object.prototype.toString() method.
 Array.prototype.unshift() // Adds one or more elements to the front of an array, and returns the new length of the array.
@@ -391,9 +391,7 @@ var topEnv = Object.create(null);
 });
 
 // Array as argument
-let myFunction = function ([foo, bar]) {
-    // ...
-}
+let myFunction = function ([foo, bar]) {}
 myFunction(['foo', 'bar']);
 
 // Use the spread operator (...) to pack undefined arguments into an array
@@ -1306,62 +1304,56 @@ var getResult = function(){
 // Comparing is in general best done by looking for truthyness or falsyness
 // When only evaluating that an array has length,
 // instead of this:
-if ( array.length > 0 ) ...
+if ( array.length > 0 ) {}
 
 // ...evaluate truthiness, like this:
-if ( array.length ) ...
+if ( array.length ) {}
 
-// 4.1.2
 // When only evaluating that an array is empty,
 // instead of this:
-if ( array.length === 0 ) ...
+if ( array.length === 0 ) {}
 
 // ...evaluate truthiness, like this:
-if ( !array.length ) ...
+if ( !array.length ) {}
 
-// 4.1.3
 // When only evaluating that a string is not empty,
 // instead of this:
-if ( string !== "" ) ...
+if ( string !== "" ) {}
 
 // ...evaluate truthiness, like this:
-if ( string ) ...
+if ( string ) {}
 
-// 4.1.4
 // When only evaluating that a string _is_ empty,
 // instead of this:
-if ( string === "" ) ...
+if ( string === "" ) {}
 
 // ...evaluate falsy-ness, like this:
-if ( !string ) ...
+if ( !string ) {}
 
-// 4.1.5
 // When only evaluating that a reference is true,
 // instead of this:
-if ( foo === true ) ...
+if ( foo === true ) {}
 
 // ...evaluate like you mean it, take advantage of built in capabilities:
-if ( foo ) ...
+if ( foo ) {}
 
-// 4.1.6
 // When evaluating that a reference is false,
 // instead of this:
-if ( foo === false ) ...
+if ( foo === false ) {}
 
 // ...use negation to coerce a true evaluation
-if ( !foo ) ...
+if ( !foo ) {}
 
 // ...Be careful, this will also match: 0, "", null, undefined, NaN
 // If you _MUST_ test for a boolean false, then use
-if ( foo === false ) ...
+if ( foo === false ) {}
 
-// 4.1.7
 // When only evaluating a ref that might be null or undefined, but NOT false, "" or 0,
 // instead of this:
-if ( foo === null || foo === undefined ) ...
+if ( foo === null || foo === undefined ) {}
 
 // ...take advantage of == type coercion, like this:
-if ( foo == null ) ...
+if ( foo == null ) {}
 
 // Remember, using == will match a `null` to BOTH `null` and `undefined`
 // but not `false`, "" or 0
