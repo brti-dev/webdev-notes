@@ -204,7 +204,7 @@ Array.prototype.findIndex() // Returns the found index in the array, if an eleme
 Array.prototype.forEach() // Calls a callbackFn for each element in the array.
 Array.prototype.includes() // Determines whether the array contains valueToFind, returning true or false as appropriate.
     ['foo', 'bar'].includes('foo') === true
-Array.prototype.indexOf() // Returns the first (least) index of an element within the array equal to searchElement, or -1 if none is found.
+Array.prototype.indexOf(searchElement[, fromIndex]) // Returns the first (least) index of an element within the array equal to searchElement, or -1 if none is found.
 Array.prototype.join() // Joins all elements of an array into a string.
 Array.prototype.keys() // Returns a new Array Iterator that contains the keys for each index in the array.
 Array.prototype.lastIndexOf() // Returns the last (greatest) index of an element within the array equal to searchElement, or -1 if none is found.
@@ -254,6 +254,8 @@ Array.prototype.sort([compareFunction]) // Sorts the elements of an array in pla
         return a.localeCompare(b);
     });
 Array.prototype.splice(start[, deleteCount[, item1[, item2[, ...]]]]) // Adds and/or removes elements from an array.
+    // Remove an item while preserving keys:
+    remove array[index]
 Array.prototype.toLocaleString() // Returns a localized string representing the array and its elements. Overrides the Object.prototype.toLocaleString() method.
 Array.prototype.toString() // Returns a string representing the array and its elements. Overrides the Object.prototype.toString() method.
 Array.prototype.unshift() // Adds one or more elements to the front of an array, and returns the new length of the array.
@@ -1074,6 +1076,16 @@ class Foo {}
 // Regex //
 ///////////
 
+RegExp.prototype.compile() // (Re-)compiles a regular expression during execution of a script.
+RegExp.prototype.exec() // Executes a search for a match in its string parameter.
+RegExp.prototype.test() // Tests for a match in its string parameter.
+RegExp.prototype.toString() // Returns a string representing the specified object. Overrides the Object.prototype.toString() method.
+RegExp.prototype[@@match]() // Performs match to given string and returns match result.
+RegExp.prototype[@@matchAll]() // Returns all matches of the regular expression against a string.
+RegExp.prototype[@@replace]() // Replaces matches in given string with new substring.
+RegExp.prototype[@@search]() // Searches the match in given string and returns the index the pattern found in the string.
+RegExp.prototype[@@split]() // Splits given string into an array by separating the string into substring.
+
 //1. Regular expression literals provide compilation of the regular expression
 //when the script is loaded. When the regular expression will remain constant,
 //use this for better performance.
@@ -1088,6 +1100,17 @@ var re = new RegExp("ab+c");
 //String.prototype.match() method retrieves the matches when matching a string against a regular expression.
 //Returns an Array containing the matched results or null if there were no matches.
 str.match(regexp);
+
+// Lookaheads
+function validate(password) {
+    return /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])[A-Za-z0-9]{6,}$/.test(password);
+}
+// ^               # start of input 
+// (?=.*?[A-Z])    # Lookahead to make sure there is at least one upper case letter
+// (?=.*?[a-z])    # Lookahead to make sure there is at least one lower case letter
+// (?=.*?[0-9])    # Lookahead to make sure there is at least one number
+// [A-Za-z0-9]{6,} # Make sure there are at least 6 characters of [A-Za-z0-9]
+// $               # end of input
 
 // Using functions to replace
 var stock = "1 lemon, 2 cabbages, and 101 eggs";
@@ -1125,6 +1148,8 @@ while (match = number.exec(input))
 // → Found 3 at 14
 //   Found 42 at 33
 //   Found 88 at 40
+
+/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])[A-Za-z0-9]{6,}$/.test(password);
 
 // Regular Expression syntax //
 /**
@@ -1195,6 +1220,26 @@ Promise.resolve(value) // Returns a new Promise object that is resolved with the
 Promise.prototype.catch() // Appends a rejection handler callback to the promise, and returns a new promise resolving to the return value of the callback if it is called, or to its original fulfillment value if the promise is instead fulfilled.
 Promise.prototype.then() // Appends fulfillment and rejection handlers to the promise, and returns a new promise resolving to the return value of the called handler, or to its original settled value if the promise was not handled(i.e.if the relevant handler onFulfilled or onRejected is not a function).
 Promise.prototype.finally() // Appends a handler to the promise, and returns a new promise that is resolved when the original promise is resolved.The handler is called when the promise is settled, whether fulfilled or rejected.
+
+// With async/await
+async function f() {
+  return Promise.resolve(1);
+}
+f().then(alert); // 1
+// Equivalent to the above, since it wraps return val in a promise
+async function f2() {
+  return 1;
+}
+
+// Await only used inside async functions
+async function f() {
+  let promise = new Promise((resolve, reject) => {
+    setTimeout(() => resolve("done!"), 1000)
+  });
+  let result = await promise; // Pause here until the promise resolves (*)
+  alert(result);
+}
+f();
 
 //////////
 // JSON //

@@ -1,4 +1,3 @@
-
 # GraphQL Schema
 
 Types are defined by Schema Definition Language (SDL)
@@ -69,6 +68,7 @@ query HeroNameAndFriends($episode: Episode = JEDI) {
 
 # passed variables
 { episode: "EMPIRE" }
+````
 
 # Resolver Functions
 
