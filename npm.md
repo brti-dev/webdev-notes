@@ -5,9 +5,11 @@
 $ npm init      //Guided
       install   //Install from package.json
       install --production   //Don't install dev dependencies
-      view <packagename> [detail(ie 'version')]
-      update --save //Update packages - all package.json dependencies will be updated
-      rebuild <packagename> //This is useful when you install a new version of node, and must recompile all your C++ addons with the new binary
+      install <package>@latest //Install/update to latest
+      view <package> [detail(ie 'version')]
+      outdated  //Identify which dependencies are outdated
+      update    //Update packages safely based on package.json
+      rebuild <package> //This is useful when you install a new version of node, and must recompile all your C++ addons with the new binary
 
 Sometimes you’re developing two or more modules at once, and at least one of them depends on the other. And often times, in order to be able to publish the module to NPM, you need to ensure the modules that depend on it work OK prior to publishing.
 You can leverage npm link to generate a global reference to a module, and then run npm link <package>
