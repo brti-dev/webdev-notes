@@ -17,10 +17,31 @@ No required schema
 - Requires schema checking in code
 - Support for chemas as of 3.6
 
+# Start Service
+
+1. Run MongoDB as a service
+    $ brew services start mongodb-community@4.4
+2. Verify MongoDB is running by searching for it in running processes
+    $ ps aux | grep -v grep | grep mongod
+3. Start shell
+    $ mongo            
+
 # Scripts
 
 > $ mongo issuetracker scripts/init.mongo.js
 > $ mongo mongodb+srv://root:root91@cluster0.dsrzl.mongodb.net/issuetracker scripts/init.mongo.js
+
+# Databases
+
+Show current DB:
+    $ db
+Show dbs available to user:
+    $ show dbs
+Switch db:
+    $ use <db>
+List collections:
+    $ db.getCollectionInfos()
+    $ db.getCollectionNames()
 
 # CRUD Operations
 
@@ -53,6 +74,13 @@ db.collection.updateMany(filter, update, options)
         { violations: { $gt: 4 } },
         { $set: { "Review" : true } }
     );`
+db.collection.findOneAndUpdate(filter, update, options)
+    Find the first document based on a filter, then increment the `current` value by 1, then return the updated doc:
+    `db.counters.findOneAndUpdate(
+        { "name" : "foo" },
+        { $inc: { current: 1 } },
+        { returnNewDocument: true }
+    )`
 db.collection.replaceOne(filter, replacement, options)
     `$ db.employees.replaceOne({ id: 4 }, {
         id: 4,
