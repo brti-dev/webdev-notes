@@ -88,6 +88,9 @@ String.prototype.trimEnd() // Trims whitespace from the end of the string.
 String.prototype.valueOf() // Returns the primitive value of the specified object. Overrides the Object.prototype.valueOf() method.
 //String.prototype.@@iterator() // Returns a new Iterator object that iterates over the code points of a String value, returning each code point as a String value.
 
+// Type coercion
+String(not_a_string)
+
 // Primative string (literals) vs. String object
 let s_prim = 'foo'
 let s_obj = new String(s_prim)
@@ -135,12 +138,28 @@ Number.prototype.toPrecision(precision) // Returns a string representing the num
 Number.prototype.toString([radix]) // Returns a string representing the specified object in the specified radix("base").Overrides the Object.prototype.toString() method.
 Number.prototype.valueOf() // Returns the primitive value of the specified object.Overrides the Object.prototype.valueOf() method.
 
-// Convert string to number
-+"08";
-Number("3");
+// Coerce string to number
++"08"; //not preferred!
+Number("3"); //preferred
 parseInt("3"); //slower than the above two, but necessary when the string is something like "08 foo"
 parseFloat("3.14"); //3.14
 2.34.toFixed(1); //"2.3" <- String representation of the number
+
+//////////////
+// BOOLEANS //
+//////////////
+
+// Use double-bang to check truthiness and return boolean
+const userA = getUser('existingUser'); // { name: Patrick, status: 'cool' }
+const userB = getUser('nonExistingUser'); // null
+const userAExists = !!userA; // true
+const userBExists = !!userB; // false
+
+// Type coercion
+const age = 0;
+const hasAge = new Boolean(age);// bad
+const hasAge = Boolean(age);// good
+const hasAge = !!age;// best -- use double-bang to determine truthiness, then return a boolean
 
 //////////
 // MATH //
