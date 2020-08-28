@@ -109,10 +109,10 @@ const [value, setvalue] = React.useState(
  * Alternative to useState. Preferable when complex state logic, or when the next state depends on the previous one
  * Pass dispatch down instead of callbacks
  * @param {Function} reducer Return a new state based on given action (state, action) => newState
- * @param {*} initialArg
+ * @param {mixed} initialArg
  * @param {?} init ???
- * @returns {Array} state Current state
- * @returns {Array} dispatch Dispatch method; Function to call to supply a new state
+ * @returns {mixed} state Current state
+ * @returns {Function} dispatch Dispatch method; Function to call to supply a new state
  */
 const [state, dispatch] = useReducer(reducer, initialArg, init);
 
@@ -139,7 +139,6 @@ function Counter() {
  * @param {Array} array Dependency variables; If one changes, the function is called on re-render; if [] called every time; if nothing given, call every time
 */
 React.useEffect(() => {
-    console.log('useEffect:searchValue')
     // update locally-stored search term whenever `value` changes
     localStorage.setItem(key, value)
 }, [value, key]) // Only re-run the effect if `key` and/or `value` changes
@@ -290,3 +289,57 @@ const Element = ({ objectID, title, year_published }) => {
         </div>
     )
 }
+
+/** @ReactRouter */
+
+// 1. Hash-based: uses URL anchor; Natural fit for SPA
+
+// 2. Browser History: Uses HTML5 API; Useful for rendering 
+// pages via server, allows crawling
+
+/** @Props */
+
+// Routes get access to props.location and props.history
+
+<Router>
+    <Route path='/foo' component={Foo} />
+</Router>
+
+function Foo(props) {
+    let { location: { search } } = props;
+
+    // Parse query string
+    const params = new URLSearchParams(search);
+    const vars = {};
+    if (params.get('status')) {
+        vars.status = params.get('status');
+    }
+
+    return (
+        <>
+            <Bar />
+            <Baz vars={vars} />
+        </>
+    );
+}
+function BarWithoutRouter(props) {
+    // No access to router props... yet.
+}
+let Bar = withRouter(BarWithoutRouter);
+
+/** @history library */
+
+// Properties & Methods
+history.length //(number) The number of entries in the history stack
+history.action //(string) The current action (PUSH, REPLACE, or POP)
+history.location //(object) The current location. May have the following properties:
+history.pathname //(string) The path of the URL
+history.search //(string) The URL query string
+history.hash //(string) The URL hash fragment
+history.state //(object) location-specific state that was provided to e.g. push(path, state) when this location was pushed onto the stack. Only available in browser and memory history.
+history.push(path, [state]) //(function) Pushes a new entry onto the history stack
+history.replace(path, [state]) //(function) Replaces the current entry on the history stack. Useful when two routes are not really different; Like a redirect
+history.go(n) //(function) Moves the pointer in the history stack by n entries
+history.goBack() //(function) Equivalent to go(-1)
+history.goForward() //(function) Equivalent to go(1)
+history.block(prompt) //(function) Prevents navigation (see the history docs)
