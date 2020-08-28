@@ -110,6 +110,15 @@ console.log(`Hello Mr. ${lastName}!
 Welcome!
 May I call you ${firstName}?`);
 
+// Template tags
+let kind = 'game', link = '/', name = 'D&D';
+function parseTemplate(strings, ...values) {
+    console.log(strings, values);
+}
+parseTemplate`<div class="${kind}"><a href="${link}">${name}</a></div>`;
+// logs: 
+[ '<div class="', '"><a href="', '">', '</a></div>' ] [ 'game', '/', 'D&D' ]
+
 ////////////
 // NUMBER //
 ////////////
@@ -421,6 +430,20 @@ const func = function (param1, param2, ...restOfArguments) {
 }
 func(1, 2, 3, 4, 5, 6, 7); // logs 1 2 [3, 4, 5, 6, 7]
 
+// Named parameters
+function selectEntries({ start=0, end=-1, step=1 } = {}) {
+    // = {} enables you to call selectEntries() without paramters.
+
+    // The object pattern is an abbreviation of:
+    // { start: start=0, end: end=-1, step: step=1 }
+
+    // Use the variables `start`, `end` and `step` here
+}
+selectEntries({ start: 10, end: 30, step: 2 });
+selectEntries({ step: 3 });
+selectEntries({});
+selectEntries();
+
 // The 'this' parameter is determined by the invocation parameter
 // 
 // 1. Method invocation
@@ -635,7 +658,7 @@ var boundGetX = getX.bind(module);
 boundGetX(); // 81
 
 /////////////
-// Objects //
+// OBJECTS //
 /////////////
 
 // Static methods
@@ -646,6 +669,12 @@ Object.assign() // Copies the values of all enumerable own properties from one o
     var foobar = Object.assign(foo, bar);
     // Use the spread operator to merge two objects
     var foobar_spread = {...foo, ...bar}
+    // Avoid mutating objects whn merging
+    let a = {foos:1}
+    let b = {bars:2}
+    let mutated_a = Object.assign(a, b) //a == {foos:1,bars:2}
+    let ab = Object.assign({}, a, b)
+    ab_spread = {...a, ...b} //equivalent to above assignment
 Object.create() // Creates a new object with the specified prototype object and properties.
 Object.defineProperty() // Adds the named property described by a given descriptor to an object.
 Object.defineProperties() // Adds the named properties described by the given descriptors to an object.
@@ -700,10 +729,12 @@ var object2 = object1;
 var object3 = { value: 10 };
 console.log(object1 == object2); //= true
 console.log(object1 == object3); //= false
-//
 object1.value = 15;
 console.log(object2.value); //= 15
 console.log(object3.value); //= 10
+
+// Conditionally access props (ES2020)
+person.name?.first
 
 // iterating over an object using for-in
 // this works on objects and NOT arrays because for-in iterates over INDEXES not
