@@ -6,6 +6,7 @@
 // url URL resolution and parsing
   parse(urlStr); format(urlObj); resolve(from, to);
 // path handling and transforming file paths.
+  path.resolve(__dirname, 'public')
 // util various utilities including format (format input like console.log), inspect (Return a string representation of object, which is useful for debugging.)
 // assert unit testing
   assert(value, message) //same as assert.ok()
