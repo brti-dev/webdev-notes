@@ -154,6 +154,17 @@ parseInt("3"); //slower than the above two, but necessary when the string is som
 parseFloat("3.14"); //3.14
 2.34.toFixed(1); //"2.3" <- String representation of the number
 
+// Intl.NumberFormat //
+Intl.NumberFormat.prototype.format() // Getter function that formats a number according to the locale and formatting options of this NumberFormat object.
+Intl.NumberFormat.prototype.formatToParts() // Returns an Array of objects representing the number string in parts that can be used for custom locale-aware formatting.
+Intl.NumberFormat.prototype.resolvedOptions() // Returns a new object with properties reflecting the locale and collation options computed during initialization of the object.
+
+const currencyFormatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+});
+currencyFormatter.format(299000) === '$299,000.00'
+
 //////////////
 // BOOLEANS //
 //////////////
@@ -735,6 +746,13 @@ console.log(object3.value); //= 10
 
 // Conditionally access props (ES2020)
 person.name?.first
+
+// Variable as key
+let keyname = 'foo';
+let obj = {
+    [keyname]: 'bar',
+}
+obj.foo === 'bar'
 
 // iterating over an object using for-in
 // this works on objects and NOT arrays because for-in iterates over INDEXES not

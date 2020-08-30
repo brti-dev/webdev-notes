@@ -93,7 +93,7 @@ function Counter({initialCount}) {
             Count: {count}
             <button onClick={() => setCount(initialCount)}>Reset</button>
             <button onClick={() => setCount(prevCount => prevCount - 1)}>-</button>
-            <button onClick={() => setCount(prevCount => prevCount + 1)}>-</button>
+            <button onClick={() => setCount(prevCount => prevCount + 1)}>+</button>
         </>
     );
 }
@@ -133,7 +133,7 @@ function Counter() {
 }
 
 /** @useEffect
- * Allows opt-in to component lifecycle
+ * Allows opt-in to component lifecycle: Inform React this component needs to do something after render.
  * Used for Data fetching, setting up a subscription, and manually changing the DOM, etc.
  * @param {Function} function Where the side-effect occurs; Called initially and (if dependency variable exists) if dependency variables change
  * @param {Array} array Dependency variables; If one changes, the function is called on re-render; if [] called every time; if nothing given, call every time
@@ -290,12 +290,34 @@ const Element = ({ objectID, title, year_published }) => {
     )
 }
 
+/*****************/
 /** @ReactRouter */
+/*****************/
 
-// 1. Hash-based: uses URL anchor; Natural fit for SPA
+// 1. Hash-based
+//     - Uses URL anchor
+//     - Server renders index.html only; Crawlers assume all links are anchors
+//     - Natural fit for SPA
 
-// 2. Browser History: Uses HTML5 API; Useful for rendering 
-// pages via server, allows crawling
+import { HashRouter as Router } from 'react-router-dom';
+
+// 2. Browser History
+//     - Uses HTML5 API
+//     - Useful for rendering pages via server
+//     - Allows crawling
+
+import { BrowserRouter as Router } from 'react-router-dom';
+
+
+/** @Route component */
+
+//Specifies a path and renders a component only if the current location matches.
+
+<Router>
+    <Route path='/foo'>
+        <Foo />
+    </Route>
+</Router>
 
 /** @Props */
 
