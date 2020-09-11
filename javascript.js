@@ -150,7 +150,7 @@ Number.prototype.valueOf() // Returns the primitive value of the specified objec
 // Coerce string to number
 +"08"; //not preferred!
 Number("3"); //preferred
-parseInt("3"); //slower than the above two, but necessary when the string is something like "08 foo"
+parseInt("03 foo", 10); //slower than the above two, but necessary when the string is something like "08 foo"
 parseFloat("3.14"); //3.14
 2.34.toFixed(1); //"2.3" <- String representation of the number
 
