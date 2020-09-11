@@ -675,12 +675,13 @@ boundGetX(); // 81
 // Static methods
 Object.assign() // Copies the values of all enumerable own properties from one or more source objects to a target object.
     // Commonly used to merge two objects
-    var foo = {'foo':'foo'};
-    var bar = {'bar':'bar'};
-    var foobar = Object.assign(foo, bar);
+    let foo = {'foo':'foo'};
+    let bar = {'bar':'bar'};
+    Object.assign(foo, bar);
+    foo == {'foo':'foo', 'bar':'bar'};
     // Use the spread operator to merge two objects
-    var foobar_spread = {...foo, ...bar}
-    // Avoid mutating objects whn merging
+    let foobar = {...foo, ...bar}
+    // Avoid mutating objects when merging
     let a = {foos:1}
     let b = {bars:2}
     let mutated_a = Object.assign(a, b) //a == {foos:1,bars:2}
@@ -690,6 +691,9 @@ Object.create() // Creates a new object with the specified prototype object and 
 Object.defineProperty() // Adds the named property described by a given descriptor to an object.
 Object.defineProperties() // Adds the named properties described by the given descriptors to an object.
 Object.entries() // Returns an array containing all of the [key, value] pairs of a given object's own enumerable string properties.
+    for (const [key, value] of Object.entries(object1)) {
+        console.log(`${key}: ${value}`);
+    }
 Object.freeze() // Freezes an object. Other code cannot delete or change its properties.
 Object.fromEntries() // Returns a new object from an iterable of [key, value] pairs. (This is the reverse of Object.entries).
 Object.getOwnPropertyDescriptor() // Returns a property descriptor for a named property on an object.
@@ -1141,7 +1145,7 @@ class Foo {}
 
 
 ///////////
-// Regex //
+// REGEX //
 ///////////
 
 RegExp.prototype.compile() // (Re-)compiles a regular expression during execution of a script.
