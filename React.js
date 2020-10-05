@@ -168,6 +168,7 @@ function Counter() {
  * Used for Data fetching, setting up a subscription, and manually changing the DOM, etc.
  * @param {Function} function Where the side-effect occurs; Called initially and (if dependency variable exists) if dependency variables change
  * @param {Array} array Dependency variables; If one changes, the function is called on re-render; if [] called every time; if nothing given, call every time
+ * @returns {Function} An optional function to clean up before calling the effect again on the next render
 */
 React.useEffect(() => {
     // update locally-stored search term whenever `value` changes
@@ -194,10 +195,14 @@ function TextInputWithFocusButton() {
     );
 }
 
-/** @useCallback
+/**
+ * @useCallback
+ * 
  * Useful for passing callbacks to optimized child components to prevent unneccesary renders
+ * 
  * @param {Function} callback An inline callback
  * @param {Array} dependencies
+ * 
  * @returns {Function} Memoized version of the callback, changes when one of the dependencies has changed
  */
 const memoizedCallback = useCallback(
@@ -208,6 +213,7 @@ const memoizedCallback = useCallback(
 );
 
 // Memoized callback used with Side Effect
+// Invoke a function whenever a variable changes
 const handleFetchData = useCallback(() => {
     fetch('/api').then(response => response.json()).then(result => { doSomethingWithData(result); });
 }, [dependencyVariable]); // Create a memoized function `handleFetchData` every time dependencyVariable changes, which triggers the effect below
@@ -215,12 +221,50 @@ useEffect(() => {
     handleFetchData(); // Invoke the thing
 }, [handleFetchData]);
 
-/** @useMemo
- * Change
+// Callback as reference
+// CB function has access to the referenced DOM node
+const Simple = () => {
+    const ref = useCallback(node => {
+        if (node) node.focus() // a side effect!
+    }, [])
+    return <div ref={ref}>:)</div>
+}
+// A more complex example:
+function ComponentWithRefRead() {
+    const [text, setText] = React.useState('Some text ...');
+
+    function handleOnChange(event) {
+        setText(event.target.value);
+    }
+
+    /** @var node DOM element */
+    const ref = React.useCallback((node) => {
+        if (!node) return;
+
+        const { width } = node.getBoundingClientRect();
+
+        document.title = `Width:${width}`;
+    }, [text]);
+
+    return (
+        <div>
+            <input type="text" value={text} onChange={handleOnChange} />
+            <div>
+                <span ref={ref}>{text}</span>
+            </div>
+        </div>
+    );
+}
+
+/**
+ * @useMemo
+ * 
  * Useful for expensive calculations
  * Write your code so that it still works without useMemo — and then add it to optimize performance.
+ * 
  * @param {Function} createFunction A function to create the returned memoized value
  * @param {Array} Deps Dependency variables 
+ * 
  * @returns {*} A memoized value; Changes when any of `Deps` changes
  */
 const memoizedValue = useMemo(() => createFunction(a, b), [a, b]);
@@ -232,7 +276,9 @@ const MyComponent = React.memo((props) => {
 /* render using props */
 });
 
-/** Custom Hooks **/
+/******************/
+/** CUSTOM HOOKS **/
+/******************/
 
 /** @useSemiPersistentState
  * Preserve key-value pairs in local storage
