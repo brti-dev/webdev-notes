@@ -244,7 +244,7 @@ Array.prototype.forEach() // Calls a callbackFn for each element in the array.
 Array.prototype.includes() // Determines whether the array contains valueToFind, returning true or false as appropriate.
     ['foo', 'bar'].includes('foo') === true
 Array.prototype.indexOf(searchElement[, fromIndex]) // Returns the first (least) index of an element within the array equal to searchElement, or -1 if none is found.
-Array.prototype.join() // Joins all elements of an array into a string.
+Array.prototype.join([separator]) // Joins all elements of an array into a string.
 Array.prototype.keys() // Returns a new Array Iterator that contains the keys for each index in the array.
 Array.prototype.lastIndexOf() // Returns the last (greatest) index of an element within the array equal to searchElement, or -1 if none is found.
 Array.prototype.map() // Returns a new array containing the results of calling callbackFn on every element in this array.
