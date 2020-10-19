@@ -63,9 +63,9 @@ String.prototype.match(regexp) // Used to match regular expression regexp agains
 String.prototype.matchAll(regexp) // Returns an iterator of all regexp's matches.
 String.prototype.normalize([form]) // Returns the Unicode Normalization Form of the calling string value.
 String.prototype.padEnd(targetLength [, padString]) // Pads the current string from the end with a given string and returns a new string of the length targetLength.
-    'fuu'.padEnd(5) == 'fuu  '
+    'fuu'.padEnd(5, '!') == 'fuu!!'
 String.prototype.padStart(targetLength [, padString]) // Pads the current string from the start with a given string and returns a new string of the length targetLength.
-    'fuu'.padStart(5, '!') == 'fuu!!'
+    'fuu'.padStart(5) == '  fuu'
 String.prototype.repeat(count) // Returns a string consisting of the elements of the object repeated count times.
     'nom'.repeat(3) == 'nomnomnom'
 String.prototype.replace(searchFor, replaceWith) // Used to replace occurrences of searchFor using replaceWith. searchFor may be a string or Regular Expression, and replaceWith may be a string or function.
@@ -748,8 +748,10 @@ object1.value = 15;
 console.log(object2.value); //= 15
 console.log(object3.value); //= 10
 
-// Conditionally access props (ES2020)
+// Conditionally access props
+// Optional chaining (?.) (ES2020)
 person.name?.first
+someInterface.customMethod?.();
 
 // Variable as key
 let keyname = 'foo';
@@ -1111,6 +1113,11 @@ Array.from(map.keys()) == ['key1', 'key2']
 [...papp].filter(function(key_value_pair, index, whole_array) {
     return key_value_pair[0].includes('1'); //
 });
+
+// Optional chaining (?.) (ES2020)
+let myMap = new Map();
+myMap.set("foo", { name: "baz", desc: "inga" });
+let nameBar = myMap.get("bar")?.name;
 
 //////////////
 // Classes  //
