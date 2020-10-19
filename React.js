@@ -279,9 +279,9 @@ const MyComponent = React.memo((props) => {
 /* render using props */
 });
 
-/******************/
-/** CUSTOM HOOKS **/
-/******************/
+/*******************/
+/** @CUSTOM_HOOKS **/
+/*******************/
 
 /** @useSemiPersistentState
  * Preserve key-value pairs in local storage
@@ -302,9 +302,59 @@ function useSemiPersistentState(key, initialState) {
     return [value, setvalue]
 }
 
-/*************/
-/** STYLING **/
-/*************/
+/**************/
+/** @CONTEXT **/
+/**************/
+
+// Greate a 'global' prop for a component tree instead of passing props down several levels.
+// E.g. current authenticated user, theme, or language.
+// **Use when many components in the tree need to use a prop.**
+// An alternative is component composition: Padding a whole component down instead of props.
+
+const themes = {
+    light: {
+        foreground: "#000000",
+        background: "#eeeeee"
+    },
+    dark: {
+        foreground: "#ffffff",
+        background: "#222222"
+    }
+};
+// Create a context for the current theme (with "light" as the default).
+const ThemeContext = React.createContext(themes.light);
+function App() {
+    // Use a Provider to pass the current theme to the tree below.
+    // Any component can read it, no matter how deep it is.
+    // In this example, we're passing "dark" as the current value,
+    // which overrides the default. Without <ThemeContext.Provider>, 
+    // child components would receive the default.
+    return (
+        <ThemeContext.Provider value={themes.dark}>
+            <Toolbar />
+        </ThemeContext.Provider>
+    );
+}
+// A component in the middle doesn't have to
+// pass the theme down explicitly anymore.
+function Toolbar() {
+    return (
+        <div>
+            <ThemedButton />
+        </div>
+    );
+}
+function ThemedButton() {
+    // Assign a contextType to read the current theme context.
+    // React will find the closest theme Provider above and use its value.
+    // In this example, the current theme is "dark".
+    const theme = React.useContext(ThemeContext);
+    return <button style={{ background: theme.background, color: theme.foreground }}>Button</button>
+}
+
+/**************/
+/** @STYLING **/
+/**************/
 
 import styles from './App.module.css';
 // .item {
