@@ -247,7 +247,7 @@ Array.prototype.indexOf(searchElement[, fromIndex]) // Returns the first (least)
 Array.prototype.join([separator]) // Joins all elements of an array into a string.
 Array.prototype.keys() // Returns a new Array Iterator that contains the keys for each index in the array.
 Array.prototype.lastIndexOf() // Returns the last (greatest) index of an element within the array equal to searchElement, or -1 if none is found.
-Array.prototype.map() // Returns a new array containing the results of calling callbackFn on every element in this array.
+Array.prototype.map(callback(currentValue[, index[, array]]) { /* return element for newArray */ }[, thisArg]) // Returns a new array containing the results of calling callbackFn on every element in this array.
 Array.prototype.pop() // Removes the last element from an array and returns that element.
 Array.prototype.push() // Adds one or more elements to the end of an array, and returns the new length of the array.
 Array.prototype.reduce(callback(accumulator, currentValue[, index[, array]])[, initialValue]) // Apply a callbackFn against an accumulator and each value of the array (from left-to-right) as to reduce it to a single value.
