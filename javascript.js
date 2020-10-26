@@ -19,9 +19,9 @@ var foo // variables exist and are only acessible within the block its defined (
 let bar // 
 const baz // Declare variables that do not get reassigned
 
-///////////////
-// Operators //
-///////////////
+/***************/
+/** @OPERATORS */
+/***************/
 
 // ?? Null coalescing operator
 // Selects first defined variable
@@ -29,9 +29,9 @@ let a = false
 let b = true
 let x = a ?? b
 
-/////////////
-// STRINGS //
-/////////////
+/*************/
+/** @STRINGS */
+/*************/
 
 // Instance properties
 String.prototype.length // Reflects the length of the string. Read-only.
@@ -181,9 +181,9 @@ const hasAge = new Boolean(age);// bad
 const hasAge = Boolean(age);// good
 const hasAge = !!age;// best -- use double-bang to determine truthiness, then return a boolean
 
-//////////
-// MATH //
-//////////
+/**********/
+/** @MATH */
+/**********/
 
 Math.ceil(x) // Round x up
 Math.floor(x) // Round x down
@@ -192,9 +192,9 @@ Math.min([value1[, value2[, ...]]]) // Return the lowest number
 Math.round(x) // Returns the value of the number x rounded to the nearest integer.
 Math.trunc(x) // Cut off the dot and digits to the right of the integer
 
-////////////
-// ARRAYS //
-////////////
+/************/
+/** @ARRAYS */
+/************/
 
 // Array literal
 var foo = [];
@@ -362,9 +362,9 @@ pile_values.done() === true;
 let pile_entries = pile.entries();
 pile_entries.next().value() == [0, "eggshell"];
 
-//////////
-// Sets //
-//////////
+/***********/
+/** @SETS **/
+/***********/
 
 // A set is list of unique values
 
@@ -388,17 +388,17 @@ let myset = new Set(foobar)
 // Str --> Set
 new Set('foo') == ['f','o']
 
-//////////////
-// DATETIME //
-//////////////
+/***************/
+/** @DATETIME **/
+/***************/
 
 // Date object
 var today = new Date();
 print("Year: ", today.getFullYear(), ", month: ", today.getMonth(), ", day: ", today.getDate());
 
-///////////////
-// FUNCTIONS //
-///////////////
+/***************/
+/** @FUNCTIONS */
+/***************/
 
 // Instance properties
 Function.displayName  // The display name of the function.
@@ -668,9 +668,9 @@ getX(); // 9, because in this case, "this" refers to the global object
 var boundGetX = getX.bind(module);
 boundGetX(); // 81
 
-/////////////
-// OBJECTS //
-/////////////
+/*************/
+/** @OBJECTS */
+/*************/
 
 // Static methods
 Object.assign() // Copies the values of all enumerable own properties from one or more source objects to a target object.
