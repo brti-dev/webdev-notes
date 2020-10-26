@@ -1,0 +1,129 @@
+/* Interpolation */
+
+@mixin define-emoji($name, $glyph) {
+  span.emoji-#{$name} {
+    font-family: IconFont;
+    font-variant: normal;
+    font-weight: normal;
+    content: $glyph;
+  }
+}
+@include define-emoji("women-holding-hands", "👭");
+
+/* Property Declarations */
+
+.circle {
+  $size: 100px;
+  width: $size;
+  height: $size;
+  border-radius: $size / 2;
+}
+
+$rounded-corners: false;
+.button {
+  border: 1px solid black;
+  border-radius: if($rounded-corners, 5px, null);
+}
+
+/* Nesting */
+
+.enlarge {
+  font-size: 14px;
+  transition: {
+    property: font-size;
+    duration: 4s;
+    delay: 2s;
+  }
+  &:hover { font-size: 36px; }
+}
+
+.info-page {
+  margin: auto {
+    bottom: 10px;
+    top: 2px;
+  }
+}
+
+/* Parent Selector */
+.alert {
+  // The parent selector can be used to add pseudo-classes to the outer
+  // selector.
+  &:hover {
+    font-weight: bold;
+  }
+
+  // It can also be used to style the outer selector in a certain context, such
+  // as a body set to use a right-to-left language.
+  [dir=rtl] & {
+    margin-left: 0;
+    margin-right: 10px;
+  }
+
+  // You can even use it as an argument to pseudo-class selectors.
+  :not(&) {
+    opacity: 0.8;
+  }
+
+  // Add suffixes
+
+  &__copy { // .alert__copy
+    display: none;
+    padding: 1rem 1.5rem 2rem 1.5rem;
+    color: gray;
+    line-height: 1.6;
+    font-size: 14px;
+    font-weight: 500;
+
+    &--open { // .alert__copy--open
+      display: block;
+    }
+  }
+}
+
+/* Placeholder Selector */
+
+// % is a special Sass selector
+%toolbelt {
+  box-sizing: border-box;
+  border-top: 1px rgba(#000, .12) solid;
+  padding: 16px 0;
+  width: 100%;
+  &:hover { border: 2px rgba(#000, .5) solid; }
+}
+
+.action-buttons {
+  @extend %toolbelt;
+  color: #4285f4;
+}
+
+.reset-buttons {
+  @extend %toolbelt;
+  color: #cddc39;
+}
+
+// Compiled result:
+.action-buttons, .reset-buttons {
+  box-sizing: border-box;
+  border-top: 1px rgba(0, 0, 0, 0.12) solid;
+  padding: 16px 0;
+  width: 100%;
+}
+.action-buttons:hover, .reset-buttons:hover {
+  border: 2px rgba(0, 0, 0, 0.5) solid;
+}
+.action-buttons {
+  color: #4285f4;
+}
+.reset-buttons {
+  color: #cddc39;
+}
+
+/** Color properties **/
+
+color.complement($color)
+// darken
+color.scale(#036, $lightness: -30%);
+darken($color, $amount) // not recommended
+// lighten
+color.scale(#e1d7d2, $lightness: 30%); // #eae3e0
+lighten(#e1d7d2, 30%); // not recommended
