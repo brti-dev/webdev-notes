@@ -150,7 +150,7 @@ Number.prototype.valueOf() // Returns the primitive value of the specified objec
 // Coerce string to number
 +"08"; //not preferred!
 Number("3"); //preferred
-parseInt("3"); //slower than the above two, but necessary when the string is something like "08 foo"
+parseInt("03 foo", 10); //slower than the above two, but necessary when the string is something like "08 foo"
 parseFloat("3.14"); //3.14
 2.34.toFixed(1); //"2.3" <- String representation of the number
 
@@ -240,6 +240,7 @@ Array.prototype.find() // Returns the found element in the array, if some elemen
     [1, 2, 3].find(function(i){ return i > 2; }) == 3
 Array.prototype.findIndex() // Returns the found index in the array, if an element in the array satisfies the testing callbackFn, or -1 if not found.
     [1, 2, 3].findIndex(function(i){ return i > 2; }) == 2
+    [{foo:true},{bar:true}].findIndex(i => i.bar) == 1
 Array.prototype.forEach() // Calls a callbackFn for each element in the array.
 Array.prototype.includes() // Determines whether the array contains valueToFind, returning true or false as appropriate.
     ['foo', 'bar'].includes('foo') === true
