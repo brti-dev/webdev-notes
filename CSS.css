@@ -58,12 +58,13 @@ flex-container {
 }
 flex-item {
   flex: [grow] [shrink] [basis];
+  flex: 0 0 100%; /* expand items to full width */
   
   /* Set the size based on the _main size_, the size of the flex container's main axis. */
   /* n = integer that represents a factor; default = 0 */
   flex-shrink: n;
   flex-grow: n;
-  flex-basis: nem | npx ...; /*Proportional value to set before flex properties are applied*/
+  flex-basis: nem | npx | n% ...; /* Proportional value to set before flex properties are applied */
 
   /* Set the order of the element within the container; */
   order: n;

@@ -109,10 +109,12 @@ const list = <ul>{listItems}</ul>
 /************/
 
 /** @useState
- * Preserve variables between function calls, beyond function exit
- * Necessary for variables within components that don't act like pure functions with respect for their props
- * @param {mixed} InitialState Takes initial state as argument, then returns two values:
- * @returns {Array} [current state, function to update state and enqueue a re-render of the component]
+ * Preserve variables between function calls, beyond function exit. Necessary for variables within components
+ * that don't act like pure functions with respect for their props.
+ *
+ * @param {any} InitialState Takes initial state as argument
+ *
+ * @returns {array} [currentState, setState]
 */
 const [state, setState] = useState(initialState);
 
@@ -135,6 +137,12 @@ const [value, setvalue] = React.useState(
     // local storage side effect
     localStorage.getItem(key) || initialState
 )
+
+// Access previous state upon updateing state:
+setState(prevState => {
+    // Object.assign would also work
+    return { ...prevState, ...updatedValues };
+});
 
 /** @useReducer
  * Alternative to useState. Preferable when complex state logic, or when the next state depends on the previous one
@@ -356,7 +364,7 @@ function ThemedButton() {
 /** @STYLING **/
 /**************/
 
-import styles from './App.module.css';
+import './App.module.css';
 // .item {
 //     border: 2px solid gray;
 //     position: relative; }
@@ -404,9 +412,9 @@ let StyledDD = styled.dd`
     color: white;
   `
 const Element = ({ objectID, title, year_published }) => {
-    let buttonClass = cs(styles.button, styles.buttony)
+    let buttonClass = cs(button, buttony)
     return (
-        <div className={styles.item} style={{ display: 'flex' }}>
+        <div className={item} style={{ display: 'flex' }}>
             <StyledDL key={objectID} style={{ width: '80%' }}>
                 <StyledDT>Title</StyledDT>
                 <StyledDD backgroundColor="gray"><a href="/foo.html">{title}</a></StyledDD>
