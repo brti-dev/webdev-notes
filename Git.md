@@ -51,6 +51,7 @@ $ git branch <BRANCHNAME> //create new branch //ie $ git branch cleanup //then: 
                -b //Create & checkout = $ git branch <branchname> && git checkout <branchname>
                -- <FILES> //throw away local changes
       merge <BRANCHNAME> //ie > git merge cleanup
+            --abort // If there are conflicts
       mergetool //GUI for solving merge conflicts
 
 $ git fetch //Downloads all history from the remote tracking branches
@@ -124,8 +125,9 @@ Merge changes:
   $ git merge testing
 Delete the branch since we're done with it:
   $ git branch -d testing
-If at the merge there was a conflict, resolve it by making changes to the file, or use `mergetool`:
+If at the merge there was a conflict, resolve it by making changes to the file, or use `mergetool`, or abort the merge:
   $ git mergetool
+  $ git merge --abort
 After fixing conflicts:
   $ git commit
 
