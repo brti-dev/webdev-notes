@@ -374,6 +374,10 @@ process.stdout.on('error', process.exit);
 // MISC //
 //////////
 
+// Kill node process
+// $ ps aux | grep node
+// $ kill - 9 < PID >
+
 // since require() can read and parse JSON files automatically, you can
 // leverage it to easily introspect package.json. (HOWEVER this is syncronous & blocking!)
 // considering the module lives in lib/module.js:
@@ -458,6 +462,8 @@ function zalgoContainer(cbTaker, cb) {
 }
 
 // See Nimble, Step, and Seq for modules to control flow
+
+
 
 /////////////
 // Express //

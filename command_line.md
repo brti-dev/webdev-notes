@@ -104,6 +104,8 @@ list jobs running in the background or suspended
 Kill processes
     $ ps
     $ kill <processnumber>
+    $ ps aux | grep node
+    $ kill -9 <PID>
 Kill programs running
     $ sudo killall <program>
     # sudo xkill //terminator!

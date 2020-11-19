@@ -580,7 +580,7 @@ var add_the_handlers = function (nodes) {
     };
     var i;
     for (i = 0; i < nodes.length; i += 1) {
-        modes[i].onclick = helper(i);
+        nodes[i].onclick = helper(i);
     }
 };
   // The moral of the story: avoid making functions within a loop
@@ -1072,9 +1072,9 @@ function prop(propName) {
 }
 [{ name: "larry", location: "MN" }, { name: "curly", wife: "marge" }].map(prop('name')); // ["larry", "curly"]
 
-//////////
-// Maps //
-//////////
+/***********/
+/** @MAPS **/
+/***********/
 
 // Map performs better in scenarios involving frequent additions and removals of key - value pairs.
 
@@ -1092,7 +1092,7 @@ Map.prototype.forEach(callbackFn[, thisArg]) // Calls callbackFn once for each k
 Map.prototype.get(key) // Returns the value associated to the key, or undefined if there is none.
 Map.prototype.has(key) // Returns a boolean asserting whether a value has been associated to the key in the Map object or not.
 Map.prototype.keys() // Returns a new Iterator object that contains the keys for each element in the Map object in insertion order.
-Map.prototype.set(key, value) // Sets the value for the key in the Map object.Returns the Map object.
+Map.prototype.set(key, value) // Sets the value for the key in the Map object. Returns the Map object.
 Map.prototype.values() // Returns a new Iterator object that contains the values for each element in the Map object in insertion order.
 
 // Iterate with for..of or Map.prototype.forEach
@@ -1152,9 +1152,9 @@ new Foo(); //ReferenceError
 class Foo {}
 
 
-///////////
-// REGEX //
-///////////
+/************/
+/** @REGEX **/
+/************/
 
 RegExp.prototype.compile() // (Re-)compiles a regular expression during execution of a script.
 RegExp.prototype.exec() // Executes a search for a match in its string parameter.
@@ -1285,9 +1285,9 @@ re = /^\s+|\s+$/g
 re = new RegExp('^\\s+|\\s+$','g') 
 **/
 
-//////////////
-// Promises //
-//////////////
+/***************/
+/** @Promises **/
+/***************/
 
 // Static methods
 Promise.all(iterable) // Wait for all promises to be resolved, or for any to be rejected. ... 
@@ -1335,6 +1335,31 @@ JSON.parse(text[, reviver]) // Parse the string text as JSON, optionally transfo
     }
     JSON.parse('{"not_date":"foobar", "is_date":"2020-02-20"}', jsonDateReviver);
 JSON.stringify(value[, replacer[, space]]) // Return a JSON string corresponding to the specified value, optionally including only certain properties or replacing property values in a user-defined manner. By default, all instances of undefined are replaced with null, and other unsupported native data types are censored. The replacer option allows for specifying other behavior.
+
+/****************/
+/** @WEBSTORAGE */
+/****************/
+
+/**
+sessionStorage maintains a separate storage area for each given origin that's available for the duration of the page session (as long as the browser is open, including page reloads and restores)
+Stores data only for a session, meaning that the data is stored until the browser(or tab) is closed.
+Data is never transferred to the server.
+Storage limit is larger than a cookie(at most 5MB).
+
+localStorage does the same thing, but persists even when the browser is closed and reopened.
+Stores data with no expiration date, and gets cleared only through JavaScript, or clearing the Browser cache / Locally Stored Data.
+Storage limit is the maximum amongst the three.
+**/
+
+Properties
+Storage.length // Read only. Returns an integer representing the number of data items stored in the Storage object.
+
+Methods
+Storage.key() // When passed a number n, this method will return the name of the nth key in the storage.
+Storage.getItem() // When passed a key name, will return that key's value.
+Storage.setItem() // When passed a key name and value, will add that key to the storage, or update that key's value if it already exists.
+Storage.removeItem() // When passed a key name, will remove that key from the storage.
+Storage.clear() // When invoked, will empty all keys out of the storage.
 
 ////////////////////
 // Best Practices //
