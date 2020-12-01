@@ -242,7 +242,7 @@ Array.prototype.findIndex() // Returns the found index in the array, if an eleme
     [1, 2, 3].findIndex(function(i){ return i > 2; }) == 2
     [{foo:true},{bar:true}].findIndex(i => i.bar) == 1
 Array.prototype.forEach() // Calls a callbackFn for each element in the array.
-Array.prototype.includes() // Determines whether the array contains valueToFind, returning true or false as appropriate.
+Array.prototype.includes(valueToFind) // Determines whether the array contains valueToFind, returning true or false as appropriate.
     ['foo', 'bar'].includes('foo') === true
 Array.prototype.indexOf(searchElement[, fromIndex]) // Returns the first (least) index of an element within the array equal to searchElement, or -1 if none is found.
 Array.prototype.join([separator]) // Joins all elements of an array into a string.
@@ -707,6 +707,8 @@ Object.isExtensible() // Determines if extending of an object is allowed.
 Object.isFrozen() // Determines if an object was frozen.
 Object.isSealed() // Determines if an object is sealed.
 Object.keys() // Returns an array containing the names of all of the given object's own enumerable string properties.
+    // Count object length
+    Object.keys({ foo: 1, bar: 1 }).length === 2
 Object.preventExtensions() // Prevents any extensions of an object.
 Object.seal() // Prevents other code from deleting properties of an object.
 Object.setPrototypeOf() // Sets the object's prototype (its internal [[Prototype]] property).
@@ -735,10 +737,6 @@ Object.prototype.watch() // Adds a watchpoint to a property of the object.
 // Property: association between a name (key) and a value
 // Method: A property which has a function as a value
 
-console.log(Object.getPrototypeOf({}) == Object.prototype);
-console.log(Object.getPrototypeOf([]) == Array.prototype);
-console.log(Object.getPrototypeOf(isNaN) == Function.prototype);
-
 //immutability of objects
 var object1 = { value: 10 };
 var object2 = object1;
@@ -753,6 +751,9 @@ console.log(object3.value); //= 10
 // Optional chaining (?.) (ES2020)
 person.name?.first
 someInterface.customMethod?.();
+
+// Object length
+Object.keys({ foo: 1, bar: 1 }).length === 2
 
 // Variable as key
 let keyname = 'foo';

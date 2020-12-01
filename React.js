@@ -177,7 +177,7 @@ function Counter() {
  * Used for Data fetching, setting up a subscription, and manually changing the DOM, etc.
  * 
  * @param {Function} effectFunction Where the side-effect occurs; Called initially and (if dependency variable exists) if dependency variables change
- * @param {Array} DepVars Dependency variables; If one changes, the function is called on re-render; if [] called every time; if nothing given, call every time
+ * @param {Array} DepVars Dependency variables; If one changes, the function is called on re-render; if [] run an effect and clean it up only once (on mount and unmount); if nothing given, call every time
  * 
  * @returns {Function} An optional function to clean up before calling the effect again on the next render
 */

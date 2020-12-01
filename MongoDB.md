@@ -61,6 +61,7 @@ db.collection.find(query, projection)
     `$ db.bios.find( { contribs: { $in: [ "ALGOL", "Lisp" ]} } )`
     `$ db.bios.find( { contribs: { $all: [ "ALGOL", "Lisp" ] } } )`
     `$ db.bios.find( { }, { name: 1, contribs: 1 } )` Get whole collection but only project `name` and `contribs` fields
+db.collection.estimatedDocumentCount()
 
 ## Update
 

@@ -4,16 +4,30 @@ Types are defined by Schema Definition Language (SDL)
 Schema defines types and how clients can request data
 Schema = collection of GraphQL types:
 
-```graphql
-type Person {
-    name: String!
-    age: Int!
-    posts: [Post!]
-}
+## Interface
 
-type Post {
-    author: Person!
-    title: String!
+```graphql
+scalar DateTime
+interface AgendaItem {
+  name: String!
+  start: DateTime!
+  end: DateTime!
+}
+type StudyGroup implements AgendaItem {
+  name: String!
+  start: DateTime!
+  end: DateTime!
+  participants: [User!]!
+  topic: String!
+}
+type Workout implements AgendaItem {
+  name: String!
+  start: DateTime!
+  end: DateTime!
+  reps: Int!
+}
+type Query {
+  agenda: [AgendaItem!]!
 }
 ```
 
@@ -27,13 +41,39 @@ The GraphQL type system supports the following basic data types:
 
 Three root types that serve as entry points for requests sent by client:
 
+## Query
 ```graphql
 type Query {
     allPersons(last: Int): [Person!]
 }
+```
+
+### Fragments
+
+```
+fragment liftInfo on Lift {
+  name status capacity night elevationGain
+}
+query liftToAccessTrail {
+  Trail(id: "dance-fight") {
+    groomed
+    name
+    accessedByLifts {
+      ...liftInfo
+    }
+  }
+}
+```
+
+## Mutation
+```
 type Mutation {
     createPerson(name: String!, age: Int!): Person!
 }
+```
+
+## Subscription
+```
 type Subscription {
     newPerson: Person!
 }
