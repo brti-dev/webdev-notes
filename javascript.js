@@ -389,6 +389,44 @@ let myset = new Set(foobar)
 // Str --> Set
 new Set('foo') == ['f','o']
 
+/***********/
+/** @ERROR */
+/***********/
+
+Error.prototype.message // Error message.
+Error.prototype.name // Error name.
+Error.prototype.toString() // Returns a string representing the specified object. Overrides the Object.prototype.toString() method.
+
+// Error Types
+
+Error // Generic Error constructor
+EvalError // Creates an instance representing an error that occurs regarding the global function eval().
+RangeError // Creates an instance representing an error that occurs when a numeric variable or parameter is outside of its valid range.
+ReferenceError // Creates an instance representing an error that occurs when de-referencing an invalid reference.
+SyntaxError // Creates an instance representing a syntax error.
+TypeError // Creates an instance representing an error that occurs when a variable or parameter is not of a valid type.
+URIError // Creates an instance representing an error that occurs when encodeURI() or decodeURI() are passed invalid parameters.
+AggregateError // Creates an instance representing several errors wrapped in a single error when multiple errors need to be reported by an operation, for example by Promise.any().
+
+// check
+const foo = new Error('fuu')
+foo instanceof Error === true
+
+// Throw an object
+try {
+    //some error occurs
+    throw {
+        name: "foo",
+        message: "bar",
+        remedy: errorHandler
+    }
+} catch (e) {
+    e.remedy()
+}
+function errorHandler() {
+    console.log(this); //this = thrown object data [name, message, remedy] 
+}
+
 /***************/
 /** @DATETIME **/
 /***************/
@@ -725,6 +763,8 @@ Object.prototype.__defineSetter__() // Associates a function with a property tha
 Object.prototype.__lookupGetter__() // Returns the function associated with the specified property by the __defineGetter__() method.
 Object.prototype.__lookupSetter__() // Returns the function associated with the specified property by the __defineSetter__() method.
 Object.prototype.hasOwnProperty() // Returns a boolean indicating whether an object contains the specified property as a direct property of that object and not inherited through the prototype chain.
+    // Use to check if object has key
+    ({ foo: 'foo' }).hasOwnProperty('foo') === true
 Object.prototype.isPrototypeOf() // Returns a boolean indicating whether the object this method is called upon is in the prototype chain of the specified object.
 Object.prototype.propertyIsEnumerable() // Returns a boolean indicating if the internal ECMAScript [[Enumerable]] attribute is set.
 Object.prototype.toLocaleString() // Calls toString().
@@ -1392,21 +1432,6 @@ typeof { a: 1 }         === 'object';
 typeof [1, 2, 4]        === 'object';
 typeof function () { }  === 'function';
 typeof class C { }      === 'function';
-
-//Error handling
-try {
-    //some error occurs
-    throw {
-        name: "foo",
-        message: "bar",
-        remedy: errorHandler
-    } 
-} catch (e) { 
-    e.remedy() 
-}
-function errorHandler(){
-    console.log(this); //this = throw object data [name, message, remedy] 
-}
 
 //function expression aka anonymous function
 var foo = function (a, b){};

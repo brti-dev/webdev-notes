@@ -223,6 +223,21 @@ const memoizedCallback = useCallback(
     [dependencyA, dependencyB],
 );
 
+// Prevent parent from breaking momoization of children:
+// Memoized child:
+function BigList( { searchTerm, handleItemClick }) {
+    const items = vagueFetch(searchTerm);
+    return items.map((item) => <div onClick={handleItemClick}>item.name</div>);
+}
+const MemoizedBigList = React.useMemo(BigList);
+function Parent({ searchTerm }) {
+    // By memoizing the callback, it won't change when Parent rerenders, preventing MemoizedBigList from rerendering
+    const handleItemClick = React.useCallback((event) => {
+        console.log(`You clicked ${event.currentTarget}`);
+    }, [searchTerm]);
+    return <MemoizedBigList searchTerm={searchTerm} handleItemClick={handleItemClick} />
+}
+
 // Memoized callback used with Side Effect
 // Invoke a function whenever a variable changes
 const handleFetchData = useCallback(() => {
@@ -243,20 +258,15 @@ const Simple = () => {
 // A more complex example:
 function ComponentWithRefRead() {
     const [text, setText] = React.useState('Some text ...');
-
     function handleOnChange(event) {
         setText(event.target.value);
     }
-
     /** @var node DOM element */
     const ref = React.useCallback((node) => {
         if (!node) return;
-
         const { width } = node.getBoundingClientRect();
-
         document.title = `Width:${width}`;
     }, [text]);
-
     return (
         <div>
             <input type="text" value={text} onChange={handleOnChange} />
@@ -286,6 +296,20 @@ const memoizedValue = useMemo(() => createFunction(a, b), [a, b]);
 const MyComponent = React.memo((props) => {
 /* render using props */
 });
+
+// Memoize props when they are (non-primitive) objects/arrays/functions/etc:
+function Foo({ bar, baz }) {
+    React.useEffect(() => {
+        const options = { bar, baz }
+        buzz(options)
+    }, [bar, baz])
+    return <div>foobar</div>
+}
+function Blub() {
+    const bar = React.useCallback(() => { }, []) // Memo prevents Foo side effect from rerunning
+    const baz = React.useMemo(() => [1, 2, 3], []) // Memo prevents Foo side effect from rerunning
+    return <Foo bar={bar} baz={baz} />
+}
 
 /*******************/
 /** @CUSTOM_HOOKS **/
