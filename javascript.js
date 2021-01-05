@@ -19,9 +19,9 @@ var foo // variables exist and are only acessible within the block its defined (
 let bar // 
 const baz // Declare variables that do not get reassigned
 
-/***************/
-/** @OPERATORS */
-/***************/
+/**
+ * @OPERATORS
+ */
 
 // ?? Null coalescing operator
 // Selects first defined variable
@@ -29,9 +29,9 @@ let a = false
 let b = true
 let x = a ?? b
 
-/*************/
-/** @STRINGS */
-/*************/
+/**
+ * @STRING
+ */
 
 // Instance properties
 String.prototype.length // Reflects the length of the string. Read-only.
@@ -119,9 +119,9 @@ parseTemplate`<div class="${kind}"><a href="${link}">${name}</a></div>`;
 // logs: 
 [ '<div class="', '"><a href="', '">', '</a></div>' ] [ 'game', '/', 'D&D' ]
 
-////////////
-// NUMBER //
-////////////
+/**
+ * @NUMBER
+ */
 
 // Constructor
 Number() // Creates a new Number object.
@@ -165,9 +165,9 @@ const currencyFormatter = new Intl.NumberFormat('en-US', {
 });
 currencyFormatter.format(299000) === '$299,000.00'
 
-//////////////
-// BOOLEANS //
-//////////////
+/**
+ * @BOOLEAN
+ */
 
 // Use double-bang to check truthiness and return boolean
 const userA = getUser('existingUser'); // { name: Patrick, status: 'cool' }
@@ -181,9 +181,9 @@ const hasAge = new Boolean(age);// bad
 const hasAge = Boolean(age);// good
 const hasAge = !!age;// best -- use double-bang to determine truthiness, then return a boolean
 
-/**********/
-/** @MATH */
-/**********/
+/**
+ * @MATH
+ */
 
 Math.ceil(x) // Round x up
 Math.floor(x) // Round x down
@@ -192,9 +192,9 @@ Math.min([value1[, value2[, ...]]]) // Return the lowest number
 Math.round(x) // Returns the value of the number x rounded to the nearest integer.
 Math.trunc(x) // Cut off the dot and digits to the right of the integer
 
-/************/
-/** @ARRAYS */
-/************/
+/**
+ * @ARRAY
+ */
 
 // Array literal
 var foo = [];
@@ -363,9 +363,9 @@ pile_values.done() === true;
 let pile_entries = pile.entries();
 pile_entries.next().value() == [0, "eggshell"];
 
-/***********/
-/** @SETS **/
-/***********/
+/**
+ * @SET
+ */
 
 // A set is list of unique values
 
@@ -389,9 +389,9 @@ let myset = new Set(foobar)
 // Str --> Set
 new Set('foo') == ['f','o']
 
-/***********/
-/** @ERROR */
-/***********/
+/**
+ * @ERROR
+ */
 
 Error.prototype.message // Error message.
 Error.prototype.name // Error name.
@@ -427,17 +427,17 @@ function errorHandler() {
     console.log(this); //this = thrown object data [name, message, remedy] 
 }
 
-/***************/
-/** @DATETIME **/
-/***************/
+/**
+ * @DATETIME 
+ */
 
 // Date object
 var today = new Date();
 print("Year: ", today.getFullYear(), ", month: ", today.getMonth(), ", day: ", today.getDate());
 
-/***************/
-/** @FUNCTIONS */
-/***************/
+/**
+ * @FUNCTION
+ */
 
 // Instance properties
 Function.displayName  // The display name of the function.
@@ -707,9 +707,9 @@ getX(); // 9, because in this case, "this" refers to the global object
 var boundGetX = getX.bind(module);
 boundGetX(); // 81
 
-/*************/
-/** @OBJECTS */
-/*************/
+/**
+ * @OBJECT
+ */
 
 // Static methods
 Object.assign() // Copies the values of all enumerable own properties from one or more source objects to a target object.
@@ -1113,9 +1113,9 @@ function prop(propName) {
 }
 [{ name: "larry", location: "MN" }, { name: "curly", wife: "marge" }].map(prop('name')); // ["larry", "curly"]
 
-/***********/
-/** @MAPS **/
-/***********/
+/**
+ * @MAP
+ */
 
 // Map performs better in scenarios involving frequent additions and removals of key - value pairs.
 
@@ -1161,9 +1161,9 @@ let myMap = new Map();
 myMap.set("foo", { name: "baz", desc: "inga" });
 let nameBar = myMap.get("bar")?.name;
 
-//////////////
-// Classes  //
-//////////////
+/**
+ * @Classes
+ */
 
 class Point {
     constructor(x, y) {
@@ -1193,9 +1193,9 @@ new Foo(); //ReferenceError
 class Foo {}
 
 
-/************/
-/** @REGEX **/
-/************/
+/**
+ * @REGEX 
+ */
 
 RegExp.prototype.compile() // (Re-)compiles a regular expression during execution of a script.
 RegExp.prototype.exec() // Executes a search for a match in its string parameter.
