@@ -108,7 +108,8 @@ const list = <ul>{listItems}</ul>
 /** @HOOKS **/
 /************/
 
-/** @useState
+/**
+ * @useState
  * Preserve variables between function calls, beyond function exit. Necessary for variables within components
  * that don't act like pure functions with respect for their props.
  *
@@ -144,7 +145,8 @@ setState(prevState => {
     return { ...prevState, ...updatedValues };
 });
 
-/** @useReducer
+/**
+ * @useReducer
  * Alternative to useState. Preferable when complex state logic, or when the next state depends on the previous one
  * Pass dispatch down instead of callbacks
  * @param {Function} reducer Return a new state based on given action (state, action) => newState
@@ -171,7 +173,8 @@ function Counter() {
     );
 }
 
-/** @useEffect
+/**
+ * @useEffect
  * 
  * Allows opt-in to component lifecycle: Inform React this component needs to do something after render.
  * Used for Data fetching, setting up a subscription, and manually changing the DOM, etc.
@@ -186,10 +189,14 @@ React.useEffect(() => {
     localStorage.setItem(key, value)
 }, [value, key]) // Only re-run the effect if `key` and/or `value` changes
 
-/** @useRef
+/**
+ * @useRef
+ *
  * Creates a reference to an element
  * Persists throughout the lifetime of the component
+ *
  * @param {?} initialValue
+ *
  * @returns {Object} `current` property 
  */
 function TextInputWithFocusButton() {
@@ -290,13 +297,6 @@ function ComponentWithRefRead() {
  */
 const memoizedValue = useMemo(() => createFunction(a, b), [a, b]);
 
-/** @memo
- * Render the component only when props change
- */
-const MyComponent = React.memo((props) => {
-/* render using props */
-});
-
 // Memoize props when they are (non-primitive) objects/arrays/functions/etc:
 function Foo({ bar, baz }) {
     React.useEffect(() => {
@@ -310,6 +310,14 @@ function Blub() {
     const baz = React.useMemo(() => [1, 2, 3], []) // Memo prevents Foo side effect from rerunning
     return <Foo bar={bar} baz={baz} />
 }
+
+/**
+ * @see memo
+ * Render the component only when props change
+ */
+const MyComponent = React.memo((props) => {
+    /* render using props */
+});
 
 /*******************/
 /** @CUSTOM_HOOKS **/
