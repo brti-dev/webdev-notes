@@ -155,7 +155,7 @@ parseFloat("3.14"); //3.14
 2.34.toFixed(1); //"2.3" <- String representation of the number
 
 // Intl.NumberFormat //
-Intl.NumberFormat.prototype.format() // Getter function that formats a number according to the locale and formatting options of this NumberFormat object.
+Intl.NumberFormat.prototype.format(number) // Getter function that formats a number according to the locale and formatting options of this NumberFormat object.
 Intl.NumberFormat.prototype.formatToParts() // Returns an Array of objects representing the number string in parts that can be used for custom locale-aware formatting.
 Intl.NumberFormat.prototype.resolvedOptions() // Returns a new object with properties reflecting the locale and collation options computed during initialization of the object.
 
@@ -713,7 +713,10 @@ boundGetX(); // 81
 
 // Static methods
 Object.assign() // Copies the values of all enumerable own properties from one or more source objects to a target object.
-    // Commonly used to merge two objects
+    // Clone an object
+    const obj = { a: 1 };
+    const copy = Object.assign({}, obj);
+    // Merge two objects
     let foo = {'foo':'foo'};
     let bar = {'bar':'bar'};
     Object.assign(foo, bar);
@@ -801,6 +804,10 @@ let obj = {
     [keyname]: 'bar',
 }
 obj.foo === 'bar'
+
+// Delete by key
+const foo = { foo: 'foo' }
+delete foo.foo
 
 // iterating over an object using for-in
 // this works on objects and NOT arrays because for-in iterates over INDEXES not
@@ -1362,9 +1369,9 @@ async function f() {
 }
 f();
 
-//////////
-// JSON //
-//////////
+/**********/
+/** @JSON */
+/**********/
 
 JSON.parse(text[, reviver]) // Parse the string text as JSON, optionally transform the produced value and its properties, and return the value. Any violations of the JSON syntax, including those pertaining to the differences between JavaScript and JSON, cause a SyntaxError to be thrown. The reviver option allows for interpreting what the replacer has used to stand in for other datatypes.
     // Example with reviver
@@ -1377,10 +1384,11 @@ JSON.parse(text[, reviver]) // Parse the string text as JSON, optionally transfo
     JSON.parse('{"not_date":"foobar", "is_date":"2020-02-20"}', jsonDateReviver);
 JSON.stringify(value[, replacer[, space]]) // Return a JSON string corresponding to the specified value, optionally including only certain properties or replacing property values in a user-defined manner. By default, all instances of undefined are replaced with null, and other unsupported native data types are censored. The replacer option allows for specifying other behavior.
 
-/****************/
-/** @WEBSTORAGE */
-/****************/
+/*************/
+/** @WEBAPIs */
+/*************/
 
+/** @Storage **/
 /**
 sessionStorage maintains a separate storage area for each given origin that's available for the duration of the page session (as long as the browser is open, including page reloads and restores)
 Stores data only for a session, meaning that the data is stored until the browser(or tab) is closed.
@@ -1401,6 +1409,48 @@ Storage.getItem() // When passed a key name, will return that key's value.
 Storage.setItem() // When passed a key name and value, will add that key to the storage, or update that key's value if it already exists.
 Storage.removeItem() // When passed a key name, will remove that key from the storage.
 Storage.clear() // When invoked, will empty all keys out of the storage.
+
+/** @URL */
+
+// Constructor
+new URL() // Creates and returns a URL object referencing the URL specified using an absolute URL string, or a relative URL string and a base URL string.
+
+// Properties
+URL.hash() // A USVString containing a '#' followed by the fragment identifier of the URL.
+URL.host() // A USVString containing the domain (that is the hostname) followed by (if a port was specified) a ':' and the port of the URL.
+URL.hostname() // A USVString containing the domain of the URL.
+URL.href() // A stringifier that returns a USVString containing the whole URL.
+URL.origin() // Read only; Returns a USVString containing the origin of the URL, that is its scheme, its domain and its port.
+URL.password() // A USVString containing the password specified before the domain name.
+URL.pathname() // Is a USVString containing an initial '/' followed by the path of the URL, not including the query string or fragment.
+URL.port() // A USVString containing the port number of the URL.
+URL.protocol() // A USVString containing the protocol scheme of the URL, including the final ':'.
+URL.search() // A USVString indicating the URL's parameter string; if any parameters are provided, this string includes all of them, beginning with the leading ? character.
+URL.searchParams() // Read only; A URLSearchParams object which can be used to access the individual query parameters found in search.
+URL.username() // A USVString containing the username specified before the domain name.
+
+// Methods
+toString() // Returns a USVString containing the whole URL. It is a synonym for URL.href, though it can't be used to modify the value.
+toJSON() // Returns a USVString containing the whole URL. It returns the same string as the href property.
+
+/** @URLSearchParams */
+
+// Constructor
+new URLSearchParams() // Returns a URLSearchParams object instance.
+
+// Methods
+URLSearchParams.append() // Appends a specified key/value pair as a new search parameter.
+URLSearchParams.delete() // Deletes the given search parameter, and its associated value, from the list of all search parameters.
+URLSearchParams.entries() // Returns an iterator allowing iteration through all key/value pairs contained in this object.
+URLSearchParams.forEach() // Allows iteration through all values contained in this object via a callback function.
+URLSearchParams.get() // Returns the first value associated with the given search parameter.
+URLSearchParams.getAll() // Returns all the values associated with a given search parameter.
+URLSearchParams.has() // Returns a Boolean indicating if such a given parameter exists.
+URLSearchParams.keys() // Returns an iterator allowing iteration through all keys of the key/value pairs contained in this object.
+URLSearchParams.set() // Sets the value associated with a given search parameter to the given value. If there are several values, the others are deleted.
+URLSearchParams.sort() // Sorts all key/value pairs, if any, by their keys.
+URLSearchParams.toString() // Returns a string containing a query string suitable for use in a URL.
+URLSearchParams.values() // Returns an iterator allowing iteration through all values of the key/value pairs contained in this object.
 
 ////////////////////
 // Best Practices //
