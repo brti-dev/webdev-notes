@@ -235,6 +235,8 @@ Array.prototype.fill() // Fills all the elements of an array from a start index 
     console.log([5,5,5,5].fill('foo',2)) // logs [5, 5, "foo", "foo"]
     // replace all values with 'foo'
     console.log(Array(4).fill('foo')) // logs ["foo", "foo", "foo", "foo"]
+    // Create an array of certain length and fill it recursively
+    Array(3).fill(1).map((val, index) => val + index) == [1, 2, 3]
 Array.prototype.filter(callback(element[, index, [array]])[, thisArg]) // Returns a new array containing all elements of the calling array for which the provided filtering callbackFn returns true.
 Array.prototype.find() // Returns the found element in the array, if some element in the array satisfies the testing callbackFn, or undefined if not found.
     [1, 2, 3].find(function(i){ return i > 2; }) == 3
