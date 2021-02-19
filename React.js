@@ -392,6 +392,33 @@ function ThemedButton() {
     return <button style={{ background: theme.background, color: theme.foreground }}>Button</button>
 }
 
+/** Component composition
+ * Use of children as alternative to inheritance, prop-drilling, etc */
+// Example: Instead of using App as context provider for user object, compose components that use
+// children props and pass user object where needed
+function App() {
+    [user, setUser] = useUser(); // Some hook to fetch user
+    const handleLogin = () => setUser({ name: 'Foo' })
+    return (
+        <Page>
+            <Header>
+                <Heading />
+                <Login>
+                    {user ? <UserMenu user={user} /> : <LoginMenu />}
+                </Login>
+            </Header>
+            <Content />
+        </Page>
+    )
+}
+const Page = ({ children }) => <html><body>{children}</body></html>
+const Header = ({ children }) => <header>{children}</header>
+const Heading = () => <h1>Cool Site</h1>
+const Login = ({ children }) => <nav>{children}</nav>
+const UserMenu = ({ user }) => <>Hello, {user.name}</>
+const LoginMenu = () => <button onClick={handleLogin}>Login</button>
+const Content = () => <h2>Welcome</h2>
+
 /**************/
 /** @STYLING **/
 /**************/
