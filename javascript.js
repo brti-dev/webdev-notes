@@ -181,6 +181,9 @@ const hasAge = new Boolean(age);// bad
 const hasAge = Boolean(age);// good
 const hasAge = !!age;// best -- use double-bang to determine truthiness, then return a boolean
 
+// Check if a variable has been defined
+typeof false !== 'undefined' // true
+
 /**
  * @MATH
  */
@@ -390,6 +393,54 @@ let myset = new Set(foobar)
 
 // Str --> Set
 new Set('foo') == ['f','o']
+
+/**
+ * @MAP
+ */
+
+// Map performs better in scenarios involving frequent additions and removals of key - value pairs.
+
+// Constructor
+Map() // Creates a new Map object.
+
+// Instance properties
+Map.prototype.size // Returns the number of key / value pairs in the Map object.
+
+// Instance methods
+Map.prototype.clear() // Removes all key - value pairs from the Map object.
+Map.prototype.delete(key) // Returns true if an element in the Map object existed and has been removed, or false if the element does not exist. Map.prototype.has(key) will return false afterwards.
+Map.prototype.entries() // Returns a new Iterator object that contains an array of [key, value] for each element in the Map object in insertion order.
+Map.prototype.forEach(callbackFn[, thisArg]) // Calls callbackFn once for each key-value pair present in the Map object, in insertion order. If a thisArg parameter is provided to forEach, it will be used as the this value for each callback.
+Map.prototype.get(key) // Returns the value associated to the key, or undefined if there is none.
+Map.prototype.has(key) // Returns a boolean asserting whether a value has been associated to the key in the Map object or not.
+Map.prototype.keys() // Returns a new Iterator object that contains the keys for each element in the Map object in insertion order.
+Map.prototype.set(key, value) // Sets the value for the key in the Map object. Returns the Map object.
+Map.prototype.values() // Returns a new Iterator object that contains the values for each element in the Map object in insertion order.
+
+// Iterate with for..of or Map.prototype.forEach
+let papp = new Map()
+papp.set('pen', 'apple')
+papp.set('pineapple', 'pen')
+for (let [key, val] of papp) { }
+for (let key of papp.keys()) { }
+for (let value of papp.values()) { }
+papp.forEach(function (value, key) { }); // Why does value come before key... ?
+
+// Map -- Array
+let array = [['key1', 'val1'], ['key2', 'val2']]
+let map = new Map(arr)
+Array.from(map) == array == [...map]
+// Array of keys
+Array.from(map.keys()) == ['key1', 'key2']
+// Use array methods on a map
+[...papp].filter(function (key_value_pair, index, whole_array) {
+    return key_value_pair[0].includes('1'); //
+});
+
+// Optional chaining (?.) (ES2020)
+let myMap = new Map();
+myMap.set("foo", { name: "baz", desc: "inga" });
+let nameBar = myMap.get("bar")?.name;
 
 /**
  * @ERROR
@@ -714,7 +765,7 @@ boundGetX(); // 81
  */
 
 // Static methods
-Object.assign() // Copies the values of all enumerable own properties from one or more source objects to a target object.
+Object.assign(target, sources) // Copies the values of all enumerable own properties from one or more source objects to a target object.
     // Clone an object
     const obj = { a: 1 };
     const copy = Object.assign({}, obj);
@@ -866,6 +917,28 @@ let {foo, bar} = foobar
 const profile = { firstName: 'Robin', lastName: 'Wieruch'};
 const address = { country: 'Germany', city: 'Berlin', code: '10439'};
 const user = { ...profile, gender: 'male', ...address};
+
+// Object composition (not inheritance)
+const barker = state => ({
+    bark: () => console.log(`"Woof!" barked ${state.name}`)
+})
+const pooper = state => ({
+    poop: () => console.log(`${state.name} pooped`)
+})
+const dog = name => {
+    const state = {
+        name,
+        speed: 100,
+        position: 0,
+    }
+    return Object.assign(
+        {},
+        barker(state),
+        pooper(state),
+    )
+}
+const Eugene = dog('Eugene')
+Eugene.poop() //-> Eugene pooped
 
 //exercise with ancestry
 //find the average age by century
@@ -1121,54 +1194,6 @@ function prop(propName) {
     }
 }
 [{ name: "larry", location: "MN" }, { name: "curly", wife: "marge" }].map(prop('name')); // ["larry", "curly"]
-
-/**
- * @MAP
- */
-
-// Map performs better in scenarios involving frequent additions and removals of key - value pairs.
-
-// Constructor
-Map() // Creates a new Map object.
-
-// Instance properties
-Map.prototype.size // Returns the number of key / value pairs in the Map object.
-
-// Instance methods
-Map.prototype.clear() // Removes all key - value pairs from the Map object.
-Map.prototype.delete(key) // Returns true if an element in the Map object existed and has been removed, or false if the element does not exist. Map.prototype.has(key) will return false afterwards.
-Map.prototype.entries() // Returns a new Iterator object that contains an array of [key, value] for each element in the Map object in insertion order.
-Map.prototype.forEach(callbackFn[, thisArg]) // Calls callbackFn once for each key-value pair present in the Map object, in insertion order. If a thisArg parameter is provided to forEach, it will be used as the this value for each callback.
-Map.prototype.get(key) // Returns the value associated to the key, or undefined if there is none.
-Map.prototype.has(key) // Returns a boolean asserting whether a value has been associated to the key in the Map object or not.
-Map.prototype.keys() // Returns a new Iterator object that contains the keys for each element in the Map object in insertion order.
-Map.prototype.set(key, value) // Sets the value for the key in the Map object. Returns the Map object.
-Map.prototype.values() // Returns a new Iterator object that contains the values for each element in the Map object in insertion order.
-
-// Iterate with for..of or Map.prototype.forEach
-let papp = new Map()
-papp.set('pen', 'apple')
-papp.set('pineapple', 'pen')
-for (let [key, val] of papp) {}
-for (let key of papp.keys()) {}
-for (let value of papp.values()) {}
-papp.forEach(function(value, key) {}); // Why does value come before key... ?
-
-// Map -- Array
-let array = [['key1', 'val1'], ['key2', 'val2']]
-let map = new Map(arr)
-Array.from(map) == array == [...map]
-// Array of keys
-Array.from(map.keys()) == ['key1', 'key2']
-// Use array methods on a map
-[...papp].filter(function(key_value_pair, index, whole_array) {
-    return key_value_pair[0].includes('1'); //
-});
-
-// Optional chaining (?.) (ES2020)
-let myMap = new Map();
-myMap.set("foo", { name: "baz", desc: "inga" });
-let nameBar = myMap.get("bar")?.name;
 
 /**
  * @Classes
