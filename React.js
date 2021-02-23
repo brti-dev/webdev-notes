@@ -63,6 +63,22 @@ function App() {
     );
 }
 
+// Pass params using data-attributes
+function Letters({ letters, handleClick }) {
+    return (
+        <>
+            {letters.map(letter => (
+                <div key={letter} data-letter={letter} onClick={handleClick}>{letter}</div>
+            ))}
+        </>
+    )
+}
+function App() {
+    const letters = ['A', 'B', 'C']
+    const handleClick = (event) => console.log(`You just clicked ${event.target.dataset.letter}`)
+    return <Letters letters={letters} handleClick={handleClick} />
+}
+
 /** @STATE **/
 
 // Pure function components are fine!
