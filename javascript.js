@@ -8,10 +8,9 @@ protected public return short static super switch synchronized
 this throw throws transient true try typeof var void volatile
 while with */
 
-// Expression = fragment of code that produces a value Statement = performs an
-// action 
-// Object = any unordered collection of key-value pairs. If it’s not a
-// primitive (undefined, null, boolean, number or string) it’s an object.
+// Expression = fragment of code that produces a value Statement = performs an action .
+// Primitive = undefined, null, boolean, number, string. They are immutable!
+// Object = any unordered collection of key-value pairs. If it’s not a it’s an object.
 // Prototype = an object from which other objects inherit properties
 
 // Keywords
@@ -153,6 +152,10 @@ Number("3"); //preferred
 parseInt("03 foo", 10); //slower than the above two, but necessary when the string is something like "08 foo"
 parseFloat("3.14"); //3.14
 2.34.toFixed(1); //"2.3" <- String representation of the number
+
+// Workaround for floating point inaccuracy
+0.1 + 0.2 === 0.30000000000000004
+(0.1 * 10 + 0.2 * 10) / 10 === 0.3
 
 // Intl.NumberFormat //
 Intl.NumberFormat.prototype.format(number) // Getter function that formats a number according to the locale and formatting options of this NumberFormat object.
@@ -789,7 +792,11 @@ Object.entries() // Returns an array containing all of the [key, value] pairs of
     for (const [key, value] of Object.entries(object1)) {
         console.log(`${key}: ${value}`);
     }
-Object.freeze() // Freezes an object. Other code cannot delete or change its properties.
+Object.freeze() // Makes an object immutable.
+    const foo = Object.freeze({ foo: "foo" })
+    foo.foo = 'bar'
+    console.log(foo.foo) //-> 'foo'
+    Object.isFrozen(foo) === true
 Object.fromEntries() // Returns a new object from an iterable of [key, value] pairs. (This is the reverse of Object.entries).
 Object.getOwnPropertyDescriptor() // Returns a property descriptor for a named property on an object.
 Object.getOwnPropertyDescriptors() // Returns an object containing all own property descriptors for an object.
@@ -1366,8 +1373,14 @@ re = new RegExp('^\\s+|\\s+$','g')
 
 // Static methods
 Promise.all(iterable) // Wait for all promises to be resolved, or for any to be rejected. ... 
+    const dictionariesPromise = fetch('/dictionaries').then(toJson);
+    const todosPromise = fetch('/todos').then(toJson);
+    Promise.all([
+        dictionariesPromise,
+        todosPromise
+    ]).then(result => console.log(result));
 Promise.allSettled(iterable) // Wait until all promises have settled (each may resolve or reject). Returns a promise that resolves after all of the given promises have either resolved or rejected, with an array of objects that each describe the outcome of each promise.
-Promise.race(iterable) // Wait until any of the promises is resolved or rejected. If the returned promise resolves, it is resolved with the value of the first promise in the iterable that resolved. If it rejects, it is rejected with the reason from the first promise that was rejected.
+Promise.race(iterable) // Return first of an array of promises resolved or rejected. Wait until any of the promises is resolved or rejected. If the returned promise resolves, it is resolved with the value of the first promise in the iterable that resolved. If it rejects, it is rejected with the reason from the first promise that was rejected.
 Promise.reject(reason) // Returns a new Promise object that is rejected with the given reason.
 Promise.resolve(value) // Returns a new Promise object that is resolved with the given value.If the value is a thenable(i.e.has a then method), the returned promise will "follow" that thenable, adopting its eventual state; otherwise the returned promise will be fulfilled with the value. Generally, if you don't know if a value is a promise or not, Promise.resolve(value) it instead and work with the return value as a promise.
 
@@ -1375,6 +1388,30 @@ Promise.resolve(value) // Returns a new Promise object that is resolved with the
 Promise.prototype.catch() // Appends a rejection handler callback to the promise, and returns a new promise resolving to the return value of the callback if it is called, or to its original fulfillment value if the promise is instead fulfilled.
 Promise.prototype.then() // Appends fulfillment and rejection handlers to the promise, and returns a new promise resolving to the return value of the called handler, or to its original settled value if the promise was not handled(i.e.if the relevant handler onFulfilled or onRejected is not a function).
 Promise.prototype.finally() // Appends a handler to the promise, and returns a new promise that is resolved when the original promise is resolved.The handler is called when the promise is settled, whether fulfilled or rejected.
+
+// Basic promise using setTimeout
+function delay(interval) {
+    return new Promise(function (resolve) {
+        return setTimeout(resolve, interval);
+    });
+}
+function logDone() {
+    console.log('Done');
+}
+delay(1000).then(logDone);
+
+// 'then' acts as a map
+function toUpperCase(text) {
+    return text.toUpperCase();
+}
+function logIdentity(value) {
+    console.log(value);
+    return value;
+}
+Promise.resolve('sTudY')
+    .then(logIdentity)  //"sTudY"
+    .then(toUpperCase)
+    .then(logIdentity); //"STUDY”
 
 // With async/await
 async function f() {
