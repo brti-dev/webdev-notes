@@ -22,7 +22,9 @@
     - Same code on browser and server
 */
 
+/********** */
 /** @PROPS **/
+/********** */
 
 // Properties passed to components
 // Props should be immutable and shouldn't change during the component's lifecycle
@@ -58,9 +60,7 @@ function SplitPane(props) {
     );
 }
 function App() {
-    return (
-        <SplitPane left={<Contacts />} right={<Chat />} />
-    );
+    return <SplitPane left={<Contacts />} right={<Chat />} />
 }
 
 // Pass params using data-attributes
@@ -79,7 +79,39 @@ function App() {
     return <Letters letters={letters} handleClick={handleClick} />
 }
 
+// Higher order components: Enhance "lower" components using props
+function Description({ children }) {
+    return <span>{children}</span>
+}
+function embolden(Component) {
+    return <strong><Component /></strong>
+}
+const EmboldenedDescription = embolden(Description);
+function App() {
+    return (
+        <>
+            <h1>My App</h1>
+            <EmboldenedDescription>
+                Sint ut anim aliqua voluptate ut veniam nisi laboris proident dolor ipsum.
+            </EmboldenedDescription>
+        </>
+    )
+}
+
+// Query data in a higher-order component, then send as a prop
+const Title = ({ title, remoteTitle }) => <h1>{title}{remoteTitle}</h1>
+function enhanceComponent(Component) {
+    const [remoteTitle, setRemoteTitle] = React.useState(null)
+    React.useEffect(() => {
+        vaguelyFetchData().then(data => setRemoteTitle(data))
+    }, [])
+    return (props) => <Component remoteTitle={remoteTitle} {...props} />
+}
+const EnhancedTitle = enhanceComponent(Title)
+
+/********** */
 /** @STATE **/
+/********** */
 
 // Pure function components are fine!
 // Example: sum() doesn't modify props and same input always returns same resuls
@@ -248,7 +280,7 @@ const memoizedCallback = useCallback(
 
 // Prevent parent from breaking momoization of children:
 // Memoized child:
-function BigList( { searchTerm, handleItemClick }) {
+function BigList({ searchTerm, handleItemClick }) {
     const items = vagueFetch(searchTerm);
     return items.map((item) => <div onClick={handleItemClick}>item.name</div>);
 }

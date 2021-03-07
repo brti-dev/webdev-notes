@@ -318,6 +318,8 @@ let [one, two, ...buckle_my_shoe] = [1, 2, 3, 4]
 one == 1
 buckle_my_shoe == [3, 4]
 
+// Iterate
+['f','o','o'].forEach(letter => console.log(letter));
 // Using for-of to iterate over the VALUES (not indexes) of iterable objects like arrays [ES6]
 // also works with break, return, and continue
 for (var value of ["a", "b", "c"]) {
@@ -828,6 +830,7 @@ Object.prototype.__lookupSetter__() // Returns the function associated with the 
 Object.prototype.hasOwnProperty() // Returns a boolean indicating whether an object contains the specified property as a direct property of that object and not inherited through the prototype chain.
     // Use to check if object has key
     ({ foo: 'foo' }).hasOwnProperty('foo') === true
+    Object.prototype.hasOwnProperty.call({foo:'foo'}, 'foo') === true
 Object.prototype.isPrototypeOf() // Returns a boolean indicating whether the object this method is called upon is in the prototype chain of the specified object.
 Object.prototype.propertyIsEnumerable() // Returns a boolean indicating if the internal ECMAScript [[Enumerable]] attribute is set.
 Object.prototype.toLocaleString() // Calls toString().
