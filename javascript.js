@@ -453,6 +453,9 @@ let nameBar = myMap.get("bar")?.name;
 
 Error.prototype.message // Error message.
 Error.prototype.name // Error name.
+    const err = new Error('fuuuuu')
+    err.name = 'NOT_FOUND_ERROR'
+    throw err
 Error.prototype.toString() // Returns a string representing the specified object. Overrides the Object.prototype.toString() method.
 
 // Error Types
@@ -1370,9 +1373,9 @@ re = /^\s+|\s+$/g
 re = new RegExp('^\\s+|\\s+$','g') 
 **/
 
-/***************/
-/** @Promises **/
-/***************/
+/**************/
+/** @PROMISE **/
+/**************/
 
 // Static methods
 Promise.all(iterable) // Wait for all promises to be resolved, or for any to be rejected. ... 
@@ -1385,7 +1388,17 @@ Promise.all(iterable) // Wait for all promises to be resolved, or for any to be 
 Promise.allSettled(iterable) // Wait until all promises have settled (each may resolve or reject). Returns a promise that resolves after all of the given promises have either resolved or rejected, with an array of objects that each describe the outcome of each promise.
 Promise.race(iterable) // Return first of an array of promises resolved or rejected. Wait until any of the promises is resolved or rejected. If the returned promise resolves, it is resolved with the value of the first promise in the iterable that resolved. If it rejects, it is rejected with the reason from the first promise that was rejected.
 Promise.reject(reason) // Returns a new Promise object that is rejected with the given reason.
-Promise.resolve(value) // Returns a new Promise object that is resolved with the given value.If the value is a thenable(i.e.has a then method), the returned promise will "follow" that thenable, adopting its eventual state; otherwise the returned promise will be fulfilled with the value. Generally, if you don't know if a value is a promise or not, Promise.resolve(value) it instead and work with the return value as a promise.
+    function devideBy(divisor) {
+        return function(number) {
+            const result = number / divisor;
+            return (divisor !== 0)
+                ? Promise.resolve(result)
+                : Promise.reject("Can't divide by 0")
+        }
+    }
+Promise.resolve(value) // Returns a new Promise object that is resolved with the given value. If the value is a thenable(i.e.has a then method), the returned promise will "follow" that thenable, adopting its eventual state; otherwise the returned promise will be fulfilled with the value. Generally, if you don't know if a value is a promise or not, Promise.resolve(value) it instead and work with the return value as a promise.
+    Promise.resolve('abc').then(x => console.log(x)); // abc
+
 
 // Instance methods
 Promise.prototype.catch() // Appends a rejection handler callback to the promise, and returns a new promise resolving to the return value of the callback if it is called, or to its original fulfillment value if the promise is instead fulfilled.
@@ -1415,6 +1428,24 @@ Promise.resolve('sTudY')
     .then(logIdentity)  //"sTudY"
     .then(toUpperCase)
     .then(logIdentity); //"STUDY”
+
+// catch() is a more convenient (and recommended) alternative to calling then().
+// The following two invocations are equivalent:
+promise.then(
+    null,
+    error => { /* rejection */ });
+promise.catch(
+    error => { /* rejection */ });
+
+// Chain catch() first to send a default value to resolve:
+retrieveFileName()
+.catch(function () {
+    // Something went wrong, use a default value
+    return 'Untitled.txt';
+})
+.then(function (fileName) {
+    // ···
+});
 
 // With async/await
 async function f() {

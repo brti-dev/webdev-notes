@@ -261,6 +261,12 @@ function TextInputWithFocusButton() {
     );
 }
 
+// Hooks that use memoization follow. Memoize components that...
+// - are pure
+// - render often
+// - rerender with the same props
+// - are medum/large in size
+
 /**
  * @useCallback
  * 
@@ -348,7 +354,7 @@ const memoizedValue = useMemo(() => createFunction(a, b), [a, b]);
 // Memoize props when they are (non-primitive) objects/arrays/functions/etc:
 function Foo({ bar, baz }) {
     React.useEffect(() => {
-        const options = { bar, baz }
+        const options = { bar, baz }d
         buzz(options)
     }, [bar, baz])
     return <div>foobar</div>
