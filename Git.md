@@ -108,7 +108,7 @@ $ git remote
   # ? for single char
   f?o.txt`
 
-## Working with branches
+## Branch workflow
   $ git branch testing // or $ git checkout -b testing
 At this point, HEAD is still pointing to `master` which can be confirmed:
   $ git log --oneline --decorate
@@ -130,6 +130,23 @@ If at the merge there was a conflict, resolve it by making changes to the file, 
   $ git merge --abort
 After fixing conflicts:
   $ git commit
+
+## Upstream workflow
+Fork & clone first
+  $ git clone ...
+Add the upstream remote if not yet added
+  $ git remote add upstream https://github....
+Make changes and commit
+  $ touch newfile.txt
+  $ git commit -m "added newfile"
+Check/pull original upstream
+  $ git fetch upstream
+Have a look at what was pulled from upstream
+  $ git checkout upstream/main
+Merge upstream changes into local
+  $ git checkout main
+  $ git merge upstream/main
+When merging, conflicts (eg changes to both local and upstream file) may not be overwritten or even notified
 
 ## Fetching from remote
 Download remote branches
