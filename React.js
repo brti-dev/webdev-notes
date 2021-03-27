@@ -142,15 +142,18 @@ function Account({ initialAmount }) {
 }
 const element = <Account initialAmount="100" />
 
-/** @LISTS_AND_KEYS **/
-
-// Keys should be given to the elements inside the array to give the elements a stable identity
-// They should be unique in the array, not globally unique
-
-// Example: Transform an array into a list of elements
-const numbers = [1, 2, 3];
-const listItems = numbers.map(number => <li key={number.toString()}>{number}</li>);
-const list = <ul>{listItems}</ul>
+// Use browser form to set props
+// The following form result is: /search?q=FOO&showAllResults=false
+<form action="/search" method="GET"> 
+    <input name="q" type="search" placeholder="Search for blog posts" />
+    <label>
+        Show all results?
+        <input name="showAllResults" type="checkbox" defaultValue={false} />
+    </label>
+    <button type="submit">
+    Search
+    </button>
+</form>
 
 /************/
 /** @HOOKS **/

@@ -819,6 +819,7 @@ Object.preventExtensions() // Prevents any extensions of an object.
 Object.seal() // Prevents other code from deleting properties of an object.
 Object.setPrototypeOf() // Sets the object's prototype (its internal [[Prototype]] property).
 Object.values() // Returns an array containing the values that correspond to all of a given object's own enumerable string properties.
+    Object.values({ foo: 'bar', baz: 42 }) == ['bar', 42]
 
 // Instance properties
 Object.prototype.constructor // Specifies the function that creates an object's prototype.
@@ -1249,6 +1250,13 @@ RegExp.prototype.exec() // Executes a search for a match in its string parameter
 RegExp.prototype.test() // Tests for a match in its string parameter.
 RegExp.prototype.toString() // Returns a string representing the specified object. Overrides the Object.prototype.toString() method.
 RegExp.prototype[@@match]() // Performs match to given string and returns match result.
+    const found = 'For more information, see Chapter 3.4.5.1'.match(/see (chapter \d+(\.\d)*)/i);
+    console.log(found);
+    // logs [ 'see Chapter 3.4.5.1',
+    //        'Chapter 3.4.5.1',
+    //        '.1',
+    //        index: 22,
+    //        input: 'For more information, see Chapter 3.4.5.1' ]
 RegExp.prototype[@@matchAll]() // Returns all matches of the regular expression against a string.
 RegExp.prototype[@@replace]() // Replaces matches in given string with new substring.
 RegExp.prototype[@@search]() // Searches the match in given string and returns the index the pattern found in the string.
@@ -1385,6 +1393,12 @@ Promise.all(iterable) // Wait for all promises to be resolved, or for any to be 
         dictionariesPromise,
         todosPromise
     ]).then(result => console.log(result));
+    // 
+    const promises = ['foo.md', 'bar.md']..map(fileName => {
+        const slug = fileName.replace(/\.md$/, '')
+        return getPost(slug) // async func that returns a promise
+    });
+    const allPostsData = await Promise.all(promises) // array with resolved promises
 Promise.allSettled(iterable) // Wait until all promises have settled (each may resolve or reject). Returns a promise that resolves after all of the given promises have either resolved or rejected, with an array of objects that each describe the outcome of each promise.
 Promise.race(iterable) // Return first of an array of promises resolved or rejected. Wait until any of the promises is resolved or rejected. If the returned promise resolves, it is resolved with the value of the first promise in the iterable that resolved. If it rejects, it is rejected with the reason from the first promise that was rejected.
 Promise.reject(reason) // Returns a new Promise object that is rejected with the given reason.
