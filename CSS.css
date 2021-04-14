@@ -1,6 +1,4 @@
-/* CSS */
-
-/* Selectors */
+/* @Selectors */
 
 E[foo]                /*an E element with a "foo" attribute Attribute selectors 2 */
 E[foo="bar"]          /*an E element whose "foo" attribute value is exactly equal to "bar"  Attribute selectors 2 */
@@ -37,9 +35,7 @@ E > F                 /*an F element child of an E element  Child combinator  2*
 E + F                 /*an F element immediately preceded by an E element Adjacent sibling combinator 2*/
 E ~ F                 /*an F element preceded by an E element*/
 
-/* Properties */
-
-/* Color */
+/* @Color */
 /* Use `hsl()` property to make an adjustable color scheme based on hue, saturation (amount of gray), and luminosity (amount of white/black)
     red     hsl(0, 100%, 50%)
     yellow  hsl(60, 100%, 50%)
@@ -48,7 +44,7 @@ E ~ F                 /*an F element preceded by an E element*/
     blue    hsl(240, 100%, 50%)
     magenta hsl(300, 100%, 50%) */
 
-/* Flexbox */
+/* @Flexbox */
 flex-container {
   display: flex;
   flex-direction: row | row-reverse | column | column-reverse | initial | inherit;
@@ -71,8 +67,39 @@ flex-item {
   align-self: stretch | center | flex-start | flex-end | baseline | initial | inherit;
 }
 
-/* Transform */
+/* @Transform */
 div:hover {
-    transform: scale(1.5); // Embiggen by 50%
-    transform: skewX(-32deg); // Skew horizontally
+    transform: scale(1.5); /* Embiggen by 50% */
+    transform: skewX(-32deg); /* Skew horizontally */
 }
+/* @see Cumulative Layout Shifts, avoiding https://web.dev/cls/
+- Instead of changing the height and width properties, use transform: scale().
+- To move elements around, avoid changing the top, right, bottom, or left properties and use transform: translate() instead.
+*/
+
+/* @filter */
+/* <filter-function> values */
+filter: blur(5px);
+filter: brightness(0.4);
+filter: contrast(200%);
+filter: drop-shadow(16px 16px 20px blue);
+filter: grayscale(50%);
+filter: hue-rotate(90deg);
+filter: invert(75%);
+filter: opacity(25%);
+filter: saturate(30%);
+filter: sepia(60%);
+
+/* Multiple filters */
+filter: contrast(175%) brightness(3%);
+
+/* Use no filter */
+filter: none;
+
+/* Global values */
+filter: inherit;
+filter: initial;
+filter: unset;
+
+/* URL to SVG filter */
+filter: url("filters.svg#filter-id");

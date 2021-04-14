@@ -160,3 +160,7 @@ Count number of files in a dir
     > $files.count
 
 Use `n for newline within <filecont>
+
+End process using port
+    > netstat -ano | findstr :<PORT>
+    > taskkill //PID <PORT> //F
