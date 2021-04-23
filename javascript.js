@@ -157,16 +157,30 @@ parseFloat("3.14"); //3.14
 0.1 + 0.2 === 0.30000000000000004
 (0.1 * 10 + 0.2 * 10) / 10 === 0.3
 
-// Intl.NumberFormat //
+// @Intl
 Intl.NumberFormat.prototype.format(number) // Getter function that formats a number according to the locale and formatting options of this NumberFormat object.
 Intl.NumberFormat.prototype.formatToParts() // Returns an Array of objects representing the number string in parts that can be used for custom locale-aware formatting.
 Intl.NumberFormat.prototype.resolvedOptions() // Returns a new object with properties reflecting the locale and collation options computed during initialization of the object.
 
+// Format currency
 const currencyFormatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
-});
+})
 currencyFormatter.format(299000) === '$299,000.00'
+// Format units
+// @see List of units https://tc39.es/proposal-unified-intl-numberformat/section6/locales-currencies-tz_proposed_out.html#table-sanctioned-simple-unit-identifiers
+const literFormatter = new Intl.NumberFormat('en-US', {
+    style: 'unit',
+    unit: 'liter',
+    unitDisplay: 'long'
+})
+literFormatter.format(1) === '1 liter'
+// Format percent
+new Intl.NumberFormat("en-US", {
+    style: "percent",
+    signDisplay: "exceptZero"
+}).format(0.55) === '+55%'
 
 /**
  * @BOOLEAN
