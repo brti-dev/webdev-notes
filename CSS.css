@@ -67,10 +67,15 @@ flex-item {
   align-self: stretch | center | flex-start | flex-end | baseline | initial | inherit;
 }
 
-/* @Transform */
+/* @Transform
+  Rotate, scale, skew, or translate (move along axes) an element
+*/
 div:hover {
     transform: scale(1.5); /* Embiggen by 50% */
     transform: skewX(-32deg); /* Skew horizontally */
+    transform: translateY(-10px); /* Slide up 10px */
+    transform: translate(0, -10px); /* Same as above */
+    transform: rotate(0.5turn);
 }
 /* @see Cumulative Layout Shifts, avoiding https://web.dev/cls/
 - Instead of changing the height and width properties, use transform: scale().
@@ -78,6 +83,7 @@ div:hover {
 */
 
 /* @filter */
+/* Apply graphical effects to images, backgrounds, borders, etc. */
 /* <filter-function> values */
 filter: blur(5px);
 filter: brightness(0.4);

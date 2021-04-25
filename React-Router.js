@@ -2,6 +2,10 @@
 /** @ReactRouter */
 /*****************/
 
+/**
+ * @see Cheatsheet https://dev.to/reedbarger/the-react-router-cheatsheet-everything-you-should-know-23h5
+ */
+
 // 1. Hash-based
 //     - Uses URL anchor
 //     - Server renders index.html only; Crawlers assume all links are anchors
