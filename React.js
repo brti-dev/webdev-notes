@@ -1,3 +1,4 @@
+// @ts-nocheck
 
 /** @INSTALL_SETUP **/
 
@@ -62,6 +63,38 @@ function SplitPane(props) {
 function App() {
     return <SplitPane left={<Contacts />} right={<Chat />} />
 }
+
+// Pass JSX elements as props
+const Confirm = ({
+  children,
+  onAccept,
+  onReject,
+  acceptButton = <Button>Ok</Button>,
+  rejectButton = <Button>Cancel</Button>,
+}) => (
+  <div className="confirm">
+    <div className="confirm-header">
+      <h1>Confirm</h1>
+    </div>
+    <div className="confirm-content">{children}</div>
+    <div className="confirm-footer">
+      {React.cloneElement(acceptButton, { className: "accept-btn", onClick: onAccept })}
+      {React.cloneElement(rejectButton, { className: "reject-btn", onClick: onReject })}
+    </div>
+  </div>
+)
+<Confirm
+  acceptButton={<Button>Yep</Button>}
+  rejectButton={<Button>Nope</Button>}
+  onAccept={() => {}}
+  onReject={() => {}}
+>
+  You sure?
+</Confirm>
+
+// Access props of elements passed as prop
+const Fooify = ({ link }) => <a href={link.props.href}>Foo-{link.props.children}</a>
+const App = () => <Fooify link={<a href="/bar">Bar</a>}>Bar</Fooify>
 
 // Pass params using data-attributes
 function Letters({ letters, handleClick }) {
@@ -509,6 +542,7 @@ import cs from 'classnames';
 import styled from 'styled-components'; // CSS in JS
 // Import SVG as React Component
 import { ReactComponent as Check } from './check.svg';
+import React from 'react';
 
 let StyledDL = styled.dl`
     display: flex;
