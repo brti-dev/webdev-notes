@@ -1,5 +1,5 @@
 
-// Compile to js
+// Compile to js and check for type errors
 // $ tsc greeter.ts
 
 // Create React App with Typescript
@@ -121,3 +121,8 @@ function id<T>(x: T): T {
     return x;
 }
 id<number>(123) // call function, assign <T> type number
+
+// .tsx vs .ts files
+let a1: any;
+let s1 = a1 as string // ok in tsx and ts
+let s2 = <string>a1 // only valid in ts
