@@ -221,6 +221,7 @@ var foo = [];
 
 // Array constructor/declaration
 var foo = new Array(n); // n int indicate the size of the array
+let stars = new Array(3).fill('*') //-> ['*', '*', '*']
 
 // Static methods
 Array.from(arrayLike [, mapFn [, thisArg]]) // Creates a new Array instance from arrayLike, an array-like or iterable object.
