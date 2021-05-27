@@ -6,7 +6,7 @@
 // $ create-react-app my-app --scripts-version=react-scripts-ts
 // react-scripts-ts is a set of adjustments to take the standard create-react-app project pipeline and bring TypeScript into the mix.
 
-/** TYPES **/
+/** @TYPES **/
 
 // Types defined by Javascript
 type types = {
@@ -32,8 +32,12 @@ type ReactTypes = {
     FormEvent: React.FormEvent<HTMLFormElement>
 }
 
+// Array type
+let arr1: number[] = [] // Array populated with numbers
+let arr2: Array<number> = [] // Same
+
 // Tuple type
-let point: [number, number] = [7, 4] // without defining
+let point: [number, number] = [7, 4]; // without defining
 
 // Function types
 (param: any) => any
@@ -55,6 +59,28 @@ function foo(bar: number|string): void {
 let maybeNumber: number = null; // @ts-ignore: Type 'null' is not assignable to type 'number'. (2322)
 let maybeNumber: null|number = null; //ok
 maybeNumber = 123; //ok
+
+// Assign a more specific type than would be inferred by TS
+// TS infers HTML element
+const myCanvas = document.getElementById("main_canvas")
+// Specify a canvas element
+const myCanvasSpecific = document.getElementById("main_canvas") as HTMLCanvasElement
+const myCanvasSpecificWithAngleParams = <HTMLCanvasElement>document.getElementById("main_canvas");
+
+/** @Interface */
+
+// Interfaces are extensible, whereas type aliases are not so much
+// @see https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#differences-between-type-aliases-and-interfaces
+
+interface Animal {
+  name: string
+}
+interface Bear extends Animal {
+  honey: boolean
+}
+const bear = getBear() 
+bear.name
+bear.honey
 
 // Interfaces as records
 interface Point {
@@ -87,6 +113,8 @@ type StoriesAction =
   | StoriesRemoveAction;
 const reducer = (action: StoriesAction) => {}
 
+/** @Parameters */
+
 // Parameterized types use angular brackets
 class SimpleStack<T> { // Parameter <T> will be assigned string type later
     #data: Array<T> = [];
@@ -107,8 +135,8 @@ class SimpleStack<T> { // Parameter <T> will be assigned string type later
 const stringStack = new SimpleStack<string>();
 stringStack.push('first');
 stringStack.push('second');
-assert.equal(stringStack.length, 2);
-assert.equal(stringStack.pop(), 'second');
+stringStack.length === 2;
+stringStack.pop() === 'second';
 
 // Assign types to Map using parameterized type
 const myMap: Map<boolean, string> = new Map([
@@ -121,6 +149,16 @@ function id<T>(x: T): T {
     return x;
 }
 id<number>(123) // call function, assign <T> type number
+
+function fillArray<T>( // introduce the type variable
+    len: number,
+    elem: T, // use the type variable, pick it up from the argument.
+) {
+  return new Array<T>(len).fill(elem); // pass on T to the Array constructor.
+}
+// %inferred-type: string[]
+const star_arr = fillArray(3, '*');
+assert.deepEqual(star_arr, ['*', '*', '*']);
 
 // .tsx vs .ts files
 let a1: any;
