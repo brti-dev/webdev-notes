@@ -67,6 +67,15 @@ flex-item {
   align-self: stretch | center | flex-start | flex-end | baseline | initial | inherit;
 }
 
+/* Simulate a nav component with a header and buttons floating right */
+header { display: flex; }
+header h1 { flex-basis: 100%; }
+header .button {} /* All buttons shrink and align right */
+
+/* Responsive grid-like layout where cells wrap and expand as needed */
+.grid-like { display: flex; flex-wrap: wrap; }
+.grid-like > * { flex: 1 1 10em; }
+
 /* @Transform
   Rotate, scale, skew, or translate (move along axes) an element
 */

@@ -141,7 +141,7 @@ Example:
 
     > New-item|ni <filename> -type ["file", "directory"] -value <"filecont">
     > Rename-Item|rni|ren <oldname> <newname>
-    > Add-Conntent|ac <filename> <"filecont">
+    > Add-Content|ac <filename> <"filecont">
     > pushd > popd
     > echo "I am a new file.`nNew file line 2" > newfile.txt
     > echo > filename.txt

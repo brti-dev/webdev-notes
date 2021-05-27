@@ -387,6 +387,9 @@ pile_values.done() === true;
 let pile_entries = pile.entries();
 pile_entries.next().value() == [0, "eggshell"];
 
+// Make array vals unique by coercing to a set
+[...new Set([1,1,2,2,2,3])] === [1,2,3]
+
 /**
  * @SET
  */
@@ -1408,7 +1411,7 @@ Promise.all(iterable) // Wait for all promises to be resolved, or for any to be 
         todosPromise
     ]).then(result => console.log(result));
     // 
-    const promises = ['foo.md', 'bar.md']..map(fileName => {
+    const promises = ['foo.md', 'bar.md'].map(fileName => {
         const slug = fileName.replace(/\.md$/, '')
         return getPost(slug) // async func that returns a promise
     });
