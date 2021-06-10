@@ -276,13 +276,14 @@ React.useEffect(() => {
 /**
  * @useRef
  *
- * Creates a reference to an element
- * Persists throughout the lifetime of the component
+ * Creates a mutable reference object that persists throughout the lifetime of the component
  *
- * @param {?} initialValue
+ * @param {any} initialValue
  *
  * @returns {Object} `current` property 
  */
+
+// Reference a DOM element to access it imperatively:
 function TextInputWithFocusButton() {
     const inputEl = useRef(null);
     const onButtonClick = () => {
@@ -296,6 +297,41 @@ function TextInputWithFocusButton() {
         </>
     );
 }
+
+// Use a ref to store a value that doesn't require component rerender
+function LogButtonClicks() {
+  const countRef = useRef(0);
+  const handle = () => {
+    countRef.current++;
+    console.log(`Clicked ${countRef.current} times`);
+  };
+  return <button onClick={handle}>Click me</button>;
+}
+
+// Use a ref to manage state
+function Stopwatch() {
+  const [count, setCount] = useState(0);
+  const timerIdRef = useRef(0);
+  const startHandler = () => {
+    if (timerIdRef.current) { return; }
+    timerIdRef.current = setInterval(() => setCount(c => c+1), 1000);
+  };
+  const stopHandler = () => {
+    clearInterval(timerIdRef.current);
+    timerIdRef.current = 0;
+  };
+  useEffect(() => {
+    return () => clearInterval(timerIdRef.current);
+  }, []);
+  return (
+    <div>
+      <div>Timer: {count}s</div>
+      <div>
+        <button onClick={startHandler}>Start</button>
+        <button onClick={stopHandler}>Stop</button>
+      </div>
+    </div>
+  );
 
 // Hooks that use memoization follow. Memoize components that...
 // - are pure
@@ -481,6 +517,19 @@ function ThemedButton() {
     const theme = React.useContext(ThemeContext);
     return <button style={{ background: theme.background, color: theme.foreground }}>Button</button>
 }
+
+// Pass the state with the method to context provider
+export const userDetailsContext = createContext();
+const UserDetailsProvider = (props) => {
+    const [userDetails, setUserDetails] = useState();
+    return (
+        <userDetailsContext.Provider value={[userDetails, setUserDetails]}>
+            {props.children}
+        </userDetailsContext.Provider>
+    );
+};
+
+export default UserDetailsProvider;
 
 /** Component composition
  * Use of children as alternative to inheritance, prop-drilling, etc */

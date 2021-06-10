@@ -14,6 +14,21 @@ function Button({ ...allProps }: ButtonProps) {
     return <button {...allProps} />
 }
 
+// Another example
+
+const Thumb = ({
+    thumb,
+    ...rest
+}: {
+    thumb: ThumbType
+} & React.ComponentPropsWithoutRef<'img'>) => (
+    <img
+        src={thumb.featuredImage.thumbSrc}
+        alt={thumb.featuredImage.altText ?? thumb.title}
+        {...rest}
+    />
+)
+
 // Preset attributes
 // Omit the `type` prop from the type declaration and set it manually
 type ButtonProps = Omit<JSX.IntrinsicElements['button'], 'type'>
