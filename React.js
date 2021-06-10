@@ -299,6 +299,7 @@ function TextInputWithFocusButton() {
 }
 
 // Use a ref to store a value that doesn't require component rerender
+// Should be set within event handlers and effects ONLY @see https://reactjs.org/docs/hooks-faq.html#is-there-something-like-instance-variables
 function LogButtonClicks() {
   const countRef = useRef(0);
   const handle = () => {
