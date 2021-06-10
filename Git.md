@@ -81,6 +81,9 @@ $ git reset [commit] //Undoes all commits after [commit], preserving changes loc
             HEAD <FILENAME> //unstage a file
             --soft HEAD~1 //restage everything but keep changes
 
+$ git revert [commit(s)] // revert the changes that the related patches introduce, and record some new commits that record them
+             HEAD~2..HEAD // Undo the last two commits
+
 $ git remote
              -v //verbose
              add <SHORTNAME> <URL> //ie > git remote add origin https://github.com/try-git/try_git.git
