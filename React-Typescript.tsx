@@ -7,6 +7,15 @@ type ButtonProps = React.HTMLAttributes<HTMLButtonElement>
 // $ create-react-app my-app --scripts-version=react-scripts-ts
 // react-scripts-ts is a set of adjustments to take the standard create-react-app project pipeline and bring TypeScript into the mix.
 
+// Children
+
+type OneChild = React.ReactElement
+type TwoChildren = [React.ReactElement, React.ReactElement]
+type ManyChildren = React.ReactElement[]
+type ArrayOfProps = SomeProp[]
+type NumbersChildren = number[]
+type TwoNumbersChildren = [number, number]
+
 // Spread attributes to HTML elements
 
 type ButtonProps = JSX.IntrinsicElements['button']
