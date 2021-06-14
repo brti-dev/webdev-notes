@@ -146,6 +146,14 @@ Number.prototype.toPrecision(precision) // Returns a string representing the num
 Number.prototype.toString([radix]) // Returns a string representing the specified object in the specified radix("base").Overrides the Object.prototype.toString() method.
 Number.prototype.valueOf() // Returns the primitive value of the specified object.Overrides the Object.prototype.valueOf() method.
 
+// Check if it's numeric-like
+!isNan(1) //=> true
+!isNan(0.001) //=> true
+!isNan('1') //=> true
+
+// Check if it's a number
+typeof 1 === 'number' //=> true
+
 // Coerce string to number
 +"08"; //not preferred!
 Number("3"); //preferred
@@ -209,6 +217,7 @@ Math.ceil(x) // Round x up
 Math.floor(x) // Round x down
 Math.max([value1[, value2[, ...]]]) // Return the largest number
 Math.min([value1[, value2[, ...]]]) // Return the lowest number
+Math.random() // Returns a pseudo-random number between 0 and 1.
 Math.round(x) // Returns the value of the number x rounded to the nearest integer.
 Math.trunc(x) // Cut off the dot and digits to the right of the integer
 
@@ -1565,7 +1574,7 @@ Storage.length // Read only. Returns an integer representing the number of data 
 
 // Methods
 Storage.key(n) // When passed a number n, this method will return the name of the nth key in the storage.
-Storage.getItem(key) // When passed a key name, will return that key's value.
+Storage.getItem(key): DOMstring | null // When passed a key name, will return that key's value.
 Storage.setItem(key, value) // When passed a key name and value, will add that key to the storage, or update that key's value if it already exists.
 Storage.removeItem(key) // When passed a key name, will remove that key from the storage.
 Storage.clear() // When invoked, will empty all keys out of the storage.
