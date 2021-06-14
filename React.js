@@ -223,7 +223,7 @@ const [value, setvalue] = React.useState(
     localStorage.getItem(key) || initialState
 )
 
-// Access previous state upon updateing state:
+// Access previous state upon updating state:
 setState(prevState => {
     // Object.assign would also work
     return { ...prevState, ...updatedValues };
@@ -473,7 +473,7 @@ function useSemiPersistentState(key, initialState) {
 /** @CONTEXT **/
 /**************/
 
-// Greate a 'global' prop for a component tree instead of passing props down several levels.
+// Create a 'global' prop for a component tree instead of passing props down several levels.
 // E.g. current authenticated user, theme, or language.
 // **Use when many components in the tree need to use a prop.**
 // An alternative is component composition: Padding a whole component down instead of props.
