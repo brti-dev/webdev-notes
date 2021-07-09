@@ -147,9 +147,9 @@ Number.prototype.toString([radix]) // Returns a string representing the specifie
 Number.prototype.valueOf() // Returns the primitive value of the specified object.Overrides the Object.prototype.valueOf() method.
 
 // Check if it's numeric-like
-!isNan(1) //=> true
-!isNan(0.001) //=> true
-!isNan('1') //=> true
+!isNaN(1) //=> true
+!isNaN(0.001) //=> true
+!isNaN('1') //=> true
 
 // Check if it's a number
 typeof 1 === 'number' //=> true

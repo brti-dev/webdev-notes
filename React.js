@@ -274,6 +274,14 @@ React.useEffect(() => {
 }, [value, key]) // Only re-run the effect if `key` and/or `value` changes
 
 /**
+ * @useLayoutEffect
+ * 
+ * Run effects after layout (geometric measurements) but before repaint; Compared to useEffect
+ * which runs effects only after repaint. Useful for measurements or if effects are causing
+ * flickers on rerenders.
+ */
+
+/**
  * @useRef
  *
  * Creates a mutable reference object that persists throughout the lifetime of the component
@@ -427,7 +435,7 @@ const memoizedValue = useMemo(() => createFunction(a, b), [a, b]);
 // Memoize props when they are (non-primitive) objects/arrays/functions/etc:
 function Foo({ bar, baz }) {
     React.useEffect(() => {
-        const options = { bar, baz }d
+        const options = { bar, baz }
         buzz(options)
     }, [bar, baz])
     return <div>foobar</div>

@@ -198,10 +198,10 @@ Node.classList: DOMTokenList // List of classNames
     div.classList.forEach(cn => console.log(cn)) //=> foo; bar;
 Node.classList.add(className) // adds className
 Node.classList.remove(className) // removes className
-Node.classList.toggle(className) // adds className if it doesn’t exist, otherwise removes it.
+Node.classList.toggle(className, [test: boolean]) // adds className if it doesn’t exist, otherwise removes it; if `test` is present, will only toggle if test passes
 Node.classList.contains(className) // checks for the given class, returns true / false.
 Node.style // Object to get or set style props
-    document.getElementById('foo').backgroundColor = 'pink'
+    document.getElementById('foo').style.backgroundColor = 'pink'
     elem.style.display = '' // unset style prop
 Node.style.cssText // Replaces all style props (!) (But not inherited styles)
     const css = `color: red !important;
@@ -275,14 +275,16 @@ Document.elementFromPoint(x, y) // Returns the topmost Element at the specified 
 
 click // when the mouse clicks on an element (touchscreen devices generate it on a tap).
 contextmenu // when the mouse right-clicks on an element.
+dblclick // when the mouse is double clicked
+DOMContentLoaded // when the HTML is loaded and processed, DOM is fully built.
+    document.addEventListener("DOMContentLoaded", () => alert("DOM built"))
+focus // when the visitor focuses on an element, e.g. on an <input>.
+keydown keyup // when a keyboard key is pressed and released.
 mouseover mouseout // when the mouse cursor comes over / leaves an element.
 mousedown mouseup // when the mouse button is pressed / released over an element.
 mousemove // when the mouse is moved.
-keydown keyup // when a keyboard key is pressed and released.
 submit // when the visitor submits a <form>.
-focus // when the visitor focuses on an element, e.g. on an <input>.
-DOMContentLoaded // when the HTML is loaded and processed, DOM is fully built.
-    document.addEventListener("DOMContentLoaded", () => alert("DOM built"))
+transitionrun // when a CSS transition begins.
 transitionend // when a CSS-animation finishes.
 
 // HTML events are passed as functions. The following are equivalent:
@@ -340,6 +342,7 @@ MouseEvent.clientX; MouseEvent.clientY // Window-relative coordinates of the cur
 MouseEvent.screenX; MouseEvent.screenY // coordinate of the mouse pointer in global (screen) coordinates.
 MouseEvent.ctrlKey: boolean  // Returns true if the control key was down when the mouse event was fired.
 MouseEvent.shiftKey: boolean // Returns true if the shift key was down when the mouse event was fired.
+KeyboardEvent.key: string // Target key, eg k, Home, ArrowUp
 // Event object methods
 Event.preventDefault()
 Event.stopPropagation() // Prevent further bubbling to parent elements; (!) Its use can limit functionality of other events: Instead use event.defaultPrevented() to check.
