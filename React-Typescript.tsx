@@ -20,29 +20,29 @@ type TwoNumbersChildren = [number, number]
 
 type ButtonProps = JSX.IntrinsicElements['button']
 function Button({ ...allProps }: ButtonProps) {
-    return <button {...allProps} />
+  return <button {...allProps} />
 }
 
 // Another example
 
 const Thumb = ({
-    thumb,
-    ...rest
+  thumb,
+  ...rest
 }: {
-    thumb: ThumbType
+  thumb: ThumbType
 } & React.ComponentPropsWithoutRef<'img'>) => (
-    <img
-        src={thumb.featuredImage.thumbSrc}
-        alt={thumb.featuredImage.altText ?? thumb.title}
-        {...rest}
-    />
+  <img
+    src={thumb.featuredImage.thumbSrc}
+    alt={thumb.featuredImage.altText ?? thumb.title}
+    {...rest}
+  />
 )
 
 // Preset attributes
 // Omit the `type` prop from the type declaration and set it manually
 type ButtonProps = Omit<JSX.IntrinsicElements['button'], 'type'>
 function Button({ ...allProps }: ButtonProps) {
-    return <button type="button" {...allProps} />
+  return <button type="button" {...allProps} />
 }
 // 💥 This breaks, as we omitted type
 const z = <Button type="button">Hi</Button>
@@ -52,9 +52,16 @@ type ButtonProps = Omit<JSX.IntrinsicElements['button'], 'type' | 'className'>
 // Required props
 // MakeRequired helper
 type MakeRequired<T, K extends keyof T> = Omit<T, K> &
-    Required<{ [P in K]: T[P] }>
+  Required<{ [P in K]: T[P] }>
 type ImgProps = MakeRequired<JSX.IntrinsicElements['img'], 'alt' | 'src'>
 export function Img({ alt, ...allProps }: ImgProps) {
-    return <img alt={alt} {...allProps} />
+  return <img alt={alt} {...allProps} />
 }
 const zz = <Img alt="..." src="..." />
+
+// Synthetic Event
+const handleChange = (event: React.SyntheticEvent) => {
+  const target = event.target as HTMLInputElement
+  console.log('Changed', target.value)
+}
+const Input = <input type="text" onChange={handleChange} />
