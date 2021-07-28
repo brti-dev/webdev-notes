@@ -50,6 +50,20 @@ function stringify123(callback: (num: number) => string): string {
 }
 stringify123((param) => `foo${param}`)
 
+// Function overloads
+function makeDate(timestamp: number): Date; // Overload #1
+function makeDate(m: number, d: number, y: number): Date; // Overload #2
+function makeDate(mOrTimestamp: number, d?: number, y?: number): Date { // Function declaration
+  if (d !== undefined && y !== undefined) {
+    return new Date(y, mOrTimestamp, d);
+  } else {
+    return new Date(mOrTimestamp);
+  }
+}
+const d1 = makeDate(12345678); // Function call (Overload #1)
+const d2 = makeDate(5, 5, 5); // Function call (Overload #2)
+const d3 = makeDate(1, 3); // Error: No overload expects 2 arguments, but overloads do exist that expect either 1 or 3 arguments.
+
 // Union types
 function foo(bar: number|string): void {
     return undefined
