@@ -1274,7 +1274,7 @@ class Foo {}
 
 RegExp.prototype.compile() // (Re-)compiles a regular expression during execution of a script.
 RegExp.prototype.exec() // Executes a search for a match in its string parameter.
-RegExp.prototype.test() // Tests for a match in its string parameter.
+RegExp.prototype.test(): boolean // Tests for a match in its string parameter.
 RegExp.prototype.toString() // Returns a string representing the specified object. Overrides the Object.prototype.toString() method.
 RegExp.prototype[@@match]() // Performs match to given string and returns match result.
     const found = 'For more information, see Chapter 3.4.5.1'.match(/see (chapter \d+(\.\d)*)/i);
