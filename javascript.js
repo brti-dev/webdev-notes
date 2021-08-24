@@ -1654,6 +1654,29 @@ request.open("POST", "submitform.php");
 formData.append("serialnumber", serialNumber++);
 request.send(formData);
 
+/** 
+ * @FileReader
+ * 
+ * asynchronously read the contents of files (or raw data buffers) stored on the user's computer, using File or Blob objects to specify the file or data to read.
+ */
+
+// Example Typescript React component that handles file upload
+<input
+    type="file"
+    accept="image/*"
+    className="visually-hidden"
+    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+        if (event?.target?.files?.[0]) {
+            const file = event.target.files[0]
+            const reader = new FileReader()
+            reader.onloadend = () => {
+                console.log('Upload src', reader.result as string)
+            }
+            reader.readAsDataURL(file)
+        }
+    }}
+/>
+
 /*************** */
 /** @PERFORMANCE */
 /*************** */
