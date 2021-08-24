@@ -1595,7 +1595,7 @@ URL.pathname() // Is a USVString containing an initial '/' followed by the path 
 URL.port() // A USVString containing the port number of the URL.
 URL.protocol() // A USVString containing the protocol scheme of the URL, including the final ':'.
 URL.search() // A USVString indicating the URL's parameter string; if any parameters are provided, this string includes all of them, beginning with the leading ? character.
-URL.searchParams() // Read only; A URLSearchParams object which can be used to access the individual query parameters found in search.
+URL.searchParams() // Read only; A @URLSearchParams object which can be used to access the individual query parameters found in search.
 URL.username() // A USVString containing the username specified before the domain name.
 
 // Methods
@@ -1620,6 +1620,39 @@ URLSearchParams.set() // Sets the value associated with a given search parameter
 URLSearchParams.sort() // Sorts all key/value pairs, if any, by their keys.
 URLSearchParams.toString() // Returns a string containing a query string suitable for use in a URL.
 URLSearchParams.values() // Returns an iterator allowing iteration through all values of the key/value pairs contained in this object.
+
+/** @FormData */
+
+FormData() // Constructor; Creates a new FormData object.
+FormData.append() // Appends a new value onto an existing key inside a FormData object, or adds the key if it does not already exist.
+FormData.delete() // Deletes a key/value pair from a FormData object.
+FormData.entries() // Returns an iterator allowing to go through all key/value pairs contained in this object.
+FormData.get() // Returns the first value associated with a given key from within a FormData object.
+FormData.getAll() // Returns an array of all the values associated with a given key from within a FormData.
+FormData.has() // Returns a boolean stating whether a FormData object contains a certain key.
+FormData.keys() // Returns an iterator allowing to go through all keys of the key/value pairs contained in this object.
+FormData.set() // Sets a new value for an existing key inside a FormData object, or adds the key/value if it does not already exist.
+FormData.values() // Returns an iterator allowing to go through all values  contained in this object.
+
+// Using fetch API with FormData
+const formData = new FormData()
+formData.append('file', image)
+formData.append('signature', signature)
+formData.append('timestamp', timestamp.toString())
+formData.append('api_key', process.env.NEXT_PUBLIC_CLOUDINARY_KEY ?? '')
+const response = await fetch(CLOUDINARY_API_ENDPOINT, {
+method: 'POST',
+body: formData,
+})
+return response.json()
+
+// Get FormData from a form element
+var formElement = document.querySelector("form");
+var formData = new FormData(formElement);
+var request = new XMLHttpRequest();
+request.open("POST", "submitform.php");
+formData.append("serialnumber", serialNumber++);
+request.send(formData);
 
 /*************** */
 /** @PERFORMANCE */
