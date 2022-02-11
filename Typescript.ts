@@ -124,7 +124,7 @@ type StoriesAction =
   | StoriesFetchInitAction
   | StoriesFetchSuccessAction
   | StoriesFetchFailureAction
-  | StoriesRemoveAction;
+  | StoriesRemoveAction; 
 const reducer = (action: StoriesAction) => {}
 
 /** @Parameters */
@@ -173,6 +173,40 @@ function fillArray<T>( // introduce the type variable
 // %inferred-type: string[]
 const star_arr = fillArray(3, '*');
 assert.deepEqual(star_arr, ['*', '*', '*']);
+
+// Add contraint on an input
+function longest<Type extends { length: number }>(a: Type, b: Type) { // Type must have `length` prop
+  // Because we constrained Type to { length: number }, we were allowed to 
+  // access the .length property of the a and b parameters. Without the type 
+  // constraint, we wouldn’t be able to access those properties because the 
+  // values might have been some other type without a length property.
+  if (a.length >= b.length) {
+    return a
+  } else {
+    return b
+  }
+}
+// longerArray is of type 'number[]'
+const longerArray = longest([1, 2], [1, 2, 3]);
+// longerString is of type 'alice' | 'bob'
+const longerString = longest("alice", "bob");
+// Error! Numbers don't have a 'length' property
+const notOK = longest(10, 100); //Argument of type 'number' is not assignable to parameter of type '{ length: number; }'.
+
+// Function overloads
+// Allow variety of inputs and types in a function
+function makeDate(timestamp: number): Date
+function makeDate(m: number, d: number, y: number): Date
+function makeDate(mOrTimestamp: number, d?: number, y?: number): Date {
+  if (d !== undefined && y !== undefined) {
+    return new Date(y, mOrTimestamp, d)
+  } else {
+    return new Date(mOrTimestamp)
+  }
+}
+const d1 = makeDate(12345678)
+const d2 = makeDate(5, 5, 5)
+const d3 = makeDate(1, 3)
 
 // .tsx vs .ts files
 let a1: any;

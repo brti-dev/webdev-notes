@@ -63,17 +63,18 @@ $ git log //Lists version history for the current branch
           --follow [file] //Lists version history for a file, including renames
           -p [-<NUMTOSHOW>]//diff (details)
           --oneline
-      commit //Records file snapshots permanently in version history
+
+$ git commit //Records file snapshots permanently in version history
              -v //output diff details in editor
              -m "<DESCRIPTION>" //commit message; add `[ci skip]` to the description to skip Travis Ci build
              -a //automatically commit all tracked files (need not be staged) //ie $ git commit -a -m "added new benchmarks"
              --amend //take everything staged and amend it to last commit; or if nothing staged just amend the commit message
              --no-edit //Don't edit commit message on amend
-      add <FILENAMES> //stage files into a snapshot in preparation for versioning
+$ git add <FILENAMES> //stage files into a snapshot in preparation for versioning
           -u //Stages only Modified Files
           . //Stages everything, without Deleted Files
-      show [commit]// Outputs metadata and content changes of the specified commit 
-      diff [first-branch]...[second-branch] //Shows content differences between two branches
+$ git show [commit]// Outputs metadata and content changes of the specified commit 
+$ git diff [first-branch]...[second-branch] //Shows content differences between two branches
 
 $ git reset [commit] //Undoes all commits after [commit], preserving changes locally
             --hard [commit] //Discards all history and changes back to the specified commit

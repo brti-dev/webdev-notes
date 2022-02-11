@@ -51,12 +51,13 @@ flex-container {
   justify-content: flex-start | flex-end | center | space-between | space-around | initial | inherit; /*main axis*/
   align-items: stretch | center | flex-start | flex-end | baseline | initial | inherit; /*cross axis*/
   flex-wrap: nowrap | wrap | wrap-reverse | initial | inherit;
+  align-content: flex-start | flex-end | center | space-between | space-around | stretch | space-evenly; /*If wrapped multiple-line flex container, use to control the distribution of space between the rows.*/
 }
 flex-item {
   flex: [grow] [shrink] [basis];
   flex: 0 0 100%; /* expand items to full width */
   
-  /* Set the size based on the _main size_, the size of the flex container's main axis. */
+  /* Set the size based on the _main size_, the size of the fle`x container's main axis. */
   /* n = integer that represents a factor; default = 0 */
   flex-shrink: n;
   flex-grow: n;
@@ -70,7 +71,7 @@ flex-item {
 /* Simulate a nav component with a header and buttons floating right */
 header { display: flex; }
 header h1 { flex-basis: 100%; }
-header .button {} /* All buttons shrink and align right */
+header .button { flex-shrink: 0;} /* All buttons shrink and align right */
 
 /* Responsive grid-like layout where cells wrap and expand as needed */
 .grid-like { display: flex; flex-wrap: wrap; }

@@ -8,6 +8,7 @@
     $ cp <source files or dirs> <target file or dir> [-f(force) -p(preserve) -r(recurse)]
     $ mv <source file> <destination>
     $ rm <file> [-i (prompt)]
+    $ rm -rf <dirname> 
     $ rmdir <dir>
     $ less <file> ($ cat <file> | less)
       -> PgDn, PgUp, /<searchquery>, n (find next), q (quit)

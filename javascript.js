@@ -23,14 +23,20 @@ const baz // Declare variables that do not get reassigned
  */
 
 // ?? Null coalescing operator
-// Selects first defined variable
-let a = false
+// Selects first NON-NULL, DEFINED operand
+let a
 let b = true
-let x = a ?? b
+let x = a ?? b // true
+
+// Use || to find truthy operands
+let foo = false || null || 'foo'
 
 /**
  * @STRING
  */
+
+// Static methods
+String.fromCharCode(num [, ...numN]) // Returns a string created from unicode input values
 
 // Instance properties
 String.prototype.length // Reflects the length of the string. Read-only.
@@ -74,7 +80,7 @@ String.prototype.slice(beginIndex[, endIndex]) // Extracts a section of a string
 String.prototype.split([sep [, limit] ]) // Returns an array of strings populated by splitting the calling string at occurences of the substring sep.
 String.prototype.startsWith(searchString [, length]) // Determines whether the calling string begins with the characters of string searchString.
     'pre-funded'.startsWith('pre-') === true
-String.prototype.substr() // Returns the characters in a string beginning at the specified location through the specified number of characters.
+String.prototype.substr(start[, length]) // Returns the characters in a string beginning at the specified location through the specified number of characters.
 String.prototype.substring(indexStart [, indexEnd]) // Returns a new string containing characters of the calling string from (or between) the specified index (or indeces).
 String.prototype.toLocaleLowerCase( [locale, ...locales]) // The characters within a string are converted to lowercase while respecting the current locale.
 String.prototype.toLocaleUpperCase( [locale, ...locales]) // The characters within a string are converted to uppercase while respecting the current locale.
