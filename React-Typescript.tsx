@@ -9,9 +9,10 @@ type ButtonProps = React.HTMLAttributes<HTMLButtonElement>
 
 // Children
 
-type OneChild = React.ReactElement
-type TwoChildren = [React.ReactElement, React.ReactElement]
-type ManyChildren = React.ReactElement[]
+type OneChild = React.ReactChild
+type TwoChildren = [React.ReactChild, React.ReactChild]
+type ManyChildren = React.ReactChild[]
+type OneOrMoreChildren = React.ReactChild | React.ReactChild[]
 type ArrayOfProps = SomeProp[]
 type NumbersChildren = number[]
 type TwoNumbersChildren = [number, number]
