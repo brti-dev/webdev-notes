@@ -912,6 +912,11 @@ obj.foo === 'bar'
 const foo = { foo: 'foo' }
 delete foo.foo
 
+// Conditionally add a prop
+const a = {
+   ...(true && {b: 5})
+}
+
 // iterating over an object using for-in
 // this works on objects and NOT arrays because for-in iterates over INDEXES not
 // values, and index of an array will be a string, not a number)
