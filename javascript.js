@@ -563,6 +563,7 @@ var topEnv = Object.create(null);
 ["+", "-", "*", "/", "==", "<", ">"].forEach(function (op) {
     topEnv[op] = new Function("a, b", "return a " + op + " b;");
 });
+topEnv['-'](100,1) === 99
 
 // Array as argument
 let myFunction = function ([foo, bar]) {}
@@ -669,8 +670,9 @@ function createCounter() {
     }
 }
 let counter = createCounter();
-counter.increment();// 1
-counter.increment();// 2
+counter.increment();
+counter.increment();
+counter.getVal() === 2
 
 //ABSTRACTION
 sum(range(1, 10));
@@ -841,7 +843,8 @@ Object.getOwnPropertyDescriptors() // Returns an object containing all own prope
 Object.getOwnPropertyNames() // Returns an array containing the names of all of the given object's own enumerable and non-enumerable properties.
 Object.getOwnPropertySymbols() // Returns an array of all symbol properties found directly upon a given object.
 Object.getPrototypeOf() // Returns the prototype (internal [[Prototype]] property) of the specified object.
-Object.is() // Compares if two values are the same value. Equates all NaN values (which differs from both Abstract Equality Comparison and Strict Equality Comparison).
+Object.is(value1, value2): Boolean // Compares if two values are the same value. Unlike ==, it does not coerce values
+    Object.is('foo', 'foo')
 Object.isExtensible() // Determines if extending of an object is allowed.
 Object.isFrozen() // Determines if an object was frozen.
 Object.isSealed() // Determines if an object is sealed.
