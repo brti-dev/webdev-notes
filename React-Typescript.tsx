@@ -9,6 +9,7 @@ type ButtonProps = React.HTMLAttributes<HTMLButtonElement>
 
 // Children
 
+type Child = React.ReactNode
 type OneChild = React.ReactChild
 type TwoChildren = [React.ReactChild, React.ReactChild]
 type ManyChildren = React.ReactChild[]
