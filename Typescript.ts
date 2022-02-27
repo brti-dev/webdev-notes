@@ -5,7 +5,11 @@
 // $ create-react-app my-app --scripts-version=react-scripts-ts
 // react-scripts-ts is a set of adjustments to take the standard create-react-app project pipeline and bring TypeScript into the mix.
 
-/** @TYPES **/
+/**
+ * @TYPES
+ *
+ * A type can be extended with an intersection (&) but it cannot be reopened to add more props like an interface
+ **/
 
 // Types defined by Javascript
 type types = {
@@ -39,7 +43,14 @@ let arr2: Array<number> = [] // Same
 let point: [number, number] = [7, 4] // without defining
 
 // Function types
-;(param: any) => any
+interface SearchFunc {
+  (source: string, subString: string): boolean
+}
+let search: SearchFunc
+search = function (source, subString) {
+  // func params are inferred based on type
+  return source.includes(subString)
+}
 // example
 const func: (num: number) => string = (num: number) => String(num)
 // example
@@ -84,20 +95,71 @@ const myCanvasSpecificWithAngleParams = <HTMLCanvasElement>(
   document.getElementById('main_canvas')
 )
 
-/** @Interface */
+// Conditional type
+interface Foo {
+  foo: 'foo'
+}
+interface Bar extends Foo {
+  bar: 'bar'
+}
+type FooBar = Bar extends Foo ? number : string // number
+// Another example using generics
+interface IdLabel {
+  id: number /* some fields */
+}
+interface NameLabel {
+  name: string /* other fields */
+}
+type NameOrId<T extends number | string> = T extends number
+  ? IdLabel
+  : NameLabel
+function createLabel<T extends number | string>(idOrName: T): NameOrId<T> {
+  if (typeof idOrName === 'string') return <NameOrId<T>>{ name: idOrName }
+  return <NameOrId<T>>{ id: idOrName }
+}
+const labelA = createLabel('foo')
+const labelB = createLabel(1)
 
-// Interfaces are extensible, whereas type aliases are not so much
-// @see https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#differences-between-type-aliases-and-interfaces
+// Map a type using `in keyof`
+type Partial<T> = {
+  [Key in keyof T]?: T[Key]
+}
+type Required<T> = {
+  //  -? removes optional modifier
+  [Key in keyof T]-?: T[Key]
+}
+// Another example
+type OptionsFlags<Type> = {
+  [Property in keyof Type]: boolean // map Type, set all values to boolean
+}
+type Foo = { foo: 'foo' | 'bar'; bar: number }
+const foo: OptionsFlags<Foo> = { foo: true, bar: false }
+// Another example using conditional
+type OptionsFlags2<Type> = {
+  [Property in keyof Type]: Type[Property] extends string
+    ? Type[Property]
+    : boolean // All values should be boolean unless they are strings
+}
+type Foo2 = { foo: 'foo' | 'bar'; bar: number }
+const foo2: OptionsFlags2<Foo2> = { foo: 'foo', bar: false }
+
+// Template Literal types
+type Color = 'Primary' | 'Secondary' | 'Tertiary'
+type Variant = `color__${Uncapitalize<Color>}--${'light' | 'dark'}`
+
+/**
+ * @Interface
+ * Interfaces are extensible through the `extends` keyword
+ */
 
 interface Animal {
   name: string
 }
 interface Bear extends Animal {
   honey: boolean
+  [propName: string]: any // Allow Bear to have any other props
 }
-const bear = getBear()
-bear.name
-bear.honey
+const bear: Bear = { name: 'Brownie', honey: true, foo: true }
 
 // Interfaces as records
 interface Point {
