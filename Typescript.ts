@@ -146,6 +146,7 @@ const foo2: OptionsFlags2<Foo2> = { foo: 'foo', bar: false }
 // Template Literal types
 type Color = 'Primary' | 'Secondary' | 'Tertiary'
 type Variant = `color__${Uncapitalize<Color>}--${'light' | 'dark'}`
+type FooString = `foo_${string}`
 
 /**
  * @Interface
