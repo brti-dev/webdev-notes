@@ -569,6 +569,20 @@ topEnv['-'](100,1) === 99
 let myFunction = function ([foo, bar]) {}
 myFunction(['foo', 'bar']);
 
+// Arguments reference
+// An array-like object (not subject to standard array prototypes) -- use array notation to access elements
+// @param length {number} Number of arguments
+function concat(separator) {
+    let ret = arguments[1]
+    let i = 2;
+    while (i < arguments.length) {
+        ret += separator + arguments[i]
+        i++
+    }
+
+    return ret
+}
+
 // Use the spread operator (...) to pack undefined arguments into an array
 const func = function (param1, param2, ...restOfArguments) {
     console.log(param1, param2, restOfArguments);
