@@ -142,6 +142,27 @@ type OptionsFlags2<Type> = {
 }
 type Foo2 = { foo: 'foo' | 'bar'; bar: number }
 const foo2: OptionsFlags2<Foo2> = { foo: 'foo', bar: false }
+// Yet another example
+interface TypeMap {
+  number: number
+  string: string
+  boolean: boolean
+}
+type UnionRecord<P extends keyof TypeMap> = {
+  [K in P]: {
+    kind: K
+    v: TypeMap[K]
+    f: (p: TypeMap[K]) => void
+  }
+}[P] // ???
+function processRecord<K extends keyof TypeMap>(record: UnionRecord<K>) {
+  record.f(record.v)
+}
+processRecord({
+  kind: 'string',
+  v: 'foo',
+  f: val => console.log(val.toUpperCase()),
+})
 
 // Template Literal types
 type Color = 'Primary' | 'Secondary' | 'Tertiary'
