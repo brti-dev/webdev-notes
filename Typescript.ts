@@ -84,16 +84,20 @@ let maybeNumber: number = null // @ts-ignore: Type 'null' is not assignable to t
 let maybeNumber: null | number = null //ok
 maybeNumber = 123 //ok
 
-// Assign a more specific type than would be inferred by TS
-// TS infers HTML element
-const myCanvas = document.getElementById('main_canvas')
-// Specify a canvas element
-const myCanvasSpecific = document.getElementById(
-  'main_canvas'
-) as HTMLCanvasElement
-const myCanvasSpecificWithAngleParams = <HTMLCanvasElement>(
-  document.getElementById('main_canvas')
-)
+// Create union type from property names of a type using `keyof`
+interface Person {
+  age: number
+  name: string
+}
+type PersonKeys = keyof Person // "age" | "name"
+
+// Lookup types -- a type derived from the property of a type
+interface Person {
+  age: number
+  name: string
+}
+type Age = Person['age'] // number
+type AgeOrName = Person['age' | 'name'] // number | string
 
 // Conditional type
 interface Foo {
@@ -149,6 +153,7 @@ interface TypeMap {
   boolean: boolean
 }
 type UnionRecord<P extends keyof TypeMap> = {
+  // `keyof` returns a string literal of TypeMap's keys ('number'|'string'|'boolean')
   [K in P]: {
     kind: K
     v: TypeMap[K]
@@ -171,6 +176,7 @@ type FooString = `foo_${string}`
 
 /**
  * @Interface
+ *
  * Interfaces are extensible through the `extends` keyword
  */
 
@@ -214,11 +220,15 @@ type StoriesAction =
   | StoriesRemoveAction
 const reducer = (action: StoriesAction) => {}
 
-/** @Parameters */
+/**
+ * @Parameters
+ *
+ * Parameterized types use angular brackets
+ */
 
-// Parameterized types use angular brackets
+// Assign a parameter type
 class SimpleStack<T> {
-  // Parameter <T> will be assigned string type later
+  // Parameter <T> will be assigned `string` type later
   #data: Array<T> = []
   push(x: T): void {
     this.#data.push(x)
@@ -239,6 +249,24 @@ stringStack.push('first')
 stringStack.push('second')
 stringStack.length === 2
 stringStack.pop() === 'second'
+
+// Infer a parameterized type
+function getProp<
+  T, // Inferred based on firs arg passed to `getProp` function
+  K extends keyof T // `keyof T` creates a union of `obj` keys ('age'|'price'), `K` is constrained by `extends`
+>(
+  obj: T, // Based on this arg, infer T
+  key: K //
+) /*: T[K] */ {
+  // Inferred return T[K]
+  return obj[key]
+}
+const product = {
+  name: 'Porcelain butt plug',
+  price: 99,
+}
+const price = getProp(product, 'price') //: number
+const fuuuu = getProp(product, 'fuuuu') //* Argument of type '"fuuuu"' is not assignable to parameter of type '"name" | "price"'
 
 // Assign types to Map using parameterized type
 const myMap: Map<boolean, string> = new Map([
@@ -264,7 +292,7 @@ assert.deepEqual(star_arr, ['*', '*', '*'])
 
 // Add constraint on an input using the `extends` keyword
 function longest<Type extends { length: number }>(a: Type, b: Type) {
-  // Type must have `length` prop
+  // `Type` must have `length` prop that's a number
   // Because we constrained Type to { length: number }, we were allowed to
   // access the .length property of the a and b parameters. Without the type
   // constraint, we wouldn’t be able to access those properties because the
