@@ -77,7 +77,7 @@ header .button { flex-shrink: 0;} /* All buttons shrink and align right */
 .grid-like { display: flex; flex-wrap: wrap; }
 .grid-like > * { flex: 1 1 10em; }
 
-/* @Transform
+/* @transform
   Rotate, scale, skew, or translate (move along axes) an element
 */
 div:hover {
@@ -136,3 +136,26 @@ filter: url("filters.svg#filter-id");
 @media (hover: hover) and (pointer: coarse) {/* ... */}
 /* mouse, touch pad */
 @media (hover: hover) and (pointer: fine) {/* ... */}
+
+/* @margin-inline */
+
+/* Set the left and right margins */
+div p {
+  margin-line: 10px 20px;
+}
+
+/**
+ * @text-overflow
+ *
+ * Manage text content when it exceeds container width
+ **/
+
+ button {
+  min-width: 0; /* https://stackoverflow.com/questions/26465745/ellipsis-in-flexbox-container */
+  width: 100px;
+}
+button span {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
