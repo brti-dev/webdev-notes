@@ -522,12 +522,74 @@ function errorHandler() {
 }
 
 /**
- * @DATETIME 
+ * @DATE
  */
+
+// Constructor
+Date() // When called as a function, returns a string representation of the current date and time, exactly as new Date().toString() does.
+new Date() // When called as a constructor, returns a new Date object.
+
+// Methods
+Date.prototype.getDate() // Returns the day of the month (1–31) for the specified date according to local time.
+Date.prototype.getDay() // Returns the day of the week (0–6) for the specified date according to local time.
+Date.prototype.getFullYear() // Returns the year (4 digits for 4-digit years) of the specified date according to local time.
+Date.prototype.getHours() // Returns the hour (0–23) in the specified date according to local time.
+Date.prototype.getMilliseconds() // Returns the milliseconds (0–999) in the specified date according to local time.
+Date.prototype.getMinutes() // Returns the minutes (0–59) in the specified date according to local time.
+Date.prototype.getMonth() // Returns the month (0–11) in the specified date according to local time.
+Date.prototype.getSeconds() // Returns the seconds (0–59) in the specified date according to local time.
+Date.prototype.getTime() // Returns the numeric value of the specified date as the number of milliseconds since January 1, 1970, 00:00:00 UTC. (Negative values are returned for prior times.)
+Date.prototype.getTimezoneOffset() // Returns the time-zone offset in minutes for the current locale.
+Date.prototype.getUTCDate() // Returns the day (date) of the month (1–31) in the specified date according to universal time.
+Date.prototype.getUTCDay() // Returns the day of the week (0–6) in the specified date according to universal time.
+Date.prototype.getUTCFullYear() // Returns the year (4 digits for 4-digit years) in the specified date according to universal time.
+Date.prototype.getUTCHours() // Returns the hours (0–23) in the specified date according to universal time.
+Date.prototype.getUTCMilliseconds() // Returns the milliseconds (0–999) in the specified date according to universal time.
+Date.prototype.getUTCMinutes() // Returns the minutes (0–59) in the specified date according to universal time.
+Date.prototype.getUTCMonth() // Returns the month (0–11) in the specified date according to universal time.
+Date.prototype.getUTCSeconds() // Returns the seconds (0–59) in the specified date according to universal time.
+Date.prototype.setDate() // Sets the day of the month for a specified date according to local time.
+Date.prototype.setFullYear() // Sets the full year (e.g. 4 digits for 4-digit years) for a specified date according to local time.
+Date.prototype.setHours() // Sets the hours for a specified date according to local time.
+Date.prototype.setMilliseconds() // Sets the milliseconds for a specified date according to local time.
+Date.prototype.setMinutes() // Sets the minutes for a specified date according to local time.
+Date.prototype.setMonth() // Sets the month for a specified date according to local time.
+Date.prototype.setSeconds() // Sets the seconds for a specified date according to local time.
+Date.prototype.setTime() // Sets the Date object to the time represented by a number of milliseconds since January 1, 1970, 00:00:00 UTC. Use negative numbers for times prior.
+Date.prototype.setUTCDate() // Sets the day of the month for a specified date according to universal time.
+Date.prototype.setUTCFullYear() // Sets the full year (e.g. 4 digits for 4-digit years) for a specified date according to universal time.
+Date.prototype.setUTCHours() // Sets the hour for a specified date according to universal time.
+Date.prototype.setUTCMilliseconds() // Sets the milliseconds for a specified date according to universal time.
+Date.prototype.setUTCMinutes() // Sets the minutes for a specified date according to universal time.
+Date.prototype.setUTCMonth() // Sets the month for a specified date according to universal time.
+Date.prototype.setUTCSeconds() // Sets the seconds for a specified date according to universal time.
+Date.prototype.setYear() // Sets the year (usually 2–3 digits) for a specified date according to local time. Use setFullYear() instead.
+Date.prototype.toDateString() // Returns the "date" portion of the Date as a human-readable string like 'Thu Apr 12 2018'.
+Date.prototype.toISOString() // Converts a date to a string following the ISO 8601 Extended Format.
+Date.prototype.toJSON() // Returns a string representing the Date using toISOString(). Intended for use by JSON.stringify().
+Date.prototype.toGMTString() // Returns a string representing the Date based on the GMT (UTC) time zone. Use toUTCString() instead.
+Date.prototype.toLocaleDateString() // Returns a string with a locality sensitive representation of the date portion of this date based on system settings.
+Date.prototype.toLocaleString() // Returns a string with a locality-sensitive representation of this date. Overrides the Object.prototype.toLocaleString() method.
+Date.prototype.toLocaleTimeString() // Returns a string with a locality-sensitive representation of the time portion of this date, based on system settings.
+Date.prototype.toString() // Returns a string representing the specified Date object. Overrides the Object.prototype.toString() method.
+Date.prototype.toTimeString() // Returns the "time" portion of the Date as a human-readable string.
+Date.prototype.toUTCString() // Converts a date to a string using the UTC timezone.
+Date.prototype.valueOf() // Returns the primitive value of a Date object. Overrides the Object.prototype.valueOf() method.
 
 // Date object
 var today = new Date();
 print("Year: ", today.getFullYear(), ", month: ", today.getMonth(), ", day: ", today.getDate());
+
+const date = new Date()
+console.log(date.toDateString()) // Sun Mar 20 2022
+console.log(date.toISOString()) // VM6451:3 2022-03-20T13:07:19.156Z
+console.log(date.toJSON()) // VM6451:4 2022-03-20T13:07:19.156Z
+console.log(date.toLocaleDateString()) // VM6451:5 3/20/2022
+console.log(date.toLocaleString()) // VM6451:6 3/20/2022, 9:07:19 PM
+console.log(date.toLocaleTimeString()) // VM6451:7 9:07:19 PM
+console.log(date.toString()) // VM6451:8 Sun Mar 20 2022 21:07:19 GMT+0800 (China Standard Time)
+console.log(date.toTimeString()) // VM6451:9 21:07:19 GMT+0800 (China Standard Time)
+console.log(date.toUTCString()) // VM6451:10 Sun, 20 Mar 2022 13:07:19 GMT
 
 /**
  * @FUNCTION
@@ -840,7 +902,9 @@ Object.assign(target, sources) // Copies the values of all enumerable own proper
     let ab = Object.assign({}, a, b)
     ab_spread = {...a, ...b} //equivalent to above assignment
 Object.create() // Creates a new object with the specified prototype object and properties.
-Object.defineProperty() // Adds the named property described by a given descriptor to an object.
+Object.defineProperty(obj, property, descriptor) // Adds the named property described by a given descriptor to an object.
+    const o = {}
+    Object.defineProperty(o, 'foo', {writable:false,enumerable:true}) // Fine tune property utils
 Object.defineProperties() // Adds the named properties described by the given descriptors to an object.
 Object.entries() // Returns an array containing all of the [key, value] pairs of a given object's own enumerable string properties.
     for (const [key, value] of Object.entries(object1)) {
