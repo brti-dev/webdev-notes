@@ -22,6 +22,15 @@ const baz // Declare variables that do not get reassigned
  * @OPERATORS
  */
 
+// !
+(null === undefined) == false
+(null == undefined) == true
+// Useful for checking for assigned values
+let foo
+(foo == null) == true
+foo = 0
+(foo != null) == true
+
 // ?? Null coalescing operator
 // Selects first NON-NULL, DEFINED operand
 let a
