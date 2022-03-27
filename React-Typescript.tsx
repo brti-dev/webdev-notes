@@ -24,9 +24,7 @@ type ButtonProps = JSX.IntrinsicElements['button']
 function Button({ ...allProps }: ButtonProps) {
   return <button {...allProps} />
 }
-
 // Another example
-
 const Thumb = ({
   thumb,
   ...rest
