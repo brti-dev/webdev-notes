@@ -109,10 +109,10 @@ interface Bar extends Foo {
 type FooBar = Bar extends Foo ? number : string // number
 // Another example using generics
 interface IdLabel {
-  id: number /* some fields */
+  id: number
 }
 interface NameLabel {
-  name: string /* other fields */
+  name: string
 }
 type NameOrId<T extends number | string> = T extends number
   ? IdLabel
@@ -330,7 +330,8 @@ const d3 = makeDate(1, 3)
 
 /**
  * @Partial<Type>
- * Constructs a type with all properties of Type set to optional. This utility will return a type that represents all subsets of a given type.
+ * Constructs a type with all properties of Type set to optional. This utility
+ * will return a type that represents all subsets of a given type.
  **/
 interface Todo {
   title: string
@@ -342,7 +343,8 @@ function updateTodo(todo: Todo, fieldsToUpdate: Partial<Todo>) {
 
 /**
  * @Required<Type>
- * Constructs a type consisting of all properties of Type set to required. The opposite of Partial.
+ * Constructs a type consisting of all properties of Type set to required. The
+ * opposite of Partial.
  */
 interface Props {
   a?: number
@@ -353,7 +355,8 @@ const obj2: Required<Props> = { a: 5 } // Error: Property 'b' is missing in type
 
 /**
  * @Readonly<Type>
- * Constructs a type with all properties of Type set to readonly, meaning the properties of the constructed type cannot be reassigned.
+ * Constructs a type with all properties of Type set to readonly, meaning the
+ * properties of the constructed type cannot be reassigned.
  */
 interface Todo {
   title: string
@@ -365,7 +368,9 @@ todo.title = 'Hello' // Cannot assign to 'title' because it is a read-only prope
 
 /**
  * @Record<Keys, Type>
- * Constructs an object type whose property keys are `Keys` and whose property values are `Type`. This utility can be used to map the properties of a type to another type.
+ * Constructs an object type whose property keys are `Keys` and whose property
+ * values are `Type`. This utility can be used to map the properties of a type
+ * to another type.
  */
 interface CatInfo {
   age: number
@@ -380,7 +385,8 @@ const cats: Record<CatName, CatInfo> = {
 
 /**
  * @Pick<Type, Keys>
- * Constructs a type by picking the set of properties Keys (string literal or union of string literals) from Type.
+ * Constructs a type by picking the set of properties Keys (string literal or
+ * union of string literals) from Type.
  */
 interface Todo {
   title: string
@@ -395,7 +401,8 @@ const todo: TodoPreview = {
 
 /**
  * @Omit<Type, Keys>
- * Constructs a type by picking all properties from Type and then removing Keys (string literal or union of string literals).
+ * Constructs a type by picking all properties from Type and then removing Keys
+ * (string literal or union of string literals).
  */
 interface Todo {
   title: string
@@ -420,7 +427,8 @@ type T2 = Exclude<string | number | (() => void), Function> // string | number
 
 /**
  * @Extract<Type, Union>
- * Constructs a type by extracting from Type all union members that are assignable to Union.
+ * Constructs a type by extracting from Type all union members that are
+ * assignable to Union.
  */
 type T0 = Extract<'a' | 'b' | 'c', 'a' | 'f'> // "a"
 type T1 = Extract<string | number | (() => void), Function> // () => void
