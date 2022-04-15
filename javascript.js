@@ -1004,6 +1004,9 @@ const a = {
    ...(true && {b: 5})
 }
 
+// in operator to check for key
+'foo' in {foo:1} == true
+
 // iterating over an object using for-in
 // this works on objects and NOT arrays because for-in iterates over INDEXES not
 // values, and index of an array will be a string, not a number)
