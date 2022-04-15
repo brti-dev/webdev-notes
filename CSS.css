@@ -9,7 +9,14 @@ E[foo*="bar"]         /*an E element whose "foo" attribute value contains the su
 E[foo|="en"]          /*an E element whose "foo" attribute has a hyphen-separated list of values beginning (from the left) with "en" */
 E:root                /*an E element, root of the document  */
 E:nth-child(n)        /*an E element, the n-th child of its parent  */
+E:nth-child(n+6)      /*All the E elements starting from the sixth*/
+  li:nth-child(n+6){ color:salmon } /* colorize the 6th li and the succeeding ones */
 E:nth-last-child(n)   /*an E element, the n-th child of its parent, counting from the last one  */
+E:nth-last-child(n):first-child /*E with exactly n siblings */
+  li:nth-last-child(20):first-child, li:nth-last-child(2):first-child ~ li { font-weight:bold; } /* Embolden all li if there are exaclty 20 */
+E:nth-last-child()
+  li:nth-last-child(n+2), li:nth-last-child(n+2) ~ li { color: hotpink; } /* colorize all li if there are 2 or more*/
+  li:nth-last-child(-n+5), li:nth-last-child(-n+5) ~ li { color: hotpink; } /* colorize all li if there are 5 or less*/
 E:nth-of-type(n)      /*an E element, the n-th sibling of its type  */
 E:nth-last-of-type(n) /*an E element, the n-th sibling of its type, counting from the last one  */
 E:first-child         /*an E element, first child of its parent Structural pseudo-classes 2 */
@@ -30,6 +37,9 @@ E::first-letter       /*the first formatted letter of an E element  The ::first-
 E::before             /*generated content before an E element The ::before pseudo-element 2*/
 E::after              /*generated content after an E element  The ::after pseudo-element  2*/
 E:not(s)              /*an E element that does not match simple selector s  Negation pseudo-class 3*/
+E:has(s)              /*an E element with with a child selector s*/
+E:has(+ s)            /*E element followed by selector s, eg. p:has(+ p) { margin-bottom:1em; }*/
+E:has(> s)            /*E element with direct descendant selector s*/
 E F                   /*an F element descendant of an E element Descendant combinator 1*/
 E > F                 /*an F element child of an E element  Child combinator  2*/
 E + F                 /*an F element immediately preceded by an E element Adjacent sibling combinator 2*/
@@ -76,6 +86,10 @@ header .button { flex-shrink: 0;} /* All buttons shrink and align right */
 /* Responsive grid-like layout where cells wrap and expand as needed */
 .grid-like { display: flex; flex-wrap: wrap; }
 .grid-like > * { flex: 1 1 10em; }
+
+/* Justify the last item to the flex-end */
+.justify-last { display: flex; gap: 1em; align-items: center; }
+.justify-last :last-child { margin-left: auto }
 
 /* @transform
   Rotate, scale, skew, or translate (move along axes) an element
