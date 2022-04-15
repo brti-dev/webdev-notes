@@ -1,14 +1,11 @@
+// @see
+
 // Props on HTML element
 type ButtonProps = React.ComponentPropsWithoutRef<'button'>
 type ButtonProps = JSX.IntrinsicElements['button']
 type ButtonProps = React.HTMLAttributes<HTMLButtonElement>
 
-// Create React App with Typescript
-// $ create-react-app my-app --scripts-version=react-scripts-ts
-// react-scripts-ts is a set of adjustments to take the standard create-react-app project pipeline and bring TypeScript into the mix.
-
 // Children
-
 type Child = React.ReactNode
 type OneChild = React.ReactChild
 type TwoChildren = [React.ReactChild, React.ReactChild]
@@ -19,7 +16,6 @@ type NumbersChildren = number[]
 type TwoNumbersChildren = [number, number]
 
 // Spread attributes to HTML elements
-
 type ButtonProps = JSX.IntrinsicElements['button']
 function Button({ ...allProps }: ButtonProps) {
   return <button {...allProps} />
@@ -57,7 +53,44 @@ type ImgProps = MakeRequired<JSX.IntrinsicElements['img'], 'alt' | 'src'>
 export function Img({ alt, ...allProps }: ImgProps) {
   return <img alt={alt} {...allProps} />
 }
-const zz = <Img alt="..." src="..." />
+const img = <Img alt="..." src="..." />
+
+// Overload props
+type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+  href?: undefined
+}
+type AnchorProps = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
+  href?: string
+}
+type Overload = {
+  (props: ButtonProps): JSX.Element
+  (props: AnchorProps): JSX.Element
+}
+const hasHref = (props: ButtonProps | AnchorProps): props is AnchorProps =>
+  'href' in props
+const Buttonnnn: Overload = (props: ButtonProps | AnchorProps) => {
+  if (hasHref(props)) return <a {...props} />
+  return <button {...props} />
+}
+
+// Conditional props based on props
+type CommonProps = {
+  children: React.ReactNode
+  miscProps?: any
+}
+type NoTruncateProps = CommonProps & { truncate?: false }
+type TruncateProps = CommonProps & { truncate: true; expanded?: boolean }
+function Text(props: NoTruncateProps): JSX.Element // Overload
+function Text(props: TruncateProps): JSX.Element // Overload
+function Text(props: CommonProps & { truncate?: boolean; expanded?: boolean }) {
+  const { children, truncate, expanded, ...otherProps } = props
+  const classNames = truncate ? '.truncate' : ''
+  return (
+    <div className={classNames} aria-expanded={!!expanded} {...otherProps}>
+      {children}
+    </div>
+  )
+}
 
 // Synthetic Event
 const handleChange = (event: React.SyntheticEvent) => {
