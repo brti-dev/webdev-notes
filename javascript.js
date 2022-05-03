@@ -157,6 +157,12 @@ Number.prototype.toFixed(digits) // Returns a string representing the number in 
     }
     toDollars(10); //"$10.00"
 Number.prototype.toLocaleString([locales[, options]]) // Returns a string with a language sensitive representation of this number.Overrides the Object.prototype.toLocaleString() method.
+    9999..toLocaleString() // '9,999'
+    10000..toLocaleString('en-US', {style: 'currency', currency: 'USD'}) // => $10,000.00
+    1234..toLocaleString('en-US', {notation: 'compact'}) // => 1.2K
+    0.55.toLocaleString('en-US', {style: 'percent'}) // => 55%
+    1234..toLocaleString('en-US', {style: 'unit', unit: 'liter'}) // => 1,234 L
+    1234..toLocaleString('en-US', {style: 'unit', unit: 'liter', unitDisplay: 'narrow'}) // => 1,234L
 Number.prototype.toPrecision(precision) // Returns a string representing the number to a specified precision in fixed - point or exponential notation.
 Number.prototype.toString([radix]) // Returns a string representing the specified object in the specified radix("base").Overrides the Object.prototype.toString() method.
 Number.prototype.valueOf() // Returns the primitive value of the specified object.Overrides the Object.prototype.valueOf() method.
@@ -578,7 +584,10 @@ Date.prototype.toISOString() // Converts a date to a string following the ISO 86
 Date.prototype.toJSON() // Returns a string representing the Date using toISOString(). Intended for use by JSON.stringify().
 Date.prototype.toGMTString() // Returns a string representing the Date based on the GMT (UTC) time zone. Use toUTCString() instead.
 Date.prototype.toLocaleDateString() // Returns a string with a locality sensitive representation of the date portion of this date based on system settings.
-Date.prototype.toLocaleString() // Returns a string with a locality-sensitive representation of this date. Overrides the Object.prototype.toLocaleString() method.
+Date.prototype.toLocaleString(locale: string, options: {}) // Returns a string with a locality-sensitive representation of this date. Overrides the Object.prototype.toLocaleString() method.
+    new Date().toLocaleString() // => "24/4/2022, 10:40:00 am" Use the environment/browser default locale
+    new Date().toLocaleString('en-US') // Use a specific locale
+    new Date().toLocaleString('en-US', {dateStyle: 'full'}) // Custom output
 Date.prototype.toLocaleTimeString() // Returns a string with a locality-sensitive representation of the time portion of this date, based on system settings.
 Date.prototype.toString() // Returns a string representing the specified Date object. Overrides the Object.prototype.toString() method.
 Date.prototype.toTimeString() // Returns the "time" portion of the Date as a human-readable string.
@@ -925,6 +934,10 @@ Object.freeze() // Makes an object immutable.
     console.log(foo.foo) //-> 'foo'
     Object.isFrozen(foo) === true
 Object.fromEntries() // Returns a new object from an iterable of [key, value] pairs. (This is the reverse of Object.entries).
+    // Sort object by keys
+    Object.fromEntries(
+        Object.entries({b: 3, a:8, c:1}).sort() // -> [['a', 8], ['b', 3], ['c', 1]]
+    )
 Object.getOwnPropertyDescriptor() // Returns a property descriptor for a named property on an object.
 Object.getOwnPropertyDescriptors() // Returns an object containing all own property descriptors for an object.
 Object.getOwnPropertyNames() // Returns an array containing the names of all of the given object's own enumerable and non-enumerable properties.
