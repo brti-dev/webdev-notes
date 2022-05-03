@@ -95,12 +95,12 @@ header .button { flex-shrink: 0;} /* All buttons shrink and align right */
   Rotate, scale, skew, or translate (move along axes) an element
 */
 div:hover {
-    transform: translate(10px, 10px) scale(0.1); /* multiple props on a selector */
-    transform: scale(1.5); /* Embiggen by 50% */
-    transform: skewX(-32deg); /* Skew horizontally */
-    transform: translateY(-10px); /* Slide up 10px */
-    transform: translate(0, -10px); /* Same as above */
-    transform: rotate(0.5turn);
+  transform: translate(10px, 10px) scale(0.1); /* multiple props on a selector */
+  transform: scale(1.5); /* Embiggen by 50% */
+  transform: skewX(-32deg); /* Skew horizontally */
+  transform: translateY(-10px); /* Slide up 10px */
+  transform: translate(0, -10px); /* Same as above */
+  transform: rotate(0.5turn);
 }
 /* @see Cumulative Layout Shifts, avoiding https://web.dev/cls/
 - Instead of changing the height and width properties, use transform: scale().
@@ -164,7 +164,7 @@ div p {
  * Manage text content when it exceeds container width
  **/
 
- button {
+button {
   min-width: 0; /* https://stackoverflow.com/questions/26465745/ellipsis-in-flexbox-container */
   width: 100px;
 }
