@@ -996,6 +996,20 @@ Object.prototype.watch() // Adds a watchpoint to a property of the object.
 // Property: association between a name (key) and a value
 // Method: A property which has a function as a value
 
+// Object creation
+const objectLiteral = {}
+const objectCreateMethod = Object.create()
+const functionConstruct = new Person('Gustavo')
+function Person(name) {
+    this.name = name
+}
+const classObj = new Foo('foo')
+class Foo {
+    constructor(foo) {
+        this.foo = foo
+    }
+}
+
 //immutability of objects
 var object1 = { value: 10 };
 var object2 = object1;
