@@ -54,7 +54,11 @@ String.prototype.length // Reflects the length of the string. Read-only.
 String.prototype.charAt(index) // Returns the character (exactly one UTF-16 code unit) at the specified index.
     "Gilgamesh".charAt(3) == 'g'
     "Gilgamesh"[3]; //Same as above
-String.prototype.charCodeAt(index) // Returns a number that is the UTF-16 code unit value at the given index.
+String.prototype.charCodeAt([index = 0]) // Returns a number that is the UTF-16 code unit value at the given index.
+    "abc".charCodeAt(2) == 99 // c
+    "d".charCodeAt() == 100
+    // Get the next letter in the alphabet
+    String.fromCharCode("y".charCodeAt() + 1) == 'z'
 String.prototype.codePointAt(pos) // Returns a nonnegative integer Number that is the code point value of the UTF-16 encoded code point starting at the specified pos.
 String.prototype.concat(str [, ...strN ]) // Combines the text of two (or more) strings and returns a new string.
 String.prototype.includes(searchString [, start_position]) // Determines whether the calling string contains searchString.
@@ -73,6 +77,7 @@ String.prototype.lastIndexOf(searchValue [, fromIndex]) // Returns the index wit
         pos = str.indexOf( "x",pos + 1 );
     }
 String.prototype.localeCompare(compareString [, locales [, options]]) // Returns a number indicating whether the reference string compareString comes before, after, or is equivalent to the given string in sort order.
+    'a'.localeCompare('b') == -1
 String.prototype.match(regexp) // Used to match regular expression regexp against a string.
 String.prototype.matchAll(regexp) // Returns an iterator of all regexp's matches.
 String.prototype.normalize([form]) // Returns the Unicode Normalization Form of the calling string value.
@@ -1003,7 +1008,7 @@ const functionConstruct = new Person('Gustavo')
 function Person(name) {
     this.name = name
 }
-const classObj = new Foo('foo')
+const classConstruct = new Foo('foo')
 class Foo {
     constructor(foo) {
         this.foo = foo
