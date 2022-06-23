@@ -142,6 +142,17 @@ function enhanceComponent(Component) {
 }
 const EnhancedTitle = enhanceComponent(Title)
 
+// Pass a `key` to indicate the component is unique: No shared state with another component
+function ProfilePage({userId}) {
+    return <Profile userId={userId} key={userId} />
+}
+function Profile({userId}) {
+    // This state will be cleared and reset when the `key` changes -- no overlapping state
+    const [comment, setComment] = useState('')
+    return <b>{comment}</b>
+}
+// 
+
 /********** */
 /** @STATE **/
 /********** */
