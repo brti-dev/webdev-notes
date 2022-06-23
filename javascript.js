@@ -79,7 +79,11 @@ String.prototype.lastIndexOf(searchValue [, fromIndex]) // Returns the index wit
 String.prototype.localeCompare(compareString [, locales [, options]]) // Returns a number indicating whether the reference string compareString comes before, after, or is equivalent to the given string in sort order.
     'a'.localeCompare('b') == -1
 String.prototype.match(regexp) // Used to match regular expression regexp against a string.
+    'foo'.match(/o/g).length == 2
+    ('foo'.match(/z/g) || []).length // Secure result without a match
 String.prototype.matchAll(regexp) // Returns an iterator of all regexp's matches.
+    // Count number of occurrences of a match
+    [...'foo'.matchAll(/o/g)].length == 2
 String.prototype.normalize([form]) // Returns the Unicode Normalization Form of the calling string value.
 String.prototype.padEnd(targetLength [, padString]) // Pads the current string from the end with a given string and returns a new string of the length targetLength.
     'fuu'.padEnd(5, '!') == 'fuu!!'
@@ -92,6 +96,7 @@ String.prototype.replaceAll(searchFor, replaceWith) // Used to replace all occur
 String.prototype.search(regexp) // Search for a match between a regular expression regexp and the calling string.
 String.prototype.slice(beginIndex[, endIndex]) // Extracts a section of a string and returns a new string.
 String.prototype.split([sep [, limit] ]) // Returns an array of strings populated by splitting the calling string at occurences of the substring sep.
+    'foo'.split('').map(l => l.toUpperCase()).join('')
 String.prototype.startsWith(searchString [, length]) // Determines whether the calling string begins with the characters of string searchString.
     'pre-funded'.startsWith('pre-') === true
 String.prototype.substr(start[, length]) // Returns the characters in a string beginning at the specified location through the specified number of characters.
@@ -307,8 +312,10 @@ Array.prototype.fill() // Fills all the elements of an array from a start index 
     // Create an array of certain length and fill it recursively
     Array(3).fill(1).map((val, index) => val + index) == [1, 2, 3]
 Array.prototype.filter(callback(element[, index, [array]])[, thisArg]) // Returns a new array containing all elements of the calling array for which the provided filtering callbackFn returns true.
-Array.prototype.find() // Returns the found element in the array, if some element in the array satisfies the testing callbackFn, or undefined if not found.
+Array.prototype.find() // Returns the first found element in the array, if some element in the array satisfies the testing callbackFn, or undefined if not found.
     [1, 2, 3].find(function(i){ return i > 2; }) == 3
+    // Find a thing in an object list
+    [{foo:true},{foo:false}].find(o => o.foo)
 Array.prototype.findIndex() // Returns the found index in the array, if an element in the array satisfies the testing callbackFn, or -1 if not found.
     [1, 2, 3].findIndex(function(i){ return i > 2; }) == 2
     [{foo:true},{bar:true}].findIndex(i => i.bar) == 1
@@ -1528,7 +1535,7 @@ Element            Matches this...
 x|y                Match x or y
 +                  Match the preceding element one or more times
 *                  Match the preceding element zero or more times
-?                  Match the preceding element zero or one time
+?                  Match the preceding element zero or one time 
 {n}                Match the preceding element exactly n times
 {n,}               Match the preceding element n or more times
 {m,n}              Match the preceding element at least m, at most n times
