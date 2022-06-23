@@ -147,7 +147,7 @@ const EnhancedTitle = enhanceComponent(Title)
 /********** */
 
 // Pure function components are fine!
-// Example: sum() doesn't modify props and same input always returns same resuls
+// Example: sum() doesn't modify props and same input always returns same results
 function sum(a, b) {
     return a + b;
 }
@@ -173,7 +173,16 @@ function Account({ initialAmount }) {
         </>
     )
 }
-const element = <Account initialAmount="100" />
+const element = <Account initialAmount="100" />;
+
+// When something can be calculated from existing props or state, don't put it
+// in state or effect; Put it in the rendering phase of the component lifecycle
+function Component() {
+    const [firstName, setFirst] = useState('Gustavo')
+    const [lastName, setLast] = useState('Almodovar')
+    const fullName = firstName+' '+lastName
+    return <>{fullName}</>
+}
 
 // Use browser form to set props
 // The following form result is: /search?q=FOO&showAllResults=false
