@@ -84,6 +84,22 @@ let maybeNumber: number = null // @ts-ignore: Type 'null' is not assignable to t
 let maybeNumber: null | number = null //ok
 maybeNumber = 123 //ok
 
+// Unknown type: restrict assignment to `any` or `unknown` ONLY
+let v: unknown
+let v1: unknown = v // OK
+let v2: any = v // OK
+let v3: boolean = v // Error: Type 'unknown' is not assignable to type 'boolean'.
+// Useful for control flow type analysis:
+function foo(bar: unknown): string {
+  if (typeof bar === 'function') {
+    return bar.name // function name prop
+  }
+  if (bar instanceof Date) {
+    return bar.toISOString()
+  }
+  return String(bar)
+}
+
 // Create union type from property names of a type using `keyof`
 interface Person {
   age: number
