@@ -282,6 +282,9 @@ Array.from(arrayLike [, mapFn [, thisArg]]) // Creates a new Array instance from
     Array.from('foo') == ["f", "o", "o"]
     Array.from([1, 2, 3], item => item * item) == [1, 4, 9]
 Array.isArray() // Returns true if value is an array, or false otherwise.
+    // Useful to distinguish between object and array
+    typeof [] === 'object'
+    Array.isArray([])
 Array.of() // Creates a new Array instance with a variable number of arguments, regardless of number or type of the arguments.
     Array.of(1, 2) == [1, 2] == Array(1, 2)
     Array.of(3) == [3]
