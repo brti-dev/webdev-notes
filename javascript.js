@@ -315,6 +315,8 @@ Array.prototype.fill() // Fills all the elements of an array from a start index 
     // Create an array of certain length and fill it recursively
     Array(3).fill(1).map((val, index) => val + index) == [1, 2, 3]
 Array.prototype.filter(callback(element[, index, [array]])[, thisArg]) // Returns a new array containing all elements of the calling array for which the provided filtering callbackFn returns true.
+    // Intersection of two arrays (find common elements)
+    [3] === [1, 2, 3].filter(e => [3, 4].includes(e))
 Array.prototype.find() // Returns the first found element in the array, if some element in the array satisfies the testing callbackFn, or undefined if not found.
     [1, 2, 3].find(function(i){ return i > 2; }) == 3
     // Find a thing in an object list
@@ -355,9 +357,9 @@ Array.prototype.slice([start[, end]]) // Extracts a section of the calling array
     // Get the last several items in an array
     ['a', 'b', 'c', 'd'].slice(-2) == ['c', 'd']
 Array.prototype.some() // Test values until a test returns true
-    true === [1, 2, 3].some(function(value, index, whole_array) {
-        return value >= 2;
-    })
+    true === [1, 2, 3].some(value => value >= 2)
+    // Check if two arrays have common elements
+    true === [1, 2, 3].some(e => [3, 4].includes(e))
 Array.prototype.sort([compareFunction]) // Sorts the elements of an array in place and returns the array.
     // If compareFunction is not supplied, elements are sorted by converting them to strings and comparing strings in
     // Unicode code point order. For example, "Cherry" comes before "banana". In a numeric sort, 9 comes before 80, but 
