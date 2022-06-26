@@ -317,6 +317,11 @@ Array.prototype.fill() // Fills all the elements of an array from a start index 
 Array.prototype.filter(callback(element[, index, [array]])[, thisArg]) // Returns a new array containing all elements of the calling array for which the provided filtering callbackFn returns true.
     // Intersection of two arrays (find common elements)
     [3] === [1, 2, 3].filter(e => [3, 4].includes(e))
+    // Difference: Unique Arr1 elements (but NOT arr 2)
+    [1, 2] === [1, 2, 3].filter(e => ![3, 4].includes(e)) // NOT [4]!
+    // Difference: Symmetrical
+    arr1.filter(x => !arr2.includes(x)).concat(arr2.filter(x => !arr1.includes(x)))
+    Array.prototype.diff = function(arr2) { return this.filter(x => !arr2.includes(x)); } // Modify prototype
 Array.prototype.find() // Returns the first found element in the array, if some element in the array satisfies the testing callbackFn, or undefined if not found.
     [1, 2, 3].find(function(i){ return i > 2; }) == 3
     // Find a thing in an object list
