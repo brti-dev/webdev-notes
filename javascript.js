@@ -552,9 +552,14 @@ TypeError // Creates an instance representing an error that occurs when a variab
 URIError // Creates an instance representing an error that occurs when encodeURI() or decodeURI() are passed invalid parameters.
 AggregateError // Creates an instance representing several errors wrapped in a single error when multiple errors need to be reported by an operation, for example by Promise.any().
 
-// check
-const foo = new Error('fuu')
-foo instanceof Error === true
+// Basic usage
+try {
+    const myErr = new Error('fuu')
+    myErr instanceof Error === true
+    throw myErr
+} catch (e) {
+    console.log(`${e.name}: ${e.message}`) // Logs `Error: fuu`
+}
 
 // Throw an object
 try {
