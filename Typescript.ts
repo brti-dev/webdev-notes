@@ -398,6 +398,10 @@ const cats: Record<CatName, CatInfo> = {
   boris: { age: 5, breed: 'Maine Coon' },
   mordred: { age: 16, breed: 'British Shorthair' },
 }
+// Allow keys in the union to be omitted from the final record:
+const foo: { [key in 'foo' | 'bar']?: boolean } = {
+  foo: true,
+}
 
 /**
  * @Pick<Type, Keys>
