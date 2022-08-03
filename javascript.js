@@ -1722,6 +1722,27 @@ function generateParagraphs() {
 
 generateParagraphs();
 
+// @Memoization
+
+const memoize = (f) => {
+  const cache = {};
+  return (...args) => {
+    const argStr = JSON.stringify(args);
+    // Store the function call in the cache if it's not there, using the args
+    // as the key
+    cache[argStr] = cache[argStr] || f(...args);
+    return cache[argStr];
+  };
+};
+
+const squareNumber = memoize(x => x * x);
+squareNumber(4); // 16
+squareNumber(4); // 16, returns cache for input 4
+
+// Purify a function of side effects
+// Returns a function that can be executed to perform a side effect when needed
+const pureHttpCall = memoize((url, params) => () => $.getJSON(url, params));
+
 ////////////////////
 // Best Practices //
 ////////////////////
