@@ -1,22 +1,17 @@
-/**
- * declarative -- determine what a view looks like rather than what it does
- */
+declarative -- determine what a view looks like rather than what it does
 
-/**
- * Single-file component
- *
- * *.vue file
- *
- * Encapsulate into a single file:
- * - logic (js)
- * - template (html)
- * - style (css)
- */
+Single-file component
 
-/**
- * @Reactive data
- */
+*.vue file
 
+Encapsulate into a single file:
+ - logic (js)
+ - template (html)
+ - style (css)
+
+# Reactive data
+
+```js
 // Reactive data should be in the form of an object or collection
 const foo = reactive({ foo: 1, bar: 2 })
 const map = reactive(
@@ -31,11 +26,11 @@ const set = reactive(new Set(['foo', 'bar']))
 foo.foo++
 map.set('foo', 2)
 set.add('baz')
+```
 
-/**
- * @Ref
- */
+# Ref
 
+```js
 // Reference primitive
 const counter = ref(1)
 const isOurChildrenLearning = ref(true)
@@ -46,11 +41,11 @@ counter.value++
 // Objects are reactive
 const obj = reactive({ foo: 1 })
 obj.foo++ // Triggers a re-render
+```
 
-/**
- * @Computed ref
- */
+# Computed ref
 
+```js
 const author = reactive({
   name: 'John Doe',
   books: [
@@ -64,13 +59,13 @@ const publishedBooksMessage = computed(() => {
 })
 // Access or mutate the computed property using the `value` property
 publishedBooksMessage.value // 'No'
+```
 
-/**
- * @Directives
- * Used to attach behavior to DOM elements
- */
+# Directives
 
-// v-bind Bind attributes
+- Used to attach behavior to DOM elements
+
+## v-bind Bind attributes
 const myId = 1001
 const nestedObject = {
   class: 'my-class',
@@ -92,31 +87,31 @@ const foo = "bar"
 // Bind dynamic attributes
 <div v-bind:[attr]="foo"></div>
 
-// v-text Render text content
+## v-text Render text content
 <div v-text="text"></div>
 // same as:
 <div>{{ text }}</div>
 
-// v-html Interpret data as HTML; Update tag content innerHTML
+## v-html Interpret data as HTML; Update tag content innerHTML
 // NOTE: vulnerable to XSS
 const rawhtml = '<span style="color:red">Hello World</span>'
 // --
 <div v-html="rawhtml"></div>
 
-// v-show Hide or show a component; Manipulates CSS display property
+## v-show Hide or show a component; Manipulates CSS display property
 <div v-show="show"></div>
 
-// v-if, v-else, v-else-if Conditionally render a view
+## v-if, v-else, v-else-if Conditionally render a view
 <span v-if="isOurChildrenLearning"></span>
 <span v-else-if="someCheck === 1"></span>
 <span v-else></span>
 
-// v-on Bind event handlers
+## v-on Bind event handlers
 <button v-on:click="onClick">Click Me</button>
 // same as:
 <button @click="onClick">Click Me</button>
 
-// v-for Render the element or template block multiple times based on the source data.
+## v-for Render the element or template block multiple times based on the source data.
 const items = ref([{ message: 'Foo' }, { message: 'Bar' }])
 const item = reactive({ message: 'Baz', messenger: 'John' })
 //--
@@ -131,9 +126,16 @@ const item = reactive({ message: 'Baz', messenger: 'John' })
   <dd>{{value}}</dd>
 </template>
 
-/**
- * @Components
- */
+## v-model Bind data to form fields
+const message = ref('Hello World');
+const number = ref(1);
+//--
+<input type="text" v-model="message">
+<input type="text" v-model.lazy="message"> // Synced after `change` event (not `input`)
+<input type="text" v-model.trim="message"> // Trim whitespace
+<input type="number" v-model.number="message"> // Bind to number type
+
+# Components
 
 // Dynamic component
 import MyComponent from './MyComponent.vue'
@@ -178,11 +180,9 @@ const component = ref(MyComponent)
   <slot :text="greetingMessage" :count="1"></slot>
 </div>
 
-/**
- * @Provide
- * @Inject
- * Provide context to child components
- */
+# Provide & Inject
+
+- Provide context to child components
 
 // App
 const message = ref('Hello World')
