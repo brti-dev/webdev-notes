@@ -621,6 +621,8 @@ Date.prototype.setUTCSeconds() // Sets the seconds for a specified date accordin
 Date.prototype.setYear() // Sets the year (usually 2–3 digits) for a specified date according to local time. Use setFullYear() instead.
 Date.prototype.toDateString() // Returns the "date" portion of the Date as a human-readable string like 'Thu Apr 12 2018'.
 Date.prototype.toISOString() // Converts a date to a string following the ISO 8601 Extended Format.
+    // Get YYYY-MM-DD format
+    new Date().toISOString().split('T')[0]
 Date.prototype.toJSON() // Returns a string representing the Date using toISOString(). Intended for use by JSON.stringify().
 Date.prototype.toGMTString() // Returns a string representing the Date based on the GMT (UTC) time zone. Use toUTCString() instead.
 Date.prototype.toLocaleDateString() // Returns a string with a locality sensitive representation of the date portion of this date based on system settings.
@@ -628,6 +630,7 @@ Date.prototype.toLocaleString(locale: string, options: {}) // Returns a string w
     new Date().toLocaleString() // => "24/4/2022, 10:40:00 am" Use the environment/browser default locale
     new Date().toLocaleString('en-US') // Use a specific locale
     new Date().toLocaleString('en-US', {dateStyle: 'full'}) // Custom output
+    new Date().toLocaleString('en-US', {weekday: 'long'}) // Monday
 Date.prototype.toLocaleTimeString() // Returns a string with a locality-sensitive representation of the time portion of this date, based on system settings.
 Date.prototype.toString() // Returns a string representing the specified Date object. Overrides the Object.prototype.toString() method.
 Date.prototype.toTimeString() // Returns the "time" portion of the Date as a human-readable string.
@@ -638,16 +641,22 @@ Date.prototype.valueOf() // Returns the primitive value of a Date object. Overri
 var today = new Date();
 print("Year: ", today.getFullYear(), ", month: ", today.getMonth(), ", day: ", today.getDate());
 
-const date = new Date()
-console.log(date.toDateString()) // Sun Mar 20 2022
-console.log(date.toISOString()) // VM6451:3 2022-03-20T13:07:19.156Z
-console.log(date.toJSON()) // VM6451:4 2022-03-20T13:07:19.156Z
-console.log(date.toLocaleDateString()) // VM6451:5 3/20/2022
-console.log(date.toLocaleString()) // VM6451:6 3/20/2022, 9:07:19 PM
-console.log(date.toLocaleTimeString()) // VM6451:7 9:07:19 PM
-console.log(date.toString()) // VM6451:8 Sun Mar 20 2022 21:07:19 GMT+0800 (China Standard Time)
-console.log(date.toTimeString()) // VM6451:9 21:07:19 GMT+0800 (China Standard Time)
-console.log(date.toUTCString()) // VM6451:10 Sun, 20 Mar 2022 13:07:19 GMT
+// Get particular date elements
+const firstDayOfMonth = new Date(year, month, 1);
+const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+// Format date
+date.toDateString() // Sun Mar 20 2022
+date.toISOString() // VM6451:3 2022-03-20T13:07:19.156Z
+date.toISOString().split('T')[0] // YYYY-MM-DD format
+date.toJSON() // VM6451:4 2022-03-20T13:07:19.156Z
+date.toLocaleDateString() // VM6451:5 3/20/2022
+date.toLocaleString() // VM6451:6 3/20/2022, 9:07:19 PM
+date.toLocaleString('en-US', {weekday: 'long'}) // Monday
+date.toLocaleTimeString() // VM6451:7 9:07:19 PM
+date.toString() // VM6451:8 Sun Mar 20 2022 21:07:19 GMT+0800 (China Standard Time)
+date.toTimeString() // VM6451:9 21:07:19 GMT+0800 (China Standard Time)
+date.toUTCString() // VM6451:10 Sun, 20 Mar 2022 13:07:19 GMT
 
 /**
  * @FUNCTION
