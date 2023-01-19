@@ -65,13 +65,19 @@ flex-container {
 }
 flex-item {
   flex: [grow] [shrink] [basis];
+  flex: 0 1 auto; /* default */
   flex: 0 0 100%; /* expand items to full width */
   
-  /* Set the size based on the _main size_, the size of the fle`x container's main axis. */
+  /* Set the size based on the _main size_, the size of the flex container's main axis. */
   /* n = integer that represents a factor; default = 0 */
   flex-shrink: n;
   flex-grow: n;
   flex-basis: nem | npx | n% ...; /* Proportional value to set before flex properties are applied */
+  /* expand the content along the main axis */
+  flex-grow: 0; /* default */
+  /* as the container contracts along main axis, force item content to contract */
+  flex-shrink: 1; /* default */
+  width: 200px; flex-shrink: 0; /* Maintain 200px width */
 
   /* Set the order of the element within the container; */
   order: n;
@@ -91,6 +97,11 @@ header .button { flex-shrink: 0;} /* All buttons shrink and align right */
 .justify-last { display: flex; gap: 1em; align-items: center; }
 .justify-last :last-child { margin-left: auto }
 
+/* Collapsing a flex item removes it from rendering but NOT from affecting the cross-axis */
+.box { display: flex; }
+.box>* { flex: 1 1 200px; }
+.hide { visibility: collapse; } /* the height of this element will still affect height and baseline of siblings. */
+
 /* @transform
   Rotate, scale, skew, or translate (move along axes) an element
 */
@@ -101,6 +112,8 @@ div:hover {
   transform: translateY(-10px); /* Slide up 10px */
   transform: translate(0, -10px); /* Same as above */
   transform: rotate(0.5turn);
+  /* Point at which the transformation begins */
+  transform-origin: top left;
 }
 /* @see Cumulative Layout Shifts, avoiding https://web.dev/cls/
 - Instead of changing the height and width properties, use transform: scale().

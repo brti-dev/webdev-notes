@@ -78,7 +78,7 @@ const foo = "bar"
 //--
 <div v-bind:id="myId"></div>
 // same as:
-<div v-bind:id="myId"></div>
+<div :id="myId"></div>
 <span v-bind="nestedObject"></span> // Binds both class and id attributes
 // Bind function expressions
 <time v-bind:datetime="formatDate('2022-02-22')">
@@ -134,6 +134,11 @@ const number = ref(1);
 <input type="text" v-model.lazy="message"> // Synced after `change` event (not `input`)
 <input type="text" v-model.trim="message"> // Trim whitespace
 <input type="number" v-model.number="message"> // Bind to number type
+
+## v-once Only output original reactive value without updates
+<div v-once>Old: {{ message }}</div>
+<div>{{ message }}</div>
+<input v-model="message" />
 
 # Components
 
