@@ -1,3 +1,9 @@
+// Version
+// Use n package
+
+$ node -v
+$ n latest
+
 /////////////
 // MODULES //
 /////////////
