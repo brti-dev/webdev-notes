@@ -1103,6 +1103,14 @@ for (var node = list; node; node = node.rest) {
     //...
 }
 
+// Shallow copy
+let foo = { x: { y: 1 } }
+let bar = {...foo}
+bar.x.z = 1
+foo.x.z === 1 // whatttt
+// Deep copy
+let bar_deep = structuredClone(foo)
+
 // Object literal methods and shorthands
 let foo = 'fuu';
 let bar = {
