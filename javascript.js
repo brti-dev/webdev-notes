@@ -546,7 +546,18 @@ Error.prototype.toString() // Returns a string representing the specified object
 Error // Generic Error constructor
 EvalError // Creates an instance representing an error that occurs regarding the global function eval().
 RangeError // Creates an instance representing an error that occurs when a numeric variable or parameter is outside of its valid range.
+    let input = 99
+    try {
+        if (input < 100) throw new RangeError("Input should be more than 100")
+    } catch (e) {
+        e instanceof RangeError === true
+    }
 ReferenceError // Creates an instance representing an error that occurs when de-referencing an invalid reference.
+    try {
+        let a = undefinedVariable
+    } catch(e) {
+        e instanceof ReferenceError === true
+    }
 SyntaxError // Creates an instance representing a syntax error.
 TypeError // Creates an instance representing an error that occurs when a variable or parameter is not of a valid type.
 URIError // Creates an instance representing an error that occurs when encodeURI() or decodeURI() are passed invalid parameters.
