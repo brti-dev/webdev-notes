@@ -305,6 +305,9 @@ Array.prototype.entries() // Returns a new Array Iterator object that contains t
     let arr = ['one', 'two', 'three']
     for (const [index, entry] of arr.entries()) { /*...*/ }
 Array.prototype.every() // Returns true if every element in this array satisfies the testing callbackFn.
+    // Check if every entry is set
+    ['one', 'two', ''].every(Boolean) // false
+
 Array.prototype.fill() // Fills all the elements of an array from a start index to an end index with a static value.
     // the second and third arguments to fill() below say, start filling at index 0 and stop at index 2
     console.log([5,5,5,5].fill('foo',0,2)) // logs ["foo", "foo", 5, 5]
@@ -1016,6 +1019,8 @@ Object.seal() // Prevents other code from deleting properties of an object.
 Object.setPrototypeOf() // Sets the object's prototype (its internal [[Prototype]] property).
 Object.values() // Returns an array containing the values that correspond to all of a given object's own enumerable string properties.
     Object.values({ foo: 'bar', baz: 42 }) == ['bar', 42]
+    // Check if every value in obj is set
+    Object.values({ foo: '', bar: 1 }).every(Boolean) // false
 
 // Instance properties
 Object.prototype.constructor // Specifies the function that creates an object's prototype.
