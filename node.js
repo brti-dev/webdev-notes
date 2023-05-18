@@ -3,6 +3,7 @@
 
 $ node -v
 $ n latest
+$ n // prompt to select a version
 
 /////////////
 // MODULES //
