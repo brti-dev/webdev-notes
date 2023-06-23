@@ -36,9 +36,10 @@ foo = 0
 let a
 let b = true
 let x = a ?? b // true
+let y = "" || "y" // ""
 
 // Use || to find truthy operands
-let foo = false || null || 'foo'
+let foo = false || null || "" || 0 || 'foo'
 
 /**
  * @STRING
@@ -307,7 +308,6 @@ Array.prototype.entries() // Returns a new Array Iterator object that contains t
 Array.prototype.every() // Returns true if every element in this array satisfies the testing callbackFn.
     // Check if every entry is set
     ['one', 'two', ''].every(Boolean) // false
-
 Array.prototype.fill() // Fills all the elements of an array from a start index to an end index with a static value.
     // the second and third arguments to fill() below say, start filling at index 0 and stop at index 2
     console.log([5,5,5,5].fill('foo',0,2)) // logs ["foo", "foo", 5, 5]
@@ -1509,6 +1509,8 @@ var re = new RegExp("ab+c");
 str.match(regexp);
 
 // Lookaheads
+/^((?!foo).)*$/.test("f") // Check if "foo" is NOT on a line
+
 function validate(password) {
     return /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])[A-Za-z0-9]{6,}$/.test(password);
 }
