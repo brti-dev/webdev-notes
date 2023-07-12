@@ -9,6 +9,7 @@ E[foo*="bar"]         /*an E element whose "foo" attribute value contains the su
 E[foo|="en"]          /*an E element whose "foo" attribute has a hyphen-separated list of values beginning (from the left) with "en" */
 E:root                /*an E element, root of the document  */
 E:nth-child(n)        /*an E element, the n-th child of its parent  */
+  tr:nth-child(even) /* select even rows */
 E:nth-child(n+6)      /*All the E elements starting from the sixth*/
   li:nth-child(n+6){ color:salmon } /* colorize the 6th li and the succeeding ones */
 E:nth-last-child(n)   /*an E element, the n-th child of its parent, counting from the last one  */
