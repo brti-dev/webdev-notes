@@ -36,10 +36,11 @@ foo = 0
 let a
 let b = true
 let x = a ?? b // true
-let y = "" || "y" // ""
+let y = "" ?? "y" // ""
+let foo = false ?? null ?? "" ?? 0 ?? 'foo' // false
 
 // Use || to find truthy operands
-let foo = false || null || "" || 0 || 'foo'
+let foo = false || null || "" || 0 || 'foo' // 'foo'
 
 /**
  * @STRING

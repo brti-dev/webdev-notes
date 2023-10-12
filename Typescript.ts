@@ -107,6 +107,10 @@ interface Person {
 }
 type PersonKeys = keyof Person // "age" | "name"
 
+// Create union type from array using `as const`
+const looseColors = ['pink', 'hotpink']; // string[]
+const staticColors = ['pink', 'hotpink'] as const; // readonly ["pink", "hotpink"]
+
 // Lookup types -- a type derived from the property of a type
 interface Person {
   age: number
