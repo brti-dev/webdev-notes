@@ -59,6 +59,16 @@ function stringify123(callback: (num: number) => string): string {
 }
 stringify123(param => `foo${param}`)
 
+// Leverage `in` js operator to narrow type options
+type Robot = { beep: 'boop' }
+type Human = { nom: 'om' }
+function newCharacter(char: Robot | Human) {
+  if ('beep' in char) {
+    // it's a robot
+  }
+  // it's a human
+}
+
 // Function overloads
 function makeDate(timestamp: number): Date // Overload #1
 function makeDate(m: number, d: number, y: number): Date // Overload #2
@@ -108,8 +118,8 @@ interface Person {
 type PersonKeys = keyof Person // "age" | "name"
 
 // Create union type from array using `as const`
-const looseColors = ['pink', 'hotpink']; // string[]
-const staticColors = ['pink', 'hotpink'] as const; // readonly ["pink", "hotpink"]
+const looseColors = ['pink', 'hotpink'] // string[]
+const staticColors = ['pink', 'hotpink'] as const // readonly ["pink", "hotpink"]
 
 // Lookup types -- a type derived from the property of a type
 interface Person {

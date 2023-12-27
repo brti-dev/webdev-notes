@@ -73,6 +73,14 @@ const Buttonnnn: Overload = (props: ButtonProps | AnchorProps) => {
   return <button {...props} />
 }
 
+// Leverage `in` js operator to narrow prop type
+type FooProps = { foo: 'foo' }
+type BarProps = { bar: 'bar' }
+function FooBar(props: FooProps | BarProps) {
+  if ('foo' in props) return <Foo foo={props.foo} />
+  return <Bar bar={props.bar} />
+}
+
 // Conditional props based on props
 type CommonProps = {
   children: React.ReactNode
