@@ -94,6 +94,10 @@ let maybeNumber: number = null // @ts-ignore: Type 'null' is not assignable to t
 let maybeNumber: null | number = null //ok
 maybeNumber = 123 //ok
 
+// Use loose equality check for both null and undefined
+let a: number | null | undefined = 1
+if (a != null) { /* it's a number */ }
+
 // Unknown type: restrict assignment to `any` or `unknown` ONLY
 let v: unknown
 let v1: unknown = v // OK
