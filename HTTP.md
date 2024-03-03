@@ -14,6 +14,10 @@
 4. Data link layer (ethernet)
 - transmit tata over wireless network, fiber optic cable, satellite, etc
 
+## Requests
+
+- HEAD: Response identical to GET request, but without the response body. Used to check if a resource exists, or to get metadata, eg if it has been modified
+  - eg webcrawler checks if a page has been updated
 
 ## Status Codes
 
