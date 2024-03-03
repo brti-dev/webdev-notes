@@ -197,6 +197,7 @@ function Component() {
 
 // Use browser form to set props
 // The following form result is: /search?q=FOO&showAllResults=false
+
 <form action="/search" method="GET"> 
     <input name="q" type="search" placeholder="Search for blog posts" />
     <label>
@@ -207,6 +208,17 @@ function Component() {
     Search
     </button>
 </form>
+
+// ** State updates are asynchronous ***
+// React may batch multiple setState() calls into a single update for performance.
+
+// State updates should be done within side effects
+React.useEffect(() => {
+    setState('new value')
+}, [state])
+
+// And functional updates
+setState(prevState => ({ ...prevState, ...updatedValues }))
 
 /************/
 /** @HOOKS **/
