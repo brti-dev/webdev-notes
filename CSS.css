@@ -103,6 +103,14 @@ header .button { flex-shrink: 0;} /* All buttons shrink and align right */
 .box>* { flex: 1 1 200px; }
 .hide { visibility: collapse; } /* the height of this element will still affect height and baseline of siblings. */
 
+/* @grid */
+
+.even-columns {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+}
+
 /* @transform
   Rotate, scale, skew, or translate (move along axes) an element
 */
